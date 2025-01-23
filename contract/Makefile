@@ -24,16 +24,16 @@ SIGN_BROADCAST_OPTS=--keyring-backend=test --chain-id=$(CHAINID) \
 mint100:
 	make FUNDS=1000$(ATOM) fund-acct
 	cd /usr/src/agoric-sdk && \
-		yarn --silent agops vaults open --wantMinted 100 --giveCollateral 100 >/tmp/want-ist.json && \
-		yarn --silent agops perf satisfaction --executeOffer /tmp/want-ist.json --from user1 --keyring-backend=test
+		pnpm run --silent agops vaults open --wantMinted 100 --giveCollateral 100 >/tmp/want-ist.json && \
+		pnpm run --silent agops perf satisfaction --executeOffer /tmp/want-ist.json --from user1 --keyring-backend=test
 
 
 # Keep mint4k around a while for compatibility
 mint4k:
 	make FUNDS=1000$(ATOM) fund-acct
 	cd /usr/src/agoric-sdk && \
-		yarn --silent agops vaults open --wantMinted 4000 --giveCollateral 1000 >/tmp/want4k.json && \
-		yarn --silent agops perf satisfaction --executeOffer /tmp/want4k.json --from user1 --keyring-backend=test
+		pnpm run --silent agops vaults open --wantMinted 4000 --giveCollateral 1000 >/tmp/want4k.json && \
+		pnpm run --silent agops perf satisfaction --executeOffer /tmp/want4k.json --from user1 --keyring-backend=test
 
 FUNDS=321$(BLD)
 fund-acct:
