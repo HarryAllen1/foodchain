@@ -1,7 +1,7 @@
 {
   "name": "foodchain",
   "version": "0.1.0",
-  "license": "Apache-2.0",
+  "license": "MIT",
   "private": true,
   "scripts": {
     "start:docker": "cd contract && docker compose up -d",
@@ -11,10 +11,9 @@
     "make:help": "make -C contract list",
     "start:contract": "cd contract && pnpm start",
     "start:ui": "cd ui && pnpm dev",
-    "lint": "yarn workspaces foreach --all run lint",
-    "test": "yarn workspaces foreach --all run test",
-    "test:e2e": "yarn workspace offer-up-ui test:e2e",
-    "build": "yarn workspaces foreach --all run build",
+    "lint": "pnpm run -r lint",
+    "test": "pnpm run -r test",
+    "build": "pnpm run -r build",
     "runWaitForBlocks": "cd contract && pnpm make:waitForBlocks"
   },
   "devDependencies": {
@@ -26,6 +25,7 @@
     "eslint-plugin-cypress": "^4.1.0",
     "eslint-plugin-testing-library": "^7.1.1",
     "eslint-plugin-ui-testing": "^2.0.1",
+    "prettier": "^3.4.2",
     "serve": "^14.2.1"
   }
 }
