@@ -31,7 +31,7 @@ importers:
         version: 0.16.3-u18.1(ava@5.3.1)
       '@agoric/vats':
         specifier: dev
-        version: 0.15.2-dev-c9a663b.0(@agoric/xsnap@0.14.2(ava@5.3.1))(ava@5.3.1)
+        version: 0.15.2-dev-6627838.0(@agoric/xsnap@0.14.2(ava@5.3.1))(ava@5.3.1)
       '@agoric/zoe':
         specifier: ^0.26.3-u16.1
         version: 0.26.3-u18.1(@agoric/xsnap@0.14.2(ava@5.3.1))(ava@5.3.1)
@@ -88,8 +88,8 @@ importers:
         specifier: ^9.1.0
         version: 9.1.0(eslint@8.57.1)
       eslint-plugin-ava:
-        specifier: ^14.0.0
-        version: 14.0.0(eslint@8.57.1)
+        specifier: ^15.0.0
+        version: 15.0.1(eslint@8.57.1)
       eslint-plugin-github:
         specifier: ^4.10.0
         version: 4.10.2(@types/eslint@9.6.1)(eslint@8.57.1)(typescript@5.7.3)
@@ -144,10 +144,10 @@ importers:
         version: 9.18.0
       '@sveltejs/adapter-vercel':
         specifier: ^5.5.3
-        version: 5.5.3(@sveltejs/kit@2.16.1(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.19.2)(vite@6.0.11(@types/node@22.10.7)(jiti@2.4.2)(lightningcss@1.29.1)(terser@5.37.0)(yaml@2.7.0)))(svelte@5.19.2)(vite@6.0.11(@types/node@22.10.7)(jiti@2.4.2)(lightningcss@1.29.1)(terser@5.37.0)(yaml@2.7.0)))(rollup@2.79.2)
+        version: 5.5.3(@sveltejs/kit@2.16.1(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.19.2)(vite@6.0.11(@types/node@22.10.7)(jiti@2.4.2)(lightningcss@1.29.1)(terser@5.37.0)(yaml@2.7.0)))(svelte@5.19.2)(vite@6.0.11(@types/node@22.10.7)(jiti@2.4.2)(lightningcss@1.29.1)(terser@5.37.0)(yaml@2.7.0)))(rollup@4.31.0)
       '@sveltejs/enhanced-img':
         specifier: ^0.4.4
-        version: 0.4.4(rollup@2.79.2)(svelte@5.19.2)(vite@6.0.11(@types/node@22.10.7)(jiti@2.4.2)(lightningcss@1.29.1)(terser@5.37.0)(yaml@2.7.0))
+        version: 0.4.4(rollup@4.31.0)(svelte@5.19.2)(vite@6.0.11(@types/node@22.10.7)(jiti@2.4.2)(lightningcss@1.29.1)(terser@5.37.0)(yaml@2.7.0))
       '@sveltejs/kit':
         specifier: ^2.16.0
         version: 2.16.1(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.19.2)(vite@6.0.11(@types/node@22.10.7)(jiti@2.4.2)(lightningcss@1.29.1)(terser@5.37.0)(yaml@2.7.0)))(svelte@5.19.2)(vite@6.0.11(@types/node@22.10.7)(jiti@2.4.2)(lightningcss@1.29.1)(terser@5.37.0)(yaml@2.7.0))
@@ -228,7 +228,7 @@ importers:
         version: 6.0.11(@types/node@22.10.7)(jiti@2.4.2)(lightningcss@1.29.1)(terser@5.37.0)(yaml@2.7.0)
       vite-imagetools:
         specifier: ^7.0.5
-        version: 7.0.5(rollup@2.79.2)
+        version: 7.0.5(rollup@4.31.0)
 
   ui-old:
     dependencies:
@@ -325,6 +325,10 @@ packages:
     resolution: {integrity: sha512-D2wnk5fGajxMN5SCRSaA/triQGEaEX2Du0EzrRqobuD4wRXjvtF1e7jC1PPOk/RC2bZ8/0fzp0CHOiB7YLwb5w==}
     engines: {node: '>=6.9.0'}
 
+  '@agoric/base-zone@0.1.1-dev-6627838.0':
+    resolution: {integrity: sha512-NgZ0nliW7CY8Ilx3vKgwOn3TzkM++iqCAwTeeFR9HMkPKCtIJRVJFhnbCdbgWXNzixAm3wc6gSly4VkZMdbUqw==}
+    engines: {node: ^18.12 || ^20.9}
+
   '@agoric/base-zone@0.1.1-dev-c9a663b.0':
     resolution: {integrity: sha512-3TPgrdG+a98pw3t6JjfvKJ9Q8s0r0hIwbxSo45Vv4x1M7kzsGd0Lp6mmFPzBOKJCLN24ID10TLajQs58lUMKVQ==}
     engines: {node: ^18.12 || ^20.9}
@@ -355,8 +359,8 @@ packages:
   '@agoric/cosmic-proto@0.3.0':
     resolution: {integrity: sha512-cIunby6gs53sGkHx3ALraREbfVQXvsIcObMjQQ0/tZt5HVqwoS7Y1Qj1Xl0ZZvqE8B1Zyk7QMDj829mbTII+9g==}
 
-  '@agoric/cosmic-proto@0.4.1-dev-c9a663b.0':
-    resolution: {integrity: sha512-A4grf+2HJCU8YgmiazDknicPB+gJGRbm7PNBqWX7ncQL5QfIHYi4dbeE+Ic+Ag4nxkKF27sbs35YXbIFJsmwfw==}
+  '@agoric/cosmic-proto@0.4.1-dev-6627838.0':
+    resolution: {integrity: sha512-h4u9awnlBWVdqJ/EGmc9j3YW3tb7e46B6CuKQRl2tj7LslOMR8pBoLlE8YGcKf2/jb6s9D/6V/7Kr83X+E1eOg==}
 
   '@agoric/cosmic-proto@0.5.0-u18.5':
     resolution: {integrity: sha512-elRLsLT1KVuMdHxM3QQYX0hykp1IlnV5hsE+QnoVpCv2a2ABrETTMyVGB5AD4LafXj+reD+XqyyT9lcqrJOZkQ==}
@@ -369,8 +373,8 @@ packages:
     resolution: {integrity: sha512-4+CbrkWw2dCYlVAYH+31jFMlwWqw29bak+Rg6qkMuCAp5BpxyBc4DthdovOjwwOBqkBd3QBKrnvkoD9Ltc3YHQ==}
     engines: {node: '>=14.15.0'}
 
-  '@agoric/ertp@0.16.3-dev-c9a663b.0':
-    resolution: {integrity: sha512-fpd1ELpyKbVKbWweAZ0nbaR4qmcHaOwzf4lRKqQlX6BQ2HuYVblLyx14ISkEkGgWRIfytpVIgz00Py4es62t4Q==}
+  '@agoric/ertp@0.16.3-dev-6627838.0':
+    resolution: {integrity: sha512-6emN3FlmXD3ruNP+ZqbNQQ0AqWNHO3hgiR5ndUiWHtCDi6US9K6hBl35wOgxk76sPOv1dqDm3iPBywInfDcx5A==}
     engines: {node: ^18.12 || ^20.9}
 
   '@agoric/ertp@0.16.3-u18.1':
@@ -397,8 +401,8 @@ packages:
     resolution: {integrity: sha512-DmaZAJ7u5Tpsh3GscqLkxkZfVl5qg6fD905gdKx/b5xahzF65KIcOz48qUVFqZm/l4N4n1TzIazeAApsLpD7Pw==}
     engines: {node: '>=14.15.0'}
 
-  '@agoric/governance@0.10.4-dev-c9a663b.0':
-    resolution: {integrity: sha512-gBZrUcGn5USgx8/CivdPtH0VgSe0G6L4qnGnSsj88nbWJDzje9hxIWe2ju8GmZ+Et7wDLGg2F4swRw1wBb4K1Q==}
+  '@agoric/governance@0.10.4-dev-6627838.0':
+    resolution: {integrity: sha512-bFqflf3cjr8unxT26bNt9+62WBElkD1ZJjLz54gEQLftCcrx4aQ0YoM/AhZ4/i3GJTno4XvMSp99tqjhHkJc7w==}
     engines: {node: ^18.12 || ^20.9}
 
   '@agoric/governance@0.10.4-u18.1':
@@ -421,6 +425,10 @@ packages:
     resolution: {integrity: sha512-iCgZE2NabhDKBJ+EfTeVqWUcoNvgxNfnw/dMF57yKnRn3E9iOqt7Iyx+DloTGBu5a1ZyywdQo4G2cFWrMX3Q7g==}
     engines: {node: '>=14.15.0'}
 
+  '@agoric/internal@0.3.3-dev-6627838.0':
+    resolution: {integrity: sha512-3hNN+RWM5+LfqjTisKHbnnU6w5gUvjtZFVHLcKmEqZW2XeBjFyEhwy2Ic7WALTEtByoVCftXmNzYkZB2ZOc5Ng==}
+    engines: {node: ^18.12 || ^20.9}
+
   '@agoric/internal@0.3.3-dev-c9a663b.0':
     resolution: {integrity: sha512-UY6gr5n8N+nHD2amSTtJ8mf2qPL1wWqwrjU7mYfDwmk6td5skgl7wmXzZAn1+hb3QFC1GIofw1OJ5JAPMCGAxQ==}
     engines: {node: ^18.12 || ^20.9}
@@ -429,14 +437,14 @@ packages:
     resolution: {integrity: sha512-Ml0GHcvSGI93kyZFqJgTlu+kskhGuHIVvfO9ZEbC3DKEI3RtY7OBUiG/WaLBChmh//7XymxavajMYwTkP/EKFA==}
     engines: {node: ^18.12 || ^20.9}
 
-  '@agoric/kmarshal@0.1.1-dev-c9a663b.0':
-    resolution: {integrity: sha512-JYnaPg3Qd3/kOtNay1Ye074lUvaVjNw2cx/UEyCPDoXOUVmW/e/BDnZkAeoWBRX8owKZVwEFMxJZG/WWUz3pVA==}
+  '@agoric/kmarshal@0.1.1-dev-6627838.0':
+    resolution: {integrity: sha512-6WUNO1SQrVannBW3eidqeQTTp/5SvzlbRVnFDWj2UVeT71B5iDnlDxeNpSnv8+XttDN6kOgBjx5PUYFfg8sy1A==}
 
   '@agoric/kmarshal@0.1.1-u18.1':
     resolution: {integrity: sha512-VLUGh1ekRDMpZ3lxhDLkxkv1K1oTKn5K6gCqgPFMJ75FhxEYljAtwl7s5TaZ0V2pd6hNCKwFw7piuAVcgNm54g==}
 
-  '@agoric/network@0.1.1-dev-c9a663b.0':
-    resolution: {integrity: sha512-ZATdIZOjdshnn8eOR3cfToWpQm5lNKSlzfln8i2Q8/NUjVpEFyoYyYG1wnoA4qVDwTtdzRldvStgSVz8zimxOg==}
+  '@agoric/network@0.1.1-dev-6627838.0':
+    resolution: {integrity: sha512-a5CwFSddZY1jIYpucDK8nfnber/+G1Vusa/bDcP4i3gbVui/PJXy6wBGk5cpDzPj8KTEf1S3f4Xlotfu7SdIBw==}
     engines: {node: ^18.12 || ^20.9}
 
   '@agoric/network@0.2.0-u18.1':
@@ -446,6 +454,10 @@ packages:
   '@agoric/notifier@0.6.2':
     resolution: {integrity: sha512-2Hi8u2TXtsk9Ix0L8xfRMGut1c+w7jiM8Wt4Ys2bgfI/ybdJ4FtDIBvHF1hFU0rSbhUicuKAN85Sok+MkDNcug==}
     engines: {node: '>=14.15.0'}
+
+  '@agoric/notifier@0.6.3-dev-6627838.0':
+    resolution: {integrity: sha512-0ULub2417BG/5lMnI7SUcLfOTjO+n4r0n6emTYRILrVj+iNzYHeAxfck9sR3KlLlXLdg0Dy+6n082zaJDbdMQQ==}
+    engines: {node: ^18.12 || ^20.9}
 
   '@agoric/notifier@0.6.3-dev-c9a663b.0':
     resolution: {integrity: sha512-bH6qplZWaFmhPxsFLGSfB8JeAI+dWkwWUb8UVaBa1QyRnSQdxCAZed5sGUY1iSo5SypVD4naxSVYoPYU0iXjHw==}
@@ -476,6 +488,10 @@ packages:
     resolution: {integrity: sha512-9YtBlQG1cO7COfprPqBUYDW1Jg805Ick1RHm8Etj5VyfkhF8emhv/OqJKi4FMlA3XDVL3Yvbptrjvdo1WjCvjg==}
     engines: {node: '>=14.15.0'}
 
+  '@agoric/store@0.9.3-dev-6627838.0':
+    resolution: {integrity: sha512-dqHZ+iSr+tMAjY/fadZm0yeLEVQsghdXprw7eRO7X7NtKflPU/J2c7Ji44DMxQeVlLkZFVoxy2JZ5MFAOxHhXw==}
+    engines: {node: ^18.12 || ^20.9}
+
   '@agoric/store@0.9.3-dev-c9a663b.0':
     resolution: {integrity: sha512-4/SZybODWFXHdb/QyYkmkttloXsq/T0llNDVPDpzJAFXTKKuQyUiy7yLOomd/VAsra6PwwtfsjyNUlPfhecBmw==}
     engines: {node: ^18.12 || ^20.9}
@@ -490,8 +506,8 @@ packages:
   '@agoric/swing-store@0.9.1':
     resolution: {integrity: sha512-GRgXOJwEnFSX3gY2sOhHs1yO503ltUVjslSeSWFHd8bmrPs11igIYRES7Vx4lOSQuNmGe5mKFhgfDnoHPmKxjQ==}
 
-  '@agoric/swing-store@0.9.2-dev-c9a663b.0':
-    resolution: {integrity: sha512-zF0A6HKwlYUAzQ9/sYqOGKdbejVS7CLAMv7kD2wl7ocEADGuV6t9ZTv472ZkwqiDZJggWnZjcO/BIu/tilg71w==}
+  '@agoric/swing-store@0.9.2-dev-6627838.0':
+    resolution: {integrity: sha512-7QG3iIXFe+jy24ay7y3oUBty4hcLZGEghFna7dWDZAGRh0barPcFgON8Up4G3XxSngHbsUM0SL8xNv0rwansFw==}
 
   '@agoric/swingset-liveslots@0.10.2':
     resolution: {integrity: sha512-jp05WNHEUH5K8MgiIoHhNrWu7ozKqStyIe0Ex6ejSInFFo/NhJLVL7QLyUgRjD74RbUSuvbR8v8PaQ/pslVI0Q==}
@@ -500,6 +516,10 @@ packages:
       '@endo/far': ^0.2.18
       '@endo/ses-ava': ^0.2.40
       ava: ^5.2.0
+
+  '@agoric/swingset-liveslots@0.10.3-dev-6627838.0':
+    resolution: {integrity: sha512-F2VErakevoxbjz4HC9bY9CjQNguRqFZ/izqXzfxaLVnUsCJzJXKYmiymkAoFw0dnKKG0OAuzYUf6D69GI0IJgA==}
+    engines: {node: ^18.12 || ^20.9}
 
   '@agoric/swingset-liveslots@0.10.3-dev-c9a663b.0':
     resolution: {integrity: sha512-lbRsW2gUp4D0BUWXk5Al1VxftpjrQH+3qm8U33p04+zObbhfX5I0oSs+jMalAXOHYVZiv0ge4hi8vGrQB8cD/w==}
@@ -517,8 +537,8 @@ packages:
       '@endo/ses-ava': ^0.2.40
       ava: ^5.2.0
 
-  '@agoric/swingset-vat@0.32.3-dev-c9a663b.0':
-    resolution: {integrity: sha512-DPACVNWZyWNTwEAkBfWZcPv2P6LNpdtYGzDoo2WEb68VqzqkJ1ZTIdXLtoqsXPWnJHkSA83IYPmDWTGI9ZKM0A==}
+  '@agoric/swingset-vat@0.32.3-dev-6627838.0':
+    resolution: {integrity: sha512-ArYt4cuFoG1EHoSgmPz+FiAfs41jR9oISTJk3+n8vPkjZvXZbaon3h0Vgg/3ZBfr3eTgpYVX/0qBHfgLOsrWNQ==}
     engines: {node: ^18.12 || ^20.9}
     hasBin: true
     peerDependencies:
@@ -536,8 +556,8 @@ packages:
   '@agoric/swingset-xsnap-supervisor@0.10.2':
     resolution: {integrity: sha512-3PB15aiNHfjTYmtUz9Rxmm6qSHnoO5w5dygRzjx2ytk8yoNn/ZOpxlIOLonhD8kwOaEli5D7btY9OA3jf+Sm6w==}
 
-  '@agoric/swingset-xsnap-supervisor@0.10.3-dev-c9a663b.0':
-    resolution: {integrity: sha512-aLqCJultrhy+XQzgs+tJPN99kZosvi9NCxOTBEi3TnBzdiPtT46h4cu5GrJQBgPxoBT5MVX4DbHBLuFe6bShEQ==}
+  '@agoric/swingset-xsnap-supervisor@0.10.3-dev-6627838.0':
+    resolution: {integrity: sha512-mUdLn1j9c/tgiYESQ1JOOWD8lFH7LPMW5e4WElW5bbJlfZQZAVcX59IiUisByclmxiBxKzOJXTgEUYQJnbq7eQ==}
 
   '@agoric/swingset-xsnap-supervisor@0.10.3-u18.1':
     resolution: {integrity: sha512-HoltMa7N24YUnJ43UYY4LQXsNvRHAODhfZfQrQE8PFzRilq5ldFey7qji03q0fZNiAVAtWpPtydg5alwTIo8Sg==}
@@ -551,8 +571,8 @@ packages:
     resolution: {integrity: sha512-qRgvfD/gQJNQaWk0uQqPhq0IGbIABz1z6oFtAhGkylU6zNO/no6VpJG4gw5YwEO8mIAJVOM5HE3qL53AaENYkw==}
     engines: {node: '>=14.15.0'}
 
-  '@agoric/time@0.3.3-dev-c9a663b.0':
-    resolution: {integrity: sha512-J+1VpaRlZqswKRd58d9HanRFQ+yWj2O+LUK6A/ngPANova0b01M/0GnFpp+c0VEYWdUwo//atYCeQwar5emp5A==}
+  '@agoric/time@0.3.3-dev-6627838.0':
+    resolution: {integrity: sha512-l6+gt06diXHJ9BydmdxwyCtx6caP6dIETCFoCylnQ8Ylnn12mXYYi35dBpy/g5pFpU7k7iObSN9gTRV9KM+IVg==}
     engines: {node: ^18.12 || ^20.9}
 
   '@agoric/time@0.3.3-u18.1':
@@ -566,6 +586,10 @@ packages:
     resolution: {integrity: sha512-j71bSl7oPcWikR4bP15KMu67D3BLGLhEOcqgewC1cArcE99rhxDU19ALN0OITD0F0KkNCahRNifoIr73n/fBng==}
     engines: {node: '>=14.15.0'}
 
+  '@agoric/vat-data@0.5.3-dev-6627838.0':
+    resolution: {integrity: sha512-XFfhQVPJ71PPbuia0SFQ7nhHr39n3H3gJj83PpygEh+85EvqYVXlsr4BOWjVzUzKX14NFayMnKn6tpcHvNxwug==}
+    engines: {node: ^18.12 || ^20.9}
+
   '@agoric/vat-data@0.5.3-dev-c9a663b.0':
     resolution: {integrity: sha512-32m84CuvpbA8ESqSDcELNZ2gGApesNgJrPv4tDuQZBTEh8rtB6PkUwm0VyXoQlRWLJusxDBaGzsK3eEY9SujVQ==}
     engines: {node: ^18.12 || ^20.9}
@@ -578,16 +602,16 @@ packages:
     resolution: {integrity: sha512-uYV+f3+RJ/KM9O5+7HcsGqLfvhtj9V1e7u1y8TZeTs2zJXVRVuGi/xQaMSGwf3CBBgBtyj8hFUCCYCeHxB1qRQ==}
     engines: {node: '>=14.15.0'}
 
-  '@agoric/vats@0.15.2-dev-c9a663b.0':
-    resolution: {integrity: sha512-VQQqVjPwigHEOjVdnWDocTZgA4N0rtIhziN+1AMjv/JiPKdy3LhO22tmWeZIxRt5nJgpFj7LBH0nCBt4OCePQQ==}
+  '@agoric/vats@0.15.2-dev-6627838.0':
+    resolution: {integrity: sha512-90l8b60hOXrqKee5AQ+oUVUjOU42RPPCFnVRXyONWXBFIoDXj8Urh/VeHj0T6zxgOQbdIMNumAW7oS4rTaMMJw==}
     engines: {node: ^18.12 || ^20.9}
 
   '@agoric/vats@0.16.0-u18.5':
     resolution: {integrity: sha512-U0sS9p6V5YlVRLIc6hd/EgnVqhhp6E9iGa7sZJu+0VJn2BMLSbaIRYCbbh0SX0x+adZuMTO/Vdi8xwzZ+zcAAQ==}
     engines: {node: ^18.12 || ^20.9}
 
-  '@agoric/vow@0.1.1-dev-c9a663b.0':
-    resolution: {integrity: sha512-yuyuej/YDlFYZVa6MeR0MN+S2rHUkghQ/inm9Aj/iDCr6wVxgfyLEG6YVqJUtvwRDq5m1r53zAES6aCD3GNtfw==}
+  '@agoric/vow@0.1.1-dev-6627838.0':
+    resolution: {integrity: sha512-Ri93sjxRepYqr0gPQkG6Ekoi+B0XN/qfniKQ/HnUSUMA4x5Ws1RNmD6TGT7K7ubueWoYCwQgon5xyHhIj2kvtw==}
     engines: {node: '>=14.15.0'}
 
   '@agoric/vow@0.2.0-u18.1':
@@ -600,8 +624,8 @@ packages:
   '@agoric/xsnap-lockdown@0.14.0':
     resolution: {integrity: sha512-T8kYrW1baTDQTkQJ9mDp1ME2Ive3RNNRFU7PXuu60Pu9A/tWliYKiJWwqcGhYAQOkHxxFz0BVwk9Jf8HErzgRA==}
 
-  '@agoric/xsnap-lockdown@0.14.1-dev-c9a663b.0':
-    resolution: {integrity: sha512-XpJOgZVuJ3asksWJGS0nKHLV7ews2QN4ui0Ll560SORq/3evjuMcC/FktnYFSiBKJfy+O8NzseWOPWXzHexi2g==}
+  '@agoric/xsnap-lockdown@0.14.1-dev-6627838.0':
+    resolution: {integrity: sha512-bUgFsbzWtC4/RiXlEIK6AtIu/BV+GI62sHvAmPTosKSAI00bQen6doi9qhO/MfqyF/PK3GAjVtM8RewQ0wAvmw==}
 
   '@agoric/xsnap-lockdown@0.14.1-u18.1':
     resolution: {integrity: sha512-p3C+zm5VGUASgmP2Vovn2/qRQywywTgEDN0RebsHaQr6GAf0gKiakyd6brN4BTpZkEeu0Jc9F3Q6O3QR9DJfFA==}
@@ -614,8 +638,8 @@ packages:
     resolution: {integrity: sha512-xFZQ0Rz4UmHNWCUeLWFqtGgKNBPVvfb5IEmh+nSnbgJK45Y4Kcci77XkciO//e6xQo8dacrNhTELke3iAEISAA==}
     engines: {node: '>=14.15.0'}
 
-  '@agoric/zoe@0.26.3-dev-c9a663b.0':
-    resolution: {integrity: sha512-96LqfyWmQ2xLvkDhndEJYCykvZE4CaYtM88YQ5f2pmvvDCIBoPBAZiYTPRSiW2bCa9krrcpdUrkOoIum2Xp9eg==}
+  '@agoric/zoe@0.26.3-dev-6627838.0':
+    resolution: {integrity: sha512-oxcNPWRB5prS8vLiXx0CW9cfMtTg/bbnPFsrmCpzYojrI02kn51vxrVBd1skNFxyNiVt3KbYzMNsccHRda1foQ==}
     engines: {node: ^18.12 || ^20.9}
 
   '@agoric/zoe@0.26.3-u18.1':
@@ -626,8 +650,8 @@ packages:
     resolution: {integrity: sha512-joVRnwH55xOeaoO2xYd1TWXXLPQ9pAeNsaiwTjO3FufYb/q55rv9mpYdUdhEy+zYQuFpPH87+6w/o3f/0AXrDQ==}
     engines: {node: '>=14.15.0'}
 
-  '@agoric/zone@0.2.3-dev-c9a663b.0':
-    resolution: {integrity: sha512-kYKoGNYNKATVpzGFi3xEVJvtXcV/u7qf285K5PiYyTw8kBi04bWa1cbH/AFA1S5niuXx3bLxCF+9sCQxUVF99Q==}
+  '@agoric/zone@0.2.3-dev-6627838.0':
+    resolution: {integrity: sha512-Hn6+Ww5vFy2xEpIuufdpFufjniZGvbLD3dOny8WKAcEIAFcA0661f6wmTH9Y8e5l4i2HM/xlSlWoI0dHJRB0HA==}
     engines: {node: ^18.12 || ^20.9}
 
   '@agoric/zone@0.3.0-u18.1':
@@ -4338,11 +4362,11 @@ packages:
       eslint-import-resolver-webpack:
         optional: true
 
-  eslint-plugin-ava@14.0.0:
-    resolution: {integrity: sha512-XmKT6hppaipwwnLVwwvQliSU6AF1QMHiNoLD5JQfzhUhf0jY7CO0O624fQrE+Y/fTb9vbW8r77nKf7M/oHulxw==}
-    engines: {node: '>=14.17 <15 || >=16.4'}
+  eslint-plugin-ava@15.0.1:
+    resolution: {integrity: sha512-eRX7mLFPvalGDWztJ4zm+anez2X6J/88r9CqLFfPAIMvFlGyJ+dUoFppoohgUQZLV09mIBNz5guP07zFJOLF8g==}
+    engines: {node: ^18.18 || >=20}
     peerDependencies:
-      eslint: '>=8.26.0'
+      eslint: '>=9'
 
   eslint-plugin-escompat@3.11.4:
     resolution: {integrity: sha512-j0ywwNnIufshOzgAu+PfIig1c7VRClKSNKzpniMT2vXQ4leL5q+e/SpMFQU0nrdL2WFFM44XmhSuwmxb3G0CJg==}
@@ -8451,6 +8475,18 @@ snapshots:
       jsesc: 2.5.2
       source-map: 0.5.7
 
+  '@agoric/base-zone@0.1.1-dev-6627838.0(ava@5.3.1)':
+    dependencies:
+      '@agoric/store': 0.9.3-dev-6627838.0(ava@5.3.1)
+      '@endo/common': 1.2.8
+      '@endo/errors': 1.2.8
+      '@endo/exo': 1.5.7(ava@5.3.1)
+      '@endo/far': 1.1.9(ava@5.3.1)
+      '@endo/pass-style': 1.4.7(ava@5.3.1)
+      '@endo/patterns': 1.4.7(ava@5.3.1)
+    transitivePeerDependencies:
+      - ava
+
   '@agoric/base-zone@0.1.1-dev-c9a663b.0(ava@5.3.1)':
     dependencies:
       '@agoric/store': 0.9.3-dev-c9a663b.0(ava@5.3.1)
@@ -8572,7 +8608,7 @@ snapshots:
     dependencies:
       protobufjs: 7.4.0
 
-  '@agoric/cosmic-proto@0.4.1-dev-c9a663b.0':
+  '@agoric/cosmic-proto@0.4.1-dev-6627838.0':
     dependencies:
       '@endo/base64': 1.0.9
       '@endo/init': 1.1.7
@@ -8625,12 +8661,12 @@ snapshots:
       - ava
       - supports-color
 
-  '@agoric/ertp@0.16.3-dev-c9a663b.0(ava@5.3.1)':
+  '@agoric/ertp@0.16.3-dev-6627838.0(ava@5.3.1)':
     dependencies:
-      '@agoric/notifier': 0.6.3-dev-c9a663b.0(ava@5.3.1)
-      '@agoric/store': 0.9.3-dev-c9a663b.0(ava@5.3.1)
-      '@agoric/vat-data': 0.5.3-dev-c9a663b.0(ava@5.3.1)
-      '@agoric/zone': 0.2.3-dev-c9a663b.0(ava@5.3.1)
+      '@agoric/notifier': 0.6.3-dev-6627838.0(ava@5.3.1)
+      '@agoric/store': 0.9.3-dev-6627838.0(ava@5.3.1)
+      '@agoric/vat-data': 0.5.3-dev-6627838.0(ava@5.3.1)
+      '@agoric/zone': 0.2.3-dev-6627838.0(ava@5.3.1)
       '@endo/errors': 1.2.8
       '@endo/eventual-send': 1.2.8
       '@endo/far': 1.1.9(ava@5.3.1)
@@ -8699,15 +8735,15 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  '@agoric/governance@0.10.4-dev-c9a663b.0(@agoric/xsnap@0.14.2(ava@5.3.1))(ava@5.3.1)':
+  '@agoric/governance@0.10.4-dev-6627838.0(@agoric/xsnap@0.14.2(ava@5.3.1))(ava@5.3.1)':
     dependencies:
-      '@agoric/ertp': 0.16.3-dev-c9a663b.0(ava@5.3.1)
-      '@agoric/internal': 0.3.3-dev-c9a663b.0(ava@5.3.1)
-      '@agoric/notifier': 0.6.3-dev-c9a663b.0(ava@5.3.1)
-      '@agoric/store': 0.9.3-dev-c9a663b.0(ava@5.3.1)
-      '@agoric/time': 0.3.3-dev-c9a663b.0(ava@5.3.1)
-      '@agoric/vat-data': 0.5.3-dev-c9a663b.0(ava@5.3.1)
-      '@agoric/zoe': 0.26.3-dev-c9a663b.0(@agoric/xsnap@0.14.2(ava@5.3.1))(ava@5.3.1)
+      '@agoric/ertp': 0.16.3-dev-6627838.0(ava@5.3.1)
+      '@agoric/internal': 0.3.3-dev-6627838.0(ava@5.3.1)
+      '@agoric/notifier': 0.6.3-dev-6627838.0(ava@5.3.1)
+      '@agoric/store': 0.9.3-dev-6627838.0(ava@5.3.1)
+      '@agoric/time': 0.3.3-dev-6627838.0(ava@5.3.1)
+      '@agoric/vat-data': 0.5.3-dev-6627838.0(ava@5.3.1)
+      '@agoric/zoe': 0.26.3-dev-6627838.0(@agoric/xsnap@0.14.2(ava@5.3.1))(ava@5.3.1)
       '@endo/bundle-source': 3.5.0
       '@endo/captp': 4.4.3(ava@5.3.1)
       '@endo/errors': 1.2.8
@@ -8813,6 +8849,23 @@ snapshots:
     transitivePeerDependencies:
       - ava
 
+  '@agoric/internal@0.3.3-dev-6627838.0(ava@5.3.1)':
+    dependencies:
+      '@agoric/base-zone': 0.1.1-dev-6627838.0(ava@5.3.1)
+      '@endo/common': 1.2.8
+      '@endo/errors': 1.2.8
+      '@endo/far': 1.1.9(ava@5.3.1)
+      '@endo/init': 1.1.7
+      '@endo/marshal': 1.6.2(ava@5.3.1)
+      '@endo/pass-style': 1.4.7(ava@5.3.1)
+      '@endo/patterns': 1.4.7(ava@5.3.1)
+      '@endo/promise-kit': 1.1.8
+      '@endo/stream': 1.2.8
+      anylogger: 0.21.0
+      jessie.js: 0.3.4(ava@5.3.1)
+    transitivePeerDependencies:
+      - ava
+
   '@agoric/internal@0.3.3-dev-c9a663b.0(ava@5.3.1)':
     dependencies:
       '@agoric/base-zone': 0.1.1-dev-c9a663b.0(ava@5.3.1)
@@ -8847,7 +8900,7 @@ snapshots:
     transitivePeerDependencies:
       - ava
 
-  '@agoric/kmarshal@0.1.1-dev-c9a663b.0(ava@5.3.1)':
+  '@agoric/kmarshal@0.1.1-dev-6627838.0(ava@5.3.1)':
     dependencies:
       '@endo/errors': 1.2.8
       '@endo/far': 1.1.9(ava@5.3.1)
@@ -8863,11 +8916,11 @@ snapshots:
     transitivePeerDependencies:
       - ava
 
-  '@agoric/network@0.1.1-dev-c9a663b.0(ava@5.3.1)':
+  '@agoric/network@0.1.1-dev-6627838.0(ava@5.3.1)':
     dependencies:
-      '@agoric/internal': 0.3.3-dev-c9a663b.0(ava@5.3.1)
-      '@agoric/store': 0.9.3-dev-c9a663b.0(ava@5.3.1)
-      '@agoric/vat-data': 0.5.3-dev-c9a663b.0(ava@5.3.1)
+      '@agoric/internal': 0.3.3-dev-6627838.0(ava@5.3.1)
+      '@agoric/store': 0.9.3-dev-6627838.0(ava@5.3.1)
+      '@agoric/vat-data': 0.5.3-dev-6627838.0(ava@5.3.1)
       '@endo/base64': 1.0.9
       '@endo/errors': 1.2.8
       '@endo/far': 1.1.9(ava@5.3.1)
@@ -8906,6 +8959,18 @@ snapshots:
       - '@endo/ses-ava'
       - ava
       - supports-color
+
+  '@agoric/notifier@0.6.3-dev-6627838.0(ava@5.3.1)':
+    dependencies:
+      '@agoric/internal': 0.3.3-dev-6627838.0(ava@5.3.1)
+      '@agoric/vat-data': 0.5.3-dev-6627838.0(ava@5.3.1)
+      '@endo/errors': 1.2.8
+      '@endo/far': 1.1.9(ava@5.3.1)
+      '@endo/marshal': 1.6.2(ava@5.3.1)
+      '@endo/patterns': 1.4.7(ava@5.3.1)
+      '@endo/promise-kit': 1.1.8
+    transitivePeerDependencies:
+      - ava
 
   '@agoric/notifier@0.6.3-dev-c9a663b.0(ava@5.3.1)':
     dependencies:
@@ -9031,6 +9096,16 @@ snapshots:
     transitivePeerDependencies:
       - ava
 
+  '@agoric/store@0.9.3-dev-6627838.0(ava@5.3.1)':
+    dependencies:
+      '@endo/errors': 1.2.8
+      '@endo/exo': 1.5.7(ava@5.3.1)
+      '@endo/marshal': 1.6.2(ava@5.3.1)
+      '@endo/pass-style': 1.4.7(ava@5.3.1)
+      '@endo/patterns': 1.4.7(ava@5.3.1)
+    transitivePeerDependencies:
+      - ava
+
   '@agoric/store@0.9.3-dev-c9a663b.0(ava@5.3.1)':
     dependencies:
       '@endo/errors': 1.2.8
@@ -9077,9 +9152,9 @@ snapshots:
       - ava
       - supports-color
 
-  '@agoric/swing-store@0.9.2-dev-c9a663b.0(ava@5.3.1)':
+  '@agoric/swing-store@0.9.2-dev-6627838.0(ava@5.3.1)':
     dependencies:
-      '@agoric/internal': 0.3.3-dev-c9a663b.0(ava@5.3.1)
+      '@agoric/internal': 0.3.3-dev-6627838.0(ava@5.3.1)
       '@endo/base64': 1.0.9
       '@endo/bundle-source': 3.5.0
       '@endo/check-bundle': 1.0.12
@@ -9107,6 +9182,24 @@ snapshots:
       '@endo/promise-kit': 0.2.60
       '@endo/ses-ava': 1.2.8(ava@5.3.1)
       ava: 5.3.1
+
+  '@agoric/swingset-liveslots@0.10.3-dev-6627838.0(ava@5.3.1)':
+    dependencies:
+      '@agoric/internal': 0.3.3-dev-6627838.0(ava@5.3.1)
+      '@agoric/store': 0.9.3-dev-6627838.0(ava@5.3.1)
+      '@endo/env-options': 1.1.8
+      '@endo/errors': 1.2.8
+      '@endo/eventual-send': 1.2.8
+      '@endo/exo': 1.5.7(ava@5.3.1)
+      '@endo/far': 1.1.9(ava@5.3.1)
+      '@endo/init': 1.1.7
+      '@endo/marshal': 1.6.2(ava@5.3.1)
+      '@endo/nat': 5.0.13
+      '@endo/pass-style': 1.4.7(ava@5.3.1)
+      '@endo/patterns': 1.4.7(ava@5.3.1)
+      '@endo/promise-kit': 1.1.8
+    transitivePeerDependencies:
+      - ava
 
   '@agoric/swingset-liveslots@0.10.3-dev-c9a663b.0(ava@5.3.1)':
     dependencies:
@@ -9180,18 +9273,18 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@agoric/swingset-vat@0.32.3-dev-c9a663b.0(@agoric/xsnap@0.14.2(ava@5.3.1))(ava@5.3.1)':
+  '@agoric/swingset-vat@0.32.3-dev-6627838.0(@agoric/xsnap@0.14.2(ava@5.3.1))(ava@5.3.1)':
     dependencies:
-      '@agoric/internal': 0.3.3-dev-c9a663b.0(ava@5.3.1)
-      '@agoric/kmarshal': 0.1.1-dev-c9a663b.0(ava@5.3.1)
-      '@agoric/store': 0.9.3-dev-c9a663b.0(ava@5.3.1)
-      '@agoric/swing-store': 0.9.2-dev-c9a663b.0(ava@5.3.1)
-      '@agoric/swingset-liveslots': 0.10.3-dev-c9a663b.0(ava@5.3.1)
-      '@agoric/swingset-xsnap-supervisor': 0.10.3-dev-c9a663b.0
-      '@agoric/time': 0.3.3-dev-c9a663b.0(ava@5.3.1)
-      '@agoric/vat-data': 0.5.3-dev-c9a663b.0(ava@5.3.1)
+      '@agoric/internal': 0.3.3-dev-6627838.0(ava@5.3.1)
+      '@agoric/kmarshal': 0.1.1-dev-6627838.0(ava@5.3.1)
+      '@agoric/store': 0.9.3-dev-6627838.0(ava@5.3.1)
+      '@agoric/swing-store': 0.9.2-dev-6627838.0(ava@5.3.1)
+      '@agoric/swingset-liveslots': 0.10.3-dev-6627838.0(ava@5.3.1)
+      '@agoric/swingset-xsnap-supervisor': 0.10.3-dev-6627838.0
+      '@agoric/time': 0.3.3-dev-6627838.0(ava@5.3.1)
+      '@agoric/vat-data': 0.5.3-dev-6627838.0(ava@5.3.1)
       '@agoric/xsnap': 0.14.2(ava@5.3.1)
-      '@agoric/xsnap-lockdown': 0.14.1-dev-c9a663b.0
+      '@agoric/xsnap-lockdown': 0.14.1-dev-6627838.0
       '@endo/base64': 1.0.9
       '@endo/bundle-source': 3.5.0
       '@endo/captp': 4.4.3(ava@5.3.1)
@@ -9266,7 +9359,7 @@ snapshots:
 
   '@agoric/swingset-xsnap-supervisor@0.10.2': {}
 
-  '@agoric/swingset-xsnap-supervisor@0.10.3-dev-c9a663b.0': {}
+  '@agoric/swingset-xsnap-supervisor@0.10.3-dev-6627838.0': {}
 
   '@agoric/swingset-xsnap-supervisor@0.10.3-u18.1': {}
 
@@ -9330,9 +9423,9 @@ snapshots:
     transitivePeerDependencies:
       - ava
 
-  '@agoric/time@0.3.3-dev-c9a663b.0(ava@5.3.1)':
+  '@agoric/time@0.3.3-dev-6627838.0(ava@5.3.1)':
     dependencies:
-      '@agoric/store': 0.9.3-dev-c9a663b.0(ava@5.3.1)
+      '@agoric/store': 0.9.3-dev-6627838.0(ava@5.3.1)
       '@endo/errors': 1.2.8
       '@endo/nat': 5.0.13
       '@endo/patterns': 1.4.7(ava@5.3.1)
@@ -9366,6 +9459,17 @@ snapshots:
       '@agoric/assert': 0.6.0
       '@agoric/internal': 0.3.2(ava@5.3.1)
       '@agoric/store': 0.9.2(ava@5.3.1)
+    transitivePeerDependencies:
+      - ava
+
+  '@agoric/vat-data@0.5.3-dev-6627838.0(ava@5.3.1)':
+    dependencies:
+      '@agoric/base-zone': 0.1.1-dev-6627838.0(ava@5.3.1)
+      '@agoric/store': 0.9.3-dev-6627838.0(ava@5.3.1)
+      '@agoric/swingset-liveslots': 0.10.3-dev-6627838.0(ava@5.3.1)
+      '@endo/errors': 1.2.8
+      '@endo/exo': 1.5.7(ava@5.3.1)
+      '@endo/patterns': 1.4.7(ava@5.3.1)
     transitivePeerDependencies:
       - ava
 
@@ -9422,21 +9526,21 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  '@agoric/vats@0.15.2-dev-c9a663b.0(@agoric/xsnap@0.14.2(ava@5.3.1))(ava@5.3.1)':
+  '@agoric/vats@0.15.2-dev-6627838.0(@agoric/xsnap@0.14.2(ava@5.3.1))(ava@5.3.1)':
     dependencies:
-      '@agoric/cosmic-proto': 0.4.1-dev-c9a663b.0
-      '@agoric/ertp': 0.16.3-dev-c9a663b.0(ava@5.3.1)
-      '@agoric/governance': 0.10.4-dev-c9a663b.0(@agoric/xsnap@0.14.2(ava@5.3.1))(ava@5.3.1)
-      '@agoric/internal': 0.3.3-dev-c9a663b.0(ava@5.3.1)
-      '@agoric/network': 0.1.1-dev-c9a663b.0(ava@5.3.1)
-      '@agoric/notifier': 0.6.3-dev-c9a663b.0(ava@5.3.1)
-      '@agoric/store': 0.9.3-dev-c9a663b.0(ava@5.3.1)
-      '@agoric/swingset-vat': 0.32.3-dev-c9a663b.0(@agoric/xsnap@0.14.2(ava@5.3.1))(ava@5.3.1)
-      '@agoric/time': 0.3.3-dev-c9a663b.0(ava@5.3.1)
-      '@agoric/vat-data': 0.5.3-dev-c9a663b.0(ava@5.3.1)
-      '@agoric/vow': 0.1.1-dev-c9a663b.0(ava@5.3.1)
-      '@agoric/zoe': 0.26.3-dev-c9a663b.0(@agoric/xsnap@0.14.2(ava@5.3.1))(ava@5.3.1)
-      '@agoric/zone': 0.2.3-dev-c9a663b.0(ava@5.3.1)
+      '@agoric/cosmic-proto': 0.4.1-dev-6627838.0
+      '@agoric/ertp': 0.16.3-dev-6627838.0(ava@5.3.1)
+      '@agoric/governance': 0.10.4-dev-6627838.0(@agoric/xsnap@0.14.2(ava@5.3.1))(ava@5.3.1)
+      '@agoric/internal': 0.3.3-dev-6627838.0(ava@5.3.1)
+      '@agoric/network': 0.1.1-dev-6627838.0(ava@5.3.1)
+      '@agoric/notifier': 0.6.3-dev-6627838.0(ava@5.3.1)
+      '@agoric/store': 0.9.3-dev-6627838.0(ava@5.3.1)
+      '@agoric/swingset-vat': 0.32.3-dev-6627838.0(@agoric/xsnap@0.14.2(ava@5.3.1))(ava@5.3.1)
+      '@agoric/time': 0.3.3-dev-6627838.0(ava@5.3.1)
+      '@agoric/vat-data': 0.5.3-dev-6627838.0(ava@5.3.1)
+      '@agoric/vow': 0.1.1-dev-6627838.0(ava@5.3.1)
+      '@agoric/zoe': 0.26.3-dev-6627838.0(@agoric/xsnap@0.14.2(ava@5.3.1))(ava@5.3.1)
+      '@agoric/zone': 0.2.3-dev-6627838.0(ava@5.3.1)
       '@endo/errors': 1.2.8
       '@endo/far': 1.1.9(ava@5.3.1)
       '@endo/import-bundle': 1.3.2
@@ -9482,10 +9586,10 @@ snapshots:
       - ava
       - supports-color
 
-  '@agoric/vow@0.1.1-dev-c9a663b.0(ava@5.3.1)':
+  '@agoric/vow@0.1.1-dev-6627838.0(ava@5.3.1)':
     dependencies:
-      '@agoric/base-zone': 0.1.1-dev-c9a663b.0(ava@5.3.1)
-      '@agoric/internal': 0.3.3-dev-c9a663b.0(ava@5.3.1)
+      '@agoric/base-zone': 0.1.1-dev-6627838.0(ava@5.3.1)
+      '@agoric/internal': 0.3.3-dev-6627838.0(ava@5.3.1)
       '@endo/env-options': 1.1.8
       '@endo/errors': 1.2.8
       '@endo/eventual-send': 1.2.8
@@ -9531,7 +9635,7 @@ snapshots:
 
   '@agoric/xsnap-lockdown@0.14.0': {}
 
-  '@agoric/xsnap-lockdown@0.14.1-dev-c9a663b.0': {}
+  '@agoric/xsnap-lockdown@0.14.1-dev-6627838.0': {}
 
   '@agoric/xsnap-lockdown@0.14.1-u18.1': {}
 
@@ -9577,19 +9681,19 @@ snapshots:
       - ava
       - supports-color
 
-  '@agoric/zoe@0.26.3-dev-c9a663b.0(@agoric/xsnap@0.14.2(ava@5.3.1))(ava@5.3.1)':
+  '@agoric/zoe@0.26.3-dev-6627838.0(@agoric/xsnap@0.14.2(ava@5.3.1))(ava@5.3.1)':
     dependencies:
-      '@agoric/base-zone': 0.1.1-dev-c9a663b.0(ava@5.3.1)
-      '@agoric/ertp': 0.16.3-dev-c9a663b.0(ava@5.3.1)
-      '@agoric/internal': 0.3.3-dev-c9a663b.0(ava@5.3.1)
-      '@agoric/notifier': 0.6.3-dev-c9a663b.0(ava@5.3.1)
-      '@agoric/store': 0.9.3-dev-c9a663b.0(ava@5.3.1)
-      '@agoric/swingset-liveslots': 0.10.3-dev-c9a663b.0(ava@5.3.1)
-      '@agoric/swingset-vat': 0.32.3-dev-c9a663b.0(@agoric/xsnap@0.14.2(ava@5.3.1))(ava@5.3.1)
-      '@agoric/time': 0.3.3-dev-c9a663b.0(ava@5.3.1)
-      '@agoric/vat-data': 0.5.3-dev-c9a663b.0(ava@5.3.1)
-      '@agoric/vow': 0.1.1-dev-c9a663b.0(ava@5.3.1)
-      '@agoric/zone': 0.2.3-dev-c9a663b.0(ava@5.3.1)
+      '@agoric/base-zone': 0.1.1-dev-6627838.0(ava@5.3.1)
+      '@agoric/ertp': 0.16.3-dev-6627838.0(ava@5.3.1)
+      '@agoric/internal': 0.3.3-dev-6627838.0(ava@5.3.1)
+      '@agoric/notifier': 0.6.3-dev-6627838.0(ava@5.3.1)
+      '@agoric/store': 0.9.3-dev-6627838.0(ava@5.3.1)
+      '@agoric/swingset-liveslots': 0.10.3-dev-6627838.0(ava@5.3.1)
+      '@agoric/swingset-vat': 0.32.3-dev-6627838.0(@agoric/xsnap@0.14.2(ava@5.3.1))(ava@5.3.1)
+      '@agoric/time': 0.3.3-dev-6627838.0(ava@5.3.1)
+      '@agoric/vat-data': 0.5.3-dev-6627838.0(ava@5.3.1)
+      '@agoric/vow': 0.1.1-dev-6627838.0(ava@5.3.1)
+      '@agoric/zone': 0.2.3-dev-6627838.0(ava@5.3.1)
       '@endo/bundle-source': 3.5.0
       '@endo/captp': 4.4.3(ava@5.3.1)
       '@endo/common': 1.2.8
@@ -9649,10 +9753,10 @@ snapshots:
     transitivePeerDependencies:
       - ava
 
-  '@agoric/zone@0.2.3-dev-c9a663b.0(ava@5.3.1)':
+  '@agoric/zone@0.2.3-dev-6627838.0(ava@5.3.1)':
     dependencies:
-      '@agoric/base-zone': 0.1.1-dev-c9a663b.0(ava@5.3.1)
-      '@agoric/vat-data': 0.5.3-dev-c9a663b.0(ava@5.3.1)
+      '@agoric/base-zone': 0.1.1-dev-6627838.0(ava@5.3.1)
+      '@agoric/vat-data': 0.5.3-dev-6627838.0(ava@5.3.1)
       '@endo/errors': 1.2.8
       '@endo/far': 1.1.9(ava@5.3.1)
       '@endo/pass-style': 1.4.7(ava@5.3.1)
@@ -11720,6 +11824,14 @@ snapshots:
     optionalDependencies:
       rollup: 2.79.2
 
+  '@rollup/pluginutils@5.1.4(rollup@4.31.0)':
+    dependencies:
+      '@types/estree': 1.0.6
+      estree-walker: 2.0.2
+      picomatch: 4.0.2
+    optionalDependencies:
+      rollup: 4.31.0
+
   '@rollup/rollup-android-arm-eabi@4.31.0':
     optional: true
 
@@ -11804,24 +11916,24 @@ snapshots:
 
   '@sindresorhus/is@0.7.0': {}
 
-  '@sveltejs/adapter-vercel@5.5.3(@sveltejs/kit@2.16.1(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.19.2)(vite@6.0.11(@types/node@22.10.7)(jiti@2.4.2)(lightningcss@1.29.1)(terser@5.37.0)(yaml@2.7.0)))(svelte@5.19.2)(vite@6.0.11(@types/node@22.10.7)(jiti@2.4.2)(lightningcss@1.29.1)(terser@5.37.0)(yaml@2.7.0)))(rollup@2.79.2)':
+  '@sveltejs/adapter-vercel@5.5.3(@sveltejs/kit@2.16.1(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.19.2)(vite@6.0.11(@types/node@22.10.7)(jiti@2.4.2)(lightningcss@1.29.1)(terser@5.37.0)(yaml@2.7.0)))(svelte@5.19.2)(vite@6.0.11(@types/node@22.10.7)(jiti@2.4.2)(lightningcss@1.29.1)(terser@5.37.0)(yaml@2.7.0)))(rollup@4.31.0)':
     dependencies:
       '@sveltejs/kit': 2.16.1(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.19.2)(vite@6.0.11(@types/node@22.10.7)(jiti@2.4.2)(lightningcss@1.29.1)(terser@5.37.0)(yaml@2.7.0)))(svelte@5.19.2)(vite@6.0.11(@types/node@22.10.7)(jiti@2.4.2)(lightningcss@1.29.1)(terser@5.37.0)(yaml@2.7.0))
-      '@vercel/nft': 0.29.0(rollup@2.79.2)
+      '@vercel/nft': 0.29.0(rollup@4.31.0)
       esbuild: 0.24.2
     transitivePeerDependencies:
       - encoding
       - rollup
       - supports-color
 
-  '@sveltejs/enhanced-img@0.4.4(rollup@2.79.2)(svelte@5.19.2)(vite@6.0.11(@types/node@22.10.7)(jiti@2.4.2)(lightningcss@1.29.1)(terser@5.37.0)(yaml@2.7.0))':
+  '@sveltejs/enhanced-img@0.4.4(rollup@4.31.0)(svelte@5.19.2)(vite@6.0.11(@types/node@22.10.7)(jiti@2.4.2)(lightningcss@1.29.1)(terser@5.37.0)(yaml@2.7.0))':
     dependencies:
       magic-string: 0.30.17
       sharp: 0.33.5
       svelte: 5.19.2
       svelte-parse-markup: 0.1.5(svelte@5.19.2)
       vite: 6.0.11(@types/node@22.10.7)(jiti@2.4.2)(lightningcss@1.29.1)(terser@5.37.0)(yaml@2.7.0)
-      vite-imagetools: 7.0.5(rollup@2.79.2)
+      vite-imagetools: 7.0.5(rollup@4.31.0)
       zimmerframe: 1.1.2
     transitivePeerDependencies:
       - rollup
@@ -12447,10 +12559,10 @@ snapshots:
 
   '@ungap/structured-clone@1.2.1': {}
 
-  '@vercel/nft@0.29.0(rollup@2.79.2)':
+  '@vercel/nft@0.29.0(rollup@4.31.0)':
     dependencies:
       '@mapbox/node-pre-gyp': 2.0.0-rc.0
-      '@rollup/pluginutils': 5.1.4(rollup@2.79.2)
+      '@rollup/pluginutils': 5.1.4(rollup@4.31.0)
       acorn: 8.14.0
       acorn-import-attributes: 1.9.5(acorn@8.14.0)
       async-sema: 3.1.1
@@ -14328,7 +14440,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-ava@14.0.0(eslint@8.57.1):
+  eslint-plugin-ava@15.0.1(eslint@8.57.1):
     dependencies:
       enhance-visitors: 1.0.0
       eslint: 8.57.1
@@ -18356,9 +18468,9 @@ snapshots:
       - utf-8-validate
       - zod
 
-  vite-imagetools@7.0.5(rollup@2.79.2):
+  vite-imagetools@7.0.5(rollup@4.31.0):
     dependencies:
-      '@rollup/pluginutils': 5.1.4(rollup@2.79.2)
+      '@rollup/pluginutils': 5.1.4(rollup@4.31.0)
       imagetools-core: 7.0.2
       sharp: 0.33.5
     transitivePeerDependencies:
