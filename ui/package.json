@@ -51,6 +51,9 @@
 		"@agoric/notifier": "0.7.0-u18.1",
 		"@agoric/rpc": "^0.10.0",
 		"@agoric/store": "0.9.3-u18.1",
-		"@agoric/web-components": "^0.16.0"
+		"@agoric/web-components": "^0.16.0",
+		"@endo/eventual-send": "^1.2.8",
+		"@endo/patterns": "^1.4.3",
+		"ses": "^1.8.0"
 	}
 }

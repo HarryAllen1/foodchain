@@ -2,7 +2,7 @@
 	import bananaImage from '$lib/images/banana.webp?enhanced';
 	import beanImage from '$lib/images/bean.webp?enhanced';
 	import brocoliImage from '$lib/images/brocoli.webp?enhanced';
-	import coinImage from '$lib/images/coin.webp?enhanced';
+	import coinImage from '$lib/images/coin.png?enhanced';
 	import type { Purse } from '$lib/types';
 	import { stringifyAmountValue } from '@agoric/web-components';
 	import Item from './Item.svelte';

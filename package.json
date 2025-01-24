@@ -22,5 +22,10 @@
     "eslint": "^9.18.0",
     "prettier": "^3.4.2",
     "serve": "^14.2.1"
+  },
+  "pnpm": {
+    "patchedDependencies": {
+      "@agoric/web-components@0.16.0": "patches/@agoric__web-components@0.16.0.patch"
+    }
   }
 }
