@@ -1,5 +1,5 @@
-const { Contract } = require("fabric-contract-api");
-const crypto = require("crypto");
+import { Contract } from "fabric-contract-api";
+import * as crypto from "node:crypto";
 
 class KVContract extends Contract {
   constructor() {
@@ -53,4 +53,4 @@ class KVContract extends Contract {
   }
 }
 
-exports.contracts = [KVContract];
+export const contracts = [KVContract]
