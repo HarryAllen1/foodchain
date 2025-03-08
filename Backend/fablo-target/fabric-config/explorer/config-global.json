@@ -1,0 +1,13 @@
+{
+  "network-configs": {
+    "network-farmers": {
+      "name": "Network of Farmers",
+      "profile": "/opt/explorer/app/platform/fabric/connection-profile/connection-profile-farmers.json"
+    },
+    "network-distributors": {
+      "name": "Network of Distributors",
+      "profile": "/opt/explorer/app/platform/fabric/connection-profile/connection-profile-distributors.json"
+    }
+  },
+  "license": "Apache-2.0"
+}
