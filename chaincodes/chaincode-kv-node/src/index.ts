@@ -1,5 +1,5 @@
 import { Contract, Context } from "fabric-contract-api";
-import * as crypto from "node:crypto";
+import { createHash } from "node:crypto";
 
 class KVContract extends Contract {
   constructor() {
@@ -36,15 +36,15 @@ class KVContract extends Contract {
 
   async getPrivateMessage(ctx: Context, collection: string) {
     const message = await ctx.stub.getPrivateData(collection, "message");
-    const messageString = message.toBuffer ? message.toBuffer().toString() : message.toString();
+    const messageString = message.toString();
     return { success: messageString };
   }
 
   async verifyPrivateMessage(ctx: Context, collection: string) {
     const transient = ctx.stub.getTransient();
     const message = transient.get("message");
-    const messageString = message.toBuffer ? message.toBuffer().toString() : message.toString();
-    const currentHash = crypto.createHash("sha256").update(messageString).digest("hex");
+    const messageString = message.toString();
+    const currentHash = createHash("sha256").update(messageString).digest("hex");
     const privateDataHash = (await ctx.stub.getPrivateDataHash(collection, "message")).toString("hex");
     if (privateDataHash !== currentHash) {
       return { error: "VERIFICATION_FAILED" };
