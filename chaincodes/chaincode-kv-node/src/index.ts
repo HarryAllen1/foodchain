@@ -1,4 +1,4 @@
-import { Contract } from "fabric-contract-api";
+import { Contract, Context } from "fabric-contract-api";
 import * as crypto from "node:crypto";
 
 class KVContract extends Contract {
@@ -10,37 +10,37 @@ class KVContract extends Contract {
     console.log("Main instantiated");
   }
 
-  async put(ctx, id, value) {
-    await ctx.stub.putState(key, Buffer.from(value));
+  async put(ctx: Context, id: string, value: WithImplicitCoercion<ArrayBufferLike>) {
+    await ctx.stub.putState(id, Buffer.from(value));
     return { success: "OK" };
   }
 
-  async get(ctx, key) {
+  async get(ctx: Context, key: string) {
     const buffer = await ctx.stub.getState(key);
     if (!buffer || !buffer.length) return { error: "NOT_FOUND" };
     return { success: buffer.toString() };
   }
 
-  async hasId(ctx, key) {
+  async hasId(ctx: Context, key: string) {
     const buffer = await ctx.stub.getState(key);
     if (!buffer || !buffer.length) return { error: "NOT_FOUND" };
     return { success: "OK" };
   }
 
-  async putPrivateMessage(ctx, collection) {
+  async putPrivateMessage(ctx: Context, collection: string) {
     const transient = ctx.stub.getTransient();
     const message = transient.get("message");
     await ctx.stub.putPrivateData(collection, "message", message);
     return { success: "OK" };
   }
 
-  async getPrivateMessage(ctx, collection) {
+  async getPrivateMessage(ctx: Context, collection: string) {
     const message = await ctx.stub.getPrivateData(collection, "message");
     const messageString = message.toBuffer ? message.toBuffer().toString() : message.toString();
     return { success: messageString };
   }
 
-  async verifyPrivateMessage(ctx, collection) {
+  async verifyPrivateMessage(ctx: Context, collection: string) {
     const transient = ctx.stub.getTransient();
     const message = transient.get("message");
     const messageString = message.toBuffer ? message.toBuffer().toString() : message.toString();
