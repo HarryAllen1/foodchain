@@ -45,7 +45,7 @@ class KVContract extends Contract {
     const message = transient.get("message");
     const messageString = message.toString();
     const currentHash = createHash("sha256").update(messageString).digest("hex");
-    const privateDataHash = (await ctx.stub.getPrivateDataHash(collection, "message")).toString("hex");
+    const privateDataHash = (await ctx.stub.getPrivateDataHash(collection, "message")).toString();
     if (privateDataHash !== currentHash) {
       return { error: "VERIFICATION_FAILED" };
     }
