@@ -1,0 +1,294 @@
+networks:
+  basic:
+
+services:
+
+  ca.main.foodchain.com:
+    container_name: ca.main.foodchain.com
+    image: hyperledger/fabric-ca:${FABRIC_CA_VERSION}
+    environment:
+      - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
+      - FABRIC_CA_SERVER_CA_NAME=ca.main.foodchain.com
+      - FABRIC_CA_SERVER_CA_CERTFILE=/etc/hyperledger/fabric-ca-server/crypto/ca.main.foodchain.com-cert.pem
+      - FABRIC_CA_SERVER_CA_KEYFILE=/etc/hyperledger/fabric-ca-server/crypto/priv-key.pem
+      - FABRIC_LOGGING_SPEC=${LOGGING_LEVEL}
+    ports:
+      - 7020:7054
+    working_dir: /etc/hyperledger/fabric-ca-server
+    command: sh -c 'fabric-ca-server start -b ${MAIN_CA_ADMIN_NAME}:${MAIN_CA_ADMIN_PASSWORD} -d'
+    volumes:
+      - ../fabric-config/crypto-config/peerOrganizations/main.foodchain.com/ca/:/etc/hyperledger/fabric-ca-server/crypto
+      - ../fabric-config/fabric-ca-server-config/main.foodchain.com/fabric-ca-server-config.yaml:/etc/hyperledger/fabric-ca-server/fabric-ca-server-config.yaml
+    networks:
+      - basic
+
+  cli.main.foodchain.com:
+    container_name: cli.main.foodchain.com
+    image: hyperledger/fabric-tools:${FABRIC_TOOLS_VERSION}
+    tty: true
+    environment:
+      - GOPATH=/opt/gopath
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - FABRIC_LOGGING_SPEC=${LOGGING_LEVEL}
+      - CORE_PEER_ID=cli.main.foodchain.com
+      - CORE_CHAINCODE_KEEPALIVE=10
+      #
+      - CORE_PEER_LOCALMSPID=mainMSP
+      - CORE_PEER_MSPCONFIGPATH=/var/hyperledger/cli/crypto/users/Admin@main.foodchain.com/msp
+      - CORE_PEER_ADDRESS=peer0.main.foodchain.com:7021
+    working_dir: /var/hyperledger/cli/
+    command: /bin/bash
+    volumes:
+      - /var/run/docker.sock:/host/var/run/docker.sock
+      - ../fabric-docker/scripts/cli:/var/hyperledger/cli/scripts/
+      - ../fabric-config/config:/var/hyperledger/cli/config/ # genesis.block and channel.tx's
+      - ../fabric-config/crypto-config/peerOrganizations/main.foodchain.com:/var/hyperledger/cli/crypto/
+      - ../fabric-config/chaincode-packages:/var/hyperledger/cli/chaincode-packages/
+      - "$CHAINCODES_BASE_DIR/./chaincodes/chaincode-kv-node/:/var/hyperledger/cli/chaincode1/"
+    networks:
+      - basic
+
+  fablo-rest.main.foodchain.com:
+    container_name: fablo-rest.main.foodchain.com
+    image: ghcr.io/fablo-io/fablo-rest:${FABLO_REST_VERSION}
+    environment:
+      - PORT=8000
+      - MSP_ID=mainMSP
+      - FABRIC_CA_URL=http://ca.main.foodchain.com:7054
+      - FABRIC_CA_NAME=ca.main.foodchain.com
+      - AS_LOCALHOST=false
+      - DISCOVERY_URLS=grpc://peer0.main.foodchain.com:7021,grpc://peer1.main.foodchain.com:7022,grpc://peer2.main.foodchain.com:7023
+      - HFC_LOGGING={"error":"console","warn":"console","info":"console"}
+    ports:
+      - 8800:8000
+    networks:
+      - basic
+
+  orderer0.maingroup.main.foodchain.com:
+    container_name: orderer0.maingroup.main.foodchain.com
+    image: hyperledger/fabric-orderer:${FABRIC_VERSION}
+    environment:
+      - FABRIC_LOGGING_SPEC=${LOGGING_LEVEL}
+      - ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
+      - ORDERER_GENERAL_LISTENPORT=7030
+      - ORDERER_GENERAL_LOCALMSPID=mainMSP
+      - ORDERER_GENERAL_LOCALMSPDIR=/var/hyperledger/orderer/msp
+      # Genesis file configuration (for solo and raft)
+      - ORDERER_GENERAL_GENESISMETHOD=file
+      - ORDERER_GENERAL_BOOTSTRAPFILE=/var/hyperledger/config/MaingroupGenesis.block
+      # Metrics configuration
+      - ORDERER_OPERATIONS_LISTENADDRESS=orderer0.maingroup.main.foodchain.com:9443
+      - ORDERER_METRICS_PROVIDER=prometheus
+    working_dir: /var/hyperledger/orderer
+    command: orderer
+    ports:
+      - 7030:7030
+      - 8030:9440
+    volumes:
+      - ../fabric-config/config/:/var/hyperledger/config
+      - ../fabric-config/crypto-config/peerOrganizations/main.foodchain.com/peers/orderer0.maingroup.main.foodchain.com/msp/:/var/hyperledger/orderer/msp
+      - ../fabric-config/crypto-config/peerOrganizations/main.foodchain.com/peers/orderer0.maingroup.main.foodchain.com/tls/:/var/hyperledger/orderer/tls
+    networks:
+      - basic
+
+  peer0.main.foodchain.com:
+    container_name: peer0.main.foodchain.com
+    image: hyperledger/fabric-peer:${FABRIC_VERSION}
+    environment:
+      - CORE_PEER_LOCALMSPID=mainMSP
+      - CORE_PEER_ID=peer0.main.foodchain.com
+      - CORE_PEER_ADDRESS=peer0.main.foodchain.com:7021
+      - CORE_PEER_LISTENADDRESS=peer0.main.foodchain.com:7021
+      - CORE_PEER_GOSSIP_ENDPOINT=peer0.main.foodchain.com:7021
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.main.foodchain.com:7021
+      - CORE_PEER_GOSSIP_BOOTSTRAP="peer0.main.foodchain.com:7021 peer1.main.foodchain.com:7022 peer2.main.foodchain.com:7023"
+      - CORE_PEER_CHAINCODELISTENADDRESS=peer0.main.foodchain.com:7050
+      - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/fabric/peer/msp
+      - CORE_CHAINCODE_BUILDER=hyperledger/fabric-ccenv:${FABRIC_CCENV_VERSION}
+      - CORE_CHAINCODE_GOLANG_RUNTIME=hyperledger/fabric-baseos:${FABRIC_BASEOS_VERSION}
+      - CORE_CHAINCODE_JAVA_RUNTIME=hyperledger/fabric-javaenv:${FABRIC_JAVAENV_VERSION}
+      - CORE_CHAINCODE_NODE_RUNTIME=hyperledger/fabric-nodeenv:${FABRIC_NODEENV_VERSION}
+      #
+      - CORE_CHAINCODE_LOGGING_LEVEL=${LOGGING_LEVEL}
+      - CORE_CHAINCODE_LOGGING_SHIM=${LOGGING_LEVEL}
+      - FABRIC_LOGGING_SPEC=${LOGGING_LEVEL}
+      # metrics
+      - CORE_OPERATIONS_LISTENADDRESS=peer0.main.foodchain.com:9440
+      - CORE_METRICS_PROVIDER=prometheus
+      #
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=${COMPOSE_PROJECT_NAME}_basic
+      - CORE_VM_DOCKER_ATTACHSTDOUT=true
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - GODEBUG=netdns=go
+      # CouchDB
+      - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb.peer0.main.foodchain.com:5984
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=peer0
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD=peer0Password
+      # enabled gateway
+      - CORE_PEER_GATEWAY_ENABLED=true
+    working_dir: /etc/hyperledger/fabric/peer/
+    command: peer node start
+    ports:
+      - 8021:9440
+      - 7021:7021
+    depends_on:
+      couchdb.peer0.main.foodchain.com:
+        condition: service_healthy
+    volumes:
+      - /var/run/docker.sock:/host/var/run/docker.sock
+      - /Users/karunyapenumalla/CODE/foodchain/Blockchain/fablo-target/fabric-config/crypto-config/peerOrganizations/main.foodchain.com/peers/peer0.main.foodchain.com/msp:/etc/hyperledger/fabric/peer/msp:Z
+      - /Users/karunyapenumalla/CODE/foodchain/Blockchain/fablo-target/fabric-config/crypto-config/peerOrganizations/main.foodchain.com/peers/peer0.main.foodchain.com/tls:/etc/hyperledger/fabric/peer/tls:Z
+      - /Users/karunyapenumalla/CODE/foodchain/Blockchain/fablo-target/fabric-config/crypto-config/peerOrganizations/main.foodchain.com/users:/etc/hyperledger/fabric/peer/msp/users:Z
+      - /Users/karunyapenumalla/CODE/foodchain/Blockchain/fablo-target/fabric-config/config:/etc/hyperledger/fabric/config:Z
+    networks:
+      - basic
+  couchdb.peer0.main.foodchain.com:
+    container_name: couchdb.peer0.main.foodchain.com
+    image: couchdb:${COUCHDB_VERSION}
+    environment:
+      - COUCHDB_USER=peer0
+      - COUCHDB_PASSWORD=peer0Password
+    healthcheck:
+      test: "curl -f http://localhost:5984/"
+      interval: 5s
+      timeout: 10s
+      retries: 7
+    ports:
+      - 5080:5984
+    networks:
+      - basic
+  peer1.main.foodchain.com:
+    container_name: peer1.main.foodchain.com
+    image: hyperledger/fabric-peer:${FABRIC_VERSION}
+    environment:
+      - CORE_PEER_LOCALMSPID=mainMSP
+      - CORE_PEER_ID=peer1.main.foodchain.com
+      - CORE_PEER_ADDRESS=peer1.main.foodchain.com:7022
+      - CORE_PEER_LISTENADDRESS=peer1.main.foodchain.com:7022
+      - CORE_PEER_GOSSIP_ENDPOINT=peer1.main.foodchain.com:7022
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.main.foodchain.com:7022
+      - CORE_PEER_GOSSIP_BOOTSTRAP="peer0.main.foodchain.com:7021 peer1.main.foodchain.com:7022 peer2.main.foodchain.com:7023"
+      - CORE_PEER_CHAINCODELISTENADDRESS=peer1.main.foodchain.com:7050
+      - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/fabric/peer/msp
+      - CORE_CHAINCODE_BUILDER=hyperledger/fabric-ccenv:${FABRIC_CCENV_VERSION}
+      - CORE_CHAINCODE_GOLANG_RUNTIME=hyperledger/fabric-baseos:${FABRIC_BASEOS_VERSION}
+      - CORE_CHAINCODE_JAVA_RUNTIME=hyperledger/fabric-javaenv:${FABRIC_JAVAENV_VERSION}
+      - CORE_CHAINCODE_NODE_RUNTIME=hyperledger/fabric-nodeenv:${FABRIC_NODEENV_VERSION}
+      #
+      - CORE_CHAINCODE_LOGGING_LEVEL=${LOGGING_LEVEL}
+      - CORE_CHAINCODE_LOGGING_SHIM=${LOGGING_LEVEL}
+      - FABRIC_LOGGING_SPEC=${LOGGING_LEVEL}
+      # metrics
+      - CORE_OPERATIONS_LISTENADDRESS=peer1.main.foodchain.com:9440
+      - CORE_METRICS_PROVIDER=prometheus
+      #
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=${COMPOSE_PROJECT_NAME}_basic
+      - CORE_VM_DOCKER_ATTACHSTDOUT=true
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - GODEBUG=netdns=go
+      # CouchDB
+      - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb.peer1.main.foodchain.com:5984
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=peer1
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD=peer1Password
+      # enabled gateway
+      - CORE_PEER_GATEWAY_ENABLED=true
+    working_dir: /etc/hyperledger/fabric/peer/
+    command: peer node start
+    ports:
+      - 8022:9440
+      - 7022:7022
+    depends_on:
+      couchdb.peer1.main.foodchain.com:
+        condition: service_healthy
+    volumes:
+      - /var/run/docker.sock:/host/var/run/docker.sock
+      - /Users/karunyapenumalla/CODE/foodchain/Blockchain/fablo-target/fabric-config/crypto-config/peerOrganizations/main.foodchain.com/peers/peer1.main.foodchain.com/msp:/etc/hyperledger/fabric/peer/msp:Z
+      - /Users/karunyapenumalla/CODE/foodchain/Blockchain/fablo-target/fabric-config/crypto-config/peerOrganizations/main.foodchain.com/peers/peer1.main.foodchain.com/tls:/etc/hyperledger/fabric/peer/tls:Z
+      - /Users/karunyapenumalla/CODE/foodchain/Blockchain/fablo-target/fabric-config/crypto-config/peerOrganizations/main.foodchain.com/users:/etc/hyperledger/fabric/peer/msp/users:Z
+      - /Users/karunyapenumalla/CODE/foodchain/Blockchain/fablo-target/fabric-config/config:/etc/hyperledger/fabric/config
+    networks:
+      - basic
+  couchdb.peer1.main.foodchain.com:
+    container_name: couchdb.peer1.main.foodchain.com
+    image: couchdb:${COUCHDB_VERSION}
+    environment:
+      - COUCHDB_USER=peer1
+      - COUCHDB_PASSWORD=peer1Password
+    healthcheck:
+      test: "curl -f http://localhost:5984/"
+      interval: 5s
+      timeout: 10s
+      retries: 7
+    ports:
+      - 5081:5984
+    networks:
+      - basic
+  peer2.main.foodchain.com:
+    container_name: peer2.main.foodchain.com
+    image: hyperledger/fabric-peer:${FABRIC_VERSION}
+    environment:
+      - CORE_PEER_LOCALMSPID=mainMSP
+      - CORE_PEER_ID=peer2.main.foodchain.com
+      - CORE_PEER_ADDRESS=peer2.main.foodchain.com:7023
+      - CORE_PEER_LISTENADDRESS=peer2.main.foodchain.com:7023
+      - CORE_PEER_GOSSIP_ENDPOINT=peer2.main.foodchain.com:7023
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer2.main.foodchain.com:7023
+      - CORE_PEER_GOSSIP_BOOTSTRAP="peer0.main.foodchain.com:7021 peer1.main.foodchain.com:7022 peer2.main.foodchain.com:7023"
+      - CORE_PEER_CHAINCODELISTENADDRESS=peer2.main.foodchain.com:7050
+      - CORE_PEER_MSPCONFIGPATH=/etc/hyperledger/fabric/peer/msp
+      - CORE_CHAINCODE_BUILDER=hyperledger/fabric-ccenv:${FABRIC_CCENV_VERSION}
+      - CORE_CHAINCODE_GOLANG_RUNTIME=hyperledger/fabric-baseos:${FABRIC_BASEOS_VERSION}
+      - CORE_CHAINCODE_JAVA_RUNTIME=hyperledger/fabric-javaenv:${FABRIC_JAVAENV_VERSION}
+      - CORE_CHAINCODE_NODE_RUNTIME=hyperledger/fabric-nodeenv:${FABRIC_NODEENV_VERSION}
+      #
+      - CORE_CHAINCODE_LOGGING_LEVEL=${LOGGING_LEVEL}
+      - CORE_CHAINCODE_LOGGING_SHIM=${LOGGING_LEVEL}
+      - FABRIC_LOGGING_SPEC=${LOGGING_LEVEL}
+      # metrics
+      - CORE_OPERATIONS_LISTENADDRESS=peer2.main.foodchain.com:9440
+      - CORE_METRICS_PROVIDER=prometheus
+      #
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=${COMPOSE_PROJECT_NAME}_basic
+      - CORE_VM_DOCKER_ATTACHSTDOUT=true
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - GODEBUG=netdns=go
+      # CouchDB
+      - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb.peer2.main.foodchain.com:5984
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=peer2
+      - CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD=peer2Password
+      # enabled gateway
+      - CORE_PEER_GATEWAY_ENABLED=true
+    working_dir: /etc/hyperledger/fabric/peer/
+    command: peer node start
+    ports:
+      - 8023:9440
+      - 7023:7023
+    depends_on:
+      couchdb.peer2.main.foodchain.com:
+        condition: service_healthy
+    volumes:
+      - /var/run/docker.sock:/host/var/run/docker.sock
+      - /Users/karunyapenumalla/CODE/foodchain/Blockchain/fablo-target/fabric-config/crypto-config/peerOrganizations/main.foodchain.com/peers/peer2.main.foodchain.com/msp:/etc/hyperledger/fabric/peer/msp:Z
+      - /Users/karunyapenumalla/CODE/foodchain/Blockchain/fablo-target/fabric-config/crypto-config/peerOrganizations/main.foodchain.com/peers/peer2.main.foodchain.com/tls:/etc/hyperledger/fabric/peer/tls:Z
+      - /Users/karunyapenumalla/CODE/foodchain/Blockchain/fablo-target/fabric-config/crypto-config/peerOrganizations/main.foodchain.com/users:/etc/hyperledger/fabric/peer/msp/users:Z
+      - /Users/karunyapenumalla/CODE/foodchain/Blockchain/fablo-target/fabric-config/config:/etc/hyperledger/fabric/config
+    networks:
+      - basic
+  couchdb.peer2.main.foodchain.com:
+    container_name: couchdb.peer2.main.foodchain.com
+    image: couchdb:${COUCHDB_VERSION}
+    environment:
+      - COUCHDB_USER=peer2
+      - COUCHDB_PASSWORD=peer2Password
+    healthcheck:
+      test: "curl -f http://localhost:5984/"
+      interval: 5s
+      timeout: 10s
+      retries: 7
+    ports:
+      - 5082:5984
+    networks:
+      - basic

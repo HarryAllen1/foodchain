@@ -1,33 +1,24 @@
-# Foodchain
+## FoodChain
 
-## Running the Ledger
+A supply chain transparency app to enhance agriculture.
 
-This project only runs on Linux/WSL and requires Docker.
-
-<details>
-<summary>
-WSL Setup
-</summary>
-
-If you are using WSL, you must enable `systemd`. Open `/etc/wsl.conf` and add the following under the `boot` key:
-
-```toml
-systemd=true
+Project Architecture:
+```mermaid
+%%{init: {'themeVariables': {'scale': 0.7}}}%%
+sequenceDiagram
+    Client (Web App) ->> API (Express.js): Query (/GET or /POST)
+    API (Express.js) ->> Client (Web App): Data Return
+    Blockchain Server (Hyperledger Fabric) -->> API (Express.js): Data
+    API (Express.js) -->> Blockchain Server (Hyperledger Fabric): Chaincode Excution
 ```
 
-The whole thing should look roughly like:
-
-```toml
-[boot]
-systemd=true
-```
-
-</details>
-
-Install Nodejs, pnpm, and Docker.
-
-Install dependencies with `pnpm i`
-
-Then, run `pnpm start:contract`.
-
-## Running the Web App
+### Find our work:
+- [Planning Docs](/Spec.md) (technical specifications and requirements) 
+- [Code]()
+    - [Blockchain Backend](/Backend/)
+    - **WIP** [API]()
+    - **WIP** [UI/frontend]()
+- [Testing]()
+    - Integration tests
+    - Unit tests
+- [Reflection]() (What can we add?)

@@ -1,0 +1,9 @@
+PeerOrgs:
+  - Name: main
+    Domain: main.foodchain.com
+    Specs:
+      - Hostname: orderer0.maingroup
+    Template:
+      Count: 3
+    Users:
+      Count: 1

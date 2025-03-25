@@ -1,0 +1,27 @@
+name: fablo-test-network-main
+description: Connection profile for main in Fablo network
+version: 1.0.0
+client:
+  organization: main
+organizations:
+  main:
+    mspid: mainMSP
+    peers:
+      - peer0.main.foodchain.com
+      - peer1.main.foodchain.com
+      - peer2.main.foodchain.com
+    certificateAuthorities:
+      - ca.main.foodchain.com
+peers:
+  peer0.main.foodchain.com:
+    url: grpc://localhost:7021
+  peer1.main.foodchain.com:
+    url: grpc://localhost:7022
+  peer2.main.foodchain.com:
+    url: grpc://localhost:7023
+certificateAuthorities:
+  ca.main.foodchain.com:
+    url: http://localhost:7020
+    caName: ca.main.foodchain.com
+    httpOptions:
+      verify: false
