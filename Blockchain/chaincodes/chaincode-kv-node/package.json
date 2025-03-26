@@ -8,7 +8,7 @@
     "npm": ">=5"
   },
   "scripts": {
-    "preinstall": "npx only-allow pnpm",
+    "preinstall": "",
     "start": "fabric-chaincode-node start",
     "start:dev": "CORE_PEER_TLS_ENABLED=false fabric-chaincode-node start --peer.address \"127.0.0.1:8541\" --chaincode-id-name \"chaincode1:0.0.1\" --tls.enabled false",
     "start:watch": "tsup --watch --onSuccess \"npm run start:dev\"",
@@ -18,7 +18,9 @@
   "author": "karunyap",
   "dependencies": {
     "fabric-contract-api": "2.5.8",
-    "fabric-shim": "2.5.8"
+    "fabric-shim": "2.5.8",
+    "nanoid": "^5.1.5",
+    "only-allow": "1.2.1"
   },
   "devDependencies": {
     "tsup": "^8.4.0",

@@ -1,6 +1,6 @@
 import { Contract, Context } from "fabric-contract-api";
-import { createHash } from "node:crypto";
-
+import { Shipment } from "./AssetInterface";
+const { nanoid } = require("nanoid");
 class KVContract extends Contract {
   constructor() {
     super("KVContract");
@@ -10,46 +10,62 @@ class KVContract extends Contract {
     console.log("Main instantiated");
   }
 
-  async put(ctx: Context, id: string, value: WithImplicitCoercion<ArrayBufferLike>) {
-    await ctx.stub.putState(id, Buffer.from(value));
-    return { success: "OK" };
+  async getCertificate(ctx: Context) {
+    return await ctx.clientIdentity.getID();
   }
 
-  async get(ctx: Context, key: string) {
-    const buffer = await ctx.stub.getState(key);
-    if (!buffer || !buffer.length) return { error: "NOT_FOUND" };
-    return { success: buffer.toString() };
+  async createShipmet(ctx: Context, uniqueID: string) {
+    const shipment: Shipment = {
+      uniqueID,
+      packageID: nanoid(6),
+      owner: await this.getCertificate(ctx),
+      history: [],
+    };
+
+    await ctx.stub.putState(uniqueID, Buffer.from(JSON.stringify(shipment)));
+
+    return shipment.uniqueID+shipment.packageID;
   }
 
-  async hasId(ctx: Context, key: string) {
-    const buffer = await ctx.stub.getState(key);
-    if (!buffer || !buffer.length) return { error: "NOT_FOUND" };
-    return { success: "OK" };
-  }
+  async getShipment(ctx: Context, shipmentID: string) {
+    let shipment;
 
-  async putPrivateMessage(ctx: Context, collection: string) {
-    const transient = ctx.stub.getTransient();
-    const message = transient.get("message");
-    await ctx.stub.putPrivateData(collection, "message", message);
-    return { success: "OK" };
-  }
-
-  async getPrivateMessage(ctx: Context, collection: string) {
-    const message = await ctx.stub.getPrivateData(collection, "message");
-    const messageString = message.toString();
-    return { success: messageString };
-  }
-
-  async verifyPrivateMessage(ctx: Context, collection: string) {
-    const transient = ctx.stub.getTransient();
-    const message = transient.get("message");
-    const messageString = message.toString();
-    const currentHash = createHash("sha256").update(messageString).digest("hex");
-    const privateDataHash = (await ctx.stub.getPrivateDataHash(collection, "message")).toString();
-    if (privateDataHash !== currentHash) {
-      return { error: "VERIFICATION_FAILED" };
+    try {
+      shipment = await ctx.stub.getState(shipmentID);
+    } catch (error) {
+      return "NOT_FOUND";
     }
-    return { success: "OK" };
+    
+    if (!shipment || shipment.length === 0) {
+      return "NOT_FOUND" ;
+    }
+
+    shipment = JSON.parse(shipment.toString());
+    return shipment  ;
+  }
+
+  async transferShipment(ctx: Context, shipmentID: string, newOwner: string) {
+    let shipment;
+
+    try {
+      shipment = await ctx.stub.getState(shipmentID);
+    } catch (error) {
+      return "NOT_FOUND";
+    } 
+    const shipmentData: Shipment = JSON.parse(shipment.toString());
+
+    if (shipmentData.owner !== await this.getCertificate(ctx)) {
+      return"NOT_ALLOWED";
+    }
+
+    if (!newOwner.startsWith("x509::/")) {
+      return "INVALID_OWNER";
+    }
+
+    shipmentData.history.push(shipmentData.owner);
+    shipmentData.owner = newOwner;
+
+    await ctx.stub.putState(shipmentID, Buffer.from(JSON.stringify(shipmentData)));
   }
 }
 
