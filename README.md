@@ -1,8 +1,9 @@
-## FoodChain
+# FoodChain
 
 A supply chain transparency app to enhance agriculture.
 
-Project Architecture:
+## Project Architecture
+
 ```mermaid
 %%{init: {'themeVariables': {'scale': 0.7}}}%%
 sequenceDiagram
@@ -12,7 +13,7 @@ sequenceDiagram
     API (Express.js) -->> Blockchain Server (Hyperledger Fabric): Chaincode Excution
 ```
 
-### Find our work:
+## Find our work:
 - [Planning Docs](/Spec.md) (technical specifications and requirements) 
 - [Code]()
     - [Blockchain Backend](/Backend/)
