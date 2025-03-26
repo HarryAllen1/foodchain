@@ -14,7 +14,7 @@ class KVContract extends Contract {
     return await ctx.clientIdentity.getID();
   }
 
-  async createShipmet(ctx: Context, uniqueID: string) {
+  async createShipment(ctx: Context, uniqueID: string) {
     const shipment: Shipment = {
       uniqueID,
       packageID: nanoid(6),
