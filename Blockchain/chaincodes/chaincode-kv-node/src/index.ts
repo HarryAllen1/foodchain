@@ -18,13 +18,13 @@ class KVContract extends Contract {
     const shipment: Shipment = {
       uniqueID,
       packageID: nanoid(6),
-      owner: await this.getCertificate(ctx),
+      owner: await ctx.clientIdentity.getID(),
       history: [],
     };
+    
+    await ctx.stub.putState(shipment.uniqueID + shipment.packageID, Buffer.from(JSON.stringify(shipment)));
 
-    await ctx.stub.putState(uniqueID, Buffer.from(JSON.stringify(shipment)));
-
-    return shipment.uniqueID+shipment.packageID;
+    return shipment.uniqueID + shipment.packageID;
   }
 
   async getShipment(ctx: Context, shipmentID: string) {
@@ -37,11 +37,11 @@ class KVContract extends Contract {
     }
     
     if (!shipment || shipment.length === 0) {
-      return "NOT_FOUND" ;
+      return "NOT_FOUND";
     }
 
     shipment = JSON.parse(shipment.toString());
-    return shipment  ;
+    return shipment;
   }
 
   async transferShipment(ctx: Context, shipmentID: string, newOwner: string) {
