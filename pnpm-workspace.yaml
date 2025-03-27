@@ -1,0 +1,3 @@
+packages:
+  - app
+  - Blockchain/chaincodes/chaincode-kv-node
