@@ -138,10 +138,10 @@ services:
         condition: service_healthy
     volumes:
       - /var/run/docker.sock:/host/var/run/docker.sock
-      - /Users/karunyapenumalla/CODE/foodchain/Blockchain/fablo-target/fabric-config/crypto-config/peerOrganizations/main.foodchain.com/peers/peer0.main.foodchain.com/msp:/etc/hyperledger/fabric/peer/msp:Z
-      - /Users/karunyapenumalla/CODE/foodchain/Blockchain/fablo-target/fabric-config/crypto-config/peerOrganizations/main.foodchain.com/peers/peer0.main.foodchain.com/tls:/etc/hyperledger/fabric/peer/tls:Z
-      - /Users/karunyapenumalla/CODE/foodchain/Blockchain/fablo-target/fabric-config/crypto-config/peerOrganizations/main.foodchain.com/users:/etc/hyperledger/fabric/peer/msp/users:Z
-      - /Users/karunyapenumalla/CODE/foodchain/Blockchain/fablo-target/fabric-config/config:/etc/hyperledger/fabric/config:Z
+      - ../fabric-config/crypto-config/peerOrganizations/main.foodchain.com/peers/peer0.main.foodchain.com/msp:/etc/hyperledger/fabric/peer/msp:Z
+      - ../fabric-config/crypto-config/peerOrganizations/main.foodchain.com/peers/peer0.main.foodchain.com/tls:/etc/hyperledger/fabric/peer/tls:Z
+      - ../fabric-config/crypto-config/peerOrganizations/main.foodchain.com/users:/etc/hyperledger/fabric/peer/msp/users:Z
+      - ../fabric-config/config:/etc/hyperledger/fabric/config:Z
     networks:
       - basic
   couchdb.peer0.main.foodchain.com:
@@ -205,10 +205,10 @@ services:
         condition: service_healthy
     volumes:
       - /var/run/docker.sock:/host/var/run/docker.sock
-      - /Users/karunyapenumalla/CODE/foodchain/Blockchain/fablo-target/fabric-config/crypto-config/peerOrganizations/main.foodchain.com/peers/peer1.main.foodchain.com/msp:/etc/hyperledger/fabric/peer/msp:Z
-      - /Users/karunyapenumalla/CODE/foodchain/Blockchain/fablo-target/fabric-config/crypto-config/peerOrganizations/main.foodchain.com/peers/peer1.main.foodchain.com/tls:/etc/hyperledger/fabric/peer/tls:Z
-      - /Users/karunyapenumalla/CODE/foodchain/Blockchain/fablo-target/fabric-config/crypto-config/peerOrganizations/main.foodchain.com/users:/etc/hyperledger/fabric/peer/msp/users:Z
-      - /Users/karunyapenumalla/CODE/foodchain/Blockchain/fablo-target/fabric-config/config:/etc/hyperledger/fabric/config
+      - ../fabric-config/crypto-config/peerOrganizations/main.foodchain.com/peers/peer1.main.foodchain.com/msp:/etc/hyperledger/fabric/peer/msp:Z
+      - ../fabric-config/crypto-config/peerOrganizations/main.foodchain.com/peers/peer1.main.foodchain.com/tls:/etc/hyperledger/fabric/peer/tls:Z
+      - ../fabric-config/crypto-config/peerOrganizations/main.foodchain.com/users:/etc/hyperledger/fabric/peer/msp/users:Z
+      - ../fabric-config/config:/etc/hyperledger/fabric/config
     networks:
       - basic
   couchdb.peer1.main.foodchain.com:
@@ -272,10 +272,10 @@ services:
         condition: service_healthy
     volumes:
       - /var/run/docker.sock:/host/var/run/docker.sock
-      - /Users/karunyapenumalla/CODE/foodchain/Blockchain/fablo-target/fabric-config/crypto-config/peerOrganizations/main.foodchain.com/peers/peer2.main.foodchain.com/msp:/etc/hyperledger/fabric/peer/msp:Z
-      - /Users/karunyapenumalla/CODE/foodchain/Blockchain/fablo-target/fabric-config/crypto-config/peerOrganizations/main.foodchain.com/peers/peer2.main.foodchain.com/tls:/etc/hyperledger/fabric/peer/tls:Z
-      - /Users/karunyapenumalla/CODE/foodchain/Blockchain/fablo-target/fabric-config/crypto-config/peerOrganizations/main.foodchain.com/users:/etc/hyperledger/fabric/peer/msp/users:Z
-      - /Users/karunyapenumalla/CODE/foodchain/Blockchain/fablo-target/fabric-config/config:/etc/hyperledger/fabric/config
+      - ../fabric-config/crypto-config/peerOrganizations/main.foodchain.com/peers/peer2.main.foodchain.com/msp:/etc/hyperledger/fabric/peer/msp:Z
+      - ../fabric-config/crypto-config/peerOrganizations/main.foodchain.com/peers/peer2.main.foodchain.com/tls:/etc/hyperledger/fabric/peer/tls:Z
+      - ../fabric-config/crypto-config/peerOrganizations/main.foodchain.com/users:/etc/hyperledger/fabric/peer/msp/users:Z
+      - ../fabric-config/config:/etc/hyperledger/fabric/config
     networks:
       - basic
   couchdb.peer2.main.foodchain.com:
