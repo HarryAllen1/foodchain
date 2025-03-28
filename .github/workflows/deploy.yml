@@ -1,0 +1,20 @@
+# This is a basic workflow that is manually triggered
+name: Push to Nest  # Controls when the action will run.
+
+on:
+  push:
+    branches:
+      - main  # Workflow runs when code is pushed to main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run Remote SSH Commands
+        uses: Sithi5/remote-ssh-commands-action@1.1.2
+        with:
+          SSH_USER: karunya
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}  # Store your private key in GitHub secrets
+          SSH_HOST: hackclub.app
+          SSH_REMOTE_COMMANDS: |
+            echo "Replace this with actual commands to run on the remote server"
