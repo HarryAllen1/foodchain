@@ -17,4 +17,6 @@ jobs:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}  # Store your private key in GitHub secrets
           SSH_HOST: hackclub.app
           SSH_REMOTE_COMMANDS: |
-            echo "Replace this with actual commands to run on the remote server"
+            cd foodchain/Blockchain
+            git pull 
+            ./fablo reset
