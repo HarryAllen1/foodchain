@@ -11,12 +11,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Run Remote SSH Commands
-        uses: Sithi5/remote-ssh-commands-action@1.1.2
+        uses: appleboy/ssh-action@master
         with:
-          SSH_USER: karunya
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}  # Store your private key in GitHub secrets
-          SSH_HOST: hackclub.app
-          SSH_REMOTE_COMMANDS: |
+          username: karunya
+          key: ${{ secrets.SSH_PRIVATE_KEY }}  # Store your private key in GitHub secrets
+          host: hackclub.app
+          script: |
             cd foodchain/Blockchain
             git pull 
             ./fablo reset
