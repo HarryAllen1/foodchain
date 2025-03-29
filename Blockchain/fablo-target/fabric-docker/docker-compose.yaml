@@ -120,43 +120,19 @@ services:
       - CORE_VM_DOCKER_ATTACHSTDOUT=true
       - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
       - GODEBUG=netdns=go
-      # CouchDB
-      - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
-      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb.peer0.main.foodchain.com:5984
-      - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=peer0
-      - CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD=peer0Password
       # enabled gateway
       - CORE_PEER_GATEWAY_ENABLED=true
-      - CORE_PEER_TLS_ENABLED=false
     working_dir: /etc/hyperledger/fabric/peer/
     command: peer node start
     ports:
       - 8021:9440
       - 7021:7021
-    depends_on:
-      couchdb.peer0.main.foodchain.com:
-        condition: service_healthy
     volumes:
       - /var/run/docker.sock:/host/var/run/docker.sock
-      - ../fabric-config/crypto-config/peerOrganizations/main.foodchain.com/peers/peer0.main.foodchain.com/msp:/etc/hyperledger/fabric/peer/msp:Z
-      - ../fabric-config/crypto-config/peerOrganizations/main.foodchain.com/peers/peer0.main.foodchain.com/tls:/etc/hyperledger/fabric/peer/tls:Z
-      - ../fabric-config/crypto-config/peerOrganizations/main.foodchain.com/users:/etc/hyperledger/fabric/peer/msp/users:Z
-      - ../fabric-config/config:/etc/hyperledger/fabric/config:Z
-    networks:
-      - basic
-  couchdb.peer0.main.foodchain.com:
-    container_name: couchdb.peer0.main.foodchain.com
-    image: couchdb:${COUCHDB_VERSION}
-    environment:
-      - COUCHDB_USER=peer0
-      - COUCHDB_PASSWORD=peer0Password
-    healthcheck:
-      test: "curl -f http://localhost:5984/"
-      interval: 5s
-      timeout: 10s
-      retries: 7
-    ports:
-      - 5080:5984
+      - ../fabric-config/crypto-config/peerOrganizations/main.foodchain.com/peers/peer0.main.foodchain.com/msp:/etc/hyperledger/fabric/peer/msp
+      - ../fabric-config/crypto-config/peerOrganizations/main.foodchain.com/peers/peer0.main.foodchain.com/tls:/etc/hyperledger/fabric/peer/tls
+      - ../fabric-config/crypto-config/peerOrganizations/main.foodchain.com/users:/etc/hyperledger/fabric/peer/msp/users
+      - ../fabric-config/config:/etc/hyperledger/fabric/config
     networks:
       - basic
   peer1.main.foodchain.com:
@@ -188,11 +164,6 @@ services:
       - CORE_VM_DOCKER_ATTACHSTDOUT=true
       - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
       - GODEBUG=netdns=go
-      # CouchDB
-      - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
-      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb.peer1.main.foodchain.com:5984
-      - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=peer1
-      - CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD=peer1Password
       # enabled gateway
       - CORE_PEER_GATEWAY_ENABLED=true
     working_dir: /etc/hyperledger/fabric/peer/
@@ -200,30 +171,12 @@ services:
     ports:
       - 8022:9440
       - 7022:7022
-    depends_on:
-      couchdb.peer1.main.foodchain.com:
-        condition: service_healthy
     volumes:
       - /var/run/docker.sock:/host/var/run/docker.sock
-      - ../fabric-config/crypto-config/peerOrganizations/main.foodchain.com/peers/peer1.main.foodchain.com/msp:/etc/hyperledger/fabric/peer/msp:Z
-      - ../fabric-config/crypto-config/peerOrganizations/main.foodchain.com/peers/peer1.main.foodchain.com/tls:/etc/hyperledger/fabric/peer/tls:Z
-      - ../fabric-config/crypto-config/peerOrganizations/main.foodchain.com/users:/etc/hyperledger/fabric/peer/msp/users:Z
+      - ../fabric-config/crypto-config/peerOrganizations/main.foodchain.com/peers/peer1.main.foodchain.com/msp:/etc/hyperledger/fabric/peer/msp
+      - ../fabric-config/crypto-config/peerOrganizations/main.foodchain.com/peers/peer1.main.foodchain.com/tls:/etc/hyperledger/fabric/peer/tls
+      - ../fabric-config/crypto-config/peerOrganizations/main.foodchain.com/users:/etc/hyperledger/fabric/peer/msp/users
       - ../fabric-config/config:/etc/hyperledger/fabric/config
-    networks:
-      - basic
-  couchdb.peer1.main.foodchain.com:
-    container_name: couchdb.peer1.main.foodchain.com
-    image: couchdb:${COUCHDB_VERSION}
-    environment:
-      - COUCHDB_USER=peer1
-      - COUCHDB_PASSWORD=peer1Password
-    healthcheck:
-      test: "curl -f http://localhost:5984/"
-      interval: 5s
-      timeout: 10s
-      retries: 7
-    ports:
-      - 5081:5984
     networks:
       - basic
   peer2.main.foodchain.com:
@@ -255,11 +208,6 @@ services:
       - CORE_VM_DOCKER_ATTACHSTDOUT=true
       - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
       - GODEBUG=netdns=go
-      # CouchDB
-      - CORE_LEDGER_STATE_STATEDATABASE=CouchDB
-      - CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb.peer2.main.foodchain.com:5984
-      - CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=peer2
-      - CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD=peer2Password
       # enabled gateway
       - CORE_PEER_GATEWAY_ENABLED=true
     working_dir: /etc/hyperledger/fabric/peer/
@@ -267,29 +215,11 @@ services:
     ports:
       - 8023:9440
       - 7023:7023
-    depends_on:
-      couchdb.peer2.main.foodchain.com:
-        condition: service_healthy
     volumes:
       - /var/run/docker.sock:/host/var/run/docker.sock
-      - ../fabric-config/crypto-config/peerOrganizations/main.foodchain.com/peers/peer2.main.foodchain.com/msp:/etc/hyperledger/fabric/peer/msp:Z
-      - ../fabric-config/crypto-config/peerOrganizations/main.foodchain.com/peers/peer2.main.foodchain.com/tls:/etc/hyperledger/fabric/peer/tls:Z
-      - ../fabric-config/crypto-config/peerOrganizations/main.foodchain.com/users:/etc/hyperledger/fabric/peer/msp/users:Z
+      - ../fabric-config/crypto-config/peerOrganizations/main.foodchain.com/peers/peer2.main.foodchain.com/msp:/etc/hyperledger/fabric/peer/msp
+      - ../fabric-config/crypto-config/peerOrganizations/main.foodchain.com/peers/peer2.main.foodchain.com/tls:/etc/hyperledger/fabric/peer/tls
+      - ../fabric-config/crypto-config/peerOrganizations/main.foodchain.com/users:/etc/hyperledger/fabric/peer/msp/users
       - ../fabric-config/config:/etc/hyperledger/fabric/config
-    networks:
-      - basic
-  couchdb.peer2.main.foodchain.com:
-    container_name: couchdb.peer2.main.foodchain.com
-    image: couchdb:${COUCHDB_VERSION}
-    environment:
-      - COUCHDB_USER=peer2
-      - COUCHDB_PASSWORD=peer2Password
-    healthcheck:
-      test: "curl -f http://localhost:5984/"
-      interval: 5s
-      timeout: 10s
-      retries: 7
-    ports:
-      - 5082:5984
     networks:
       - basic
