@@ -21,8 +21,7 @@
         }
       ],
       "peer": {
-        "instances": 3,
-        "db": "CouchDb"
+        "instances": 3
       },
       "tools": {
         "fabloRest": true
