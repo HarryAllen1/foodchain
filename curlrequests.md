@@ -13,6 +13,6 @@ curl --request POST \
   }
 
   curl --request POST \
-  --url http://localhost:8800/user/enroll \
+  --url http://localhost:5082/user/enroll \
   --header 'Authorization: Bearer ' \
   --data '{"id": "admin", "secret": "adminpw"}'

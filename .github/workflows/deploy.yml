@@ -21,13 +21,9 @@ jobs:
           REMOTE_USER: karunya
         run: |
           ssh -o StrictHostKeyChecking=no $REMOTE_USER@$REMOTE_HOST << 'EOF'
-          cd ~/app
+          cd /home/karunya/foodchain/Blockchain
+          ./fablo down
           git pull origin main
-          source .venv/bin/activate
-          pip install -r requirements.txt
-          kill $(cat ~/app/app.pid)
-          nohup gunicorn app:app --bind=127.0.0.1:45600 > nohup.out 2> nohup.err < /dev/null &
-
-          echo cat ~/app/app.pid
+          ./fablo up
           EOF
         
