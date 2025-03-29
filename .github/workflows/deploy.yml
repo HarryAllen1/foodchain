@@ -10,13 +10,24 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Run Remote SSH Commands
-        uses: appleboy/ssh-action@master
+      - name: Start SSH Agent
+        uses: webfactory/ssh-agent@v0.5.3
         with:
-          username: karunya
-          key: ${{ secrets.SSH_PRIVATE_KEY }}  # Store your private key in GitHub secrets
-          host: hackclub.app
-          script: |
-            cd foodchain/Blockchain
-            git pull 
-            ./fablo reset
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Deploy via SSH
+        env:
+          REMOTE_HOST: hackclub.app
+          REMOTE_USER: karunya
+        run: |
+          ssh -o StrictHostKeyChecking=no $REMOTE_USER@$REMOTE_HOST << 'EOF'
+          cd ~/app
+          git pull origin main
+          source .venv/bin/activate
+          pip install -r requirements.txt
+          kill $(cat ~/app/app.pid)
+          nohup gunicorn app:app --bind=127.0.0.1:45600 > nohup.out 2> nohup.err < /dev/null &
+
+          echo cat ~/app/app.pid
+          EOF
+        
