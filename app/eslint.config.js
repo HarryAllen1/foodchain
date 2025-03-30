@@ -65,6 +65,7 @@ export default tseslint.config(
 			'unicorn/no-await-expression-member': 'off',
 			// prettier edits the fix away
 			'unicorn/no-nested-ternary': 'off',
+			'unicorn/no-null': 'off',
 			'unicorn/filename-case': 'off',
 			'unicorn/prefer-spread': 'off',
 			'unicorn/prevent-abbreviations': [
@@ -114,10 +115,6 @@ export default tseslint.config(
 		},
 	},
 	{
-		ignores: [
-			'src/lib/components/ui/',
-			'src/lib/utils.ts',
-			'static',
-		],
+		ignores: ['src/lib/components/ui/', 'src/lib/utils.ts', 'static'],
 	},
 );

@@ -4,11 +4,7 @@ import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-	plugins: [
-		enhancedImages(),
-		tailwindcss(),
-		sveltekit(),
-	],
+	plugins: [enhancedImages(), tailwindcss(), sveltekit()],
 	build: {
 		target: 'es2023',
 	},
