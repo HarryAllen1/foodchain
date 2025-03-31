@@ -115,8 +115,7 @@ class KVContract extends Contract {
 
   private async DagCreateRecursion(ctx: Context, shipmentData: Asset, prevOwnerNodes: string[] = [], edges: { from: string; to: string }[]) {
 
-    if (shipmentData.pastOwners.length > 0) {
-      console.log(KVContract.GetNameFromCertificate(shipmentData.pastOwners[shipmentData.pastOwners.length-1]));
+    if (shipmentData.pastOwners.length != 0) {
       prevOwnerNodes.push(KVContract.GetNameFromCertificate(shipmentData.pastOwners[shipmentData.pastOwners.length-1]));
       edges.push({ from: KVContract.GetNameFromCertificate(shipmentData.pastOwners[shipmentData.pastOwners.length-1]), to: KVContract.GetNameFromCertificate(shipmentData.owner)});
     }
@@ -128,22 +127,26 @@ class KVContract extends Contract {
 
     for (const parentShipmentId of shipmentData.parentShipments) {
       let parentShipment: Asset;
+
       try {
+
         const shipment = await ctx.stub.getState(parentShipmentId);
-
-        if (!shipment || shipment.length === 0) {
-          throw new Error(`Shipment ${parentShipmentId} does not exist`);
-        }
-
         parentShipment = JSON.parse(shipment.toString());
 
       } catch (error) {
         throw new Error(error);
       }
-      prevOwnerNodes.push(KVContract.GetNameFromCertificate(parentShipment.owner));
-      edges.push({ from: KVContract.GetNameFromCertificate(parentShipment.owner), to: KVContract.GetNameFromCertificate(shipmentData.pastOwners[0])});
 
-      const parentDAG =  await this.DagCreateRecursion(ctx, parentShipment, prevOwnerNodes, edges);
+      prevOwnerNodes.push(KVContract.GetNameFromCertificate(parentShipment.owner));
+
+      if (shipmentData.pastOwners.length != 0) {
+      edges.push({ from: KVContract.GetNameFromCertificate(parentShipment.owner), to: KVContract.GetNameFromCertificate(shipmentData.pastOwners[0])});
+      } else {
+        edges.push({ from: KVContract.GetNameFromCertificate(parentShipment.owner), to: KVContract.GetNameFromCertificate(shipmentData.owner)});
+      }
+
+      
+      const parentDAG =  await this.DagCreateRecursion(ctx, parentShipment, [], []);
       prevOwnerNodes.push(...parentDAG.nodes);
       edges.push(...parentDAG.edges);
     }
@@ -152,6 +155,7 @@ class KVContract extends Contract {
   }
 
   private static GetNameFromCertificate(Certificate: string){
+      if (!Certificate){return "Certificate"}
       const index = Certificate.indexOf("/CN=")
       const name = Certificate.substring(index+4, Certificate.indexOf(":",index))
       return name
