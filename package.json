@@ -5,7 +5,8 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "format": "pnpm run -r format"
+    "format": "pnpm run -r format",
+    "lint": "pnpm run -r lint"
   },
   "keywords": [],
   "author": "",
