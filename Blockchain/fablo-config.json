@@ -45,7 +45,7 @@
   ],
   "chaincodes": [
     {
-      "name": "chaincode1",
+      "name": "main",
       "version": "0.0.1",
       "lang": "node",
       "channel": "supplychain",

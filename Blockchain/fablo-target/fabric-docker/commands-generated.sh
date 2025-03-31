@@ -38,17 +38,17 @@ installChannels() {
 installChaincodes() {
   if [ -n "$(ls "$CHAINCODES_BASE_DIR/./chaincodes/chaincode-kv-node")" ]; then
     local version="0.0.1"
-    printHeadline "Packaging chaincode 'chaincode1'" "U1F60E"
-    chaincodeBuild "chaincode1" "node" "$CHAINCODES_BASE_DIR/./chaincodes/chaincode-kv-node" "16"
-    chaincodePackage "cli.main.foodchain.com" "peer0.main.foodchain.com:7021" "chaincode1" "$version" "node" printHeadline "Installing 'chaincode1' for main" "U1F60E"
-    chaincodeInstall "cli.main.foodchain.com" "peer0.main.foodchain.com:7021" "chaincode1" "$version" ""
-    chaincodeInstall "cli.main.foodchain.com" "peer1.main.foodchain.com:7022" "chaincode1" "$version" ""
-    chaincodeInstall "cli.main.foodchain.com" "peer2.main.foodchain.com:7023" "chaincode1" "$version" ""
-    chaincodeApprove "cli.main.foodchain.com" "peer0.main.foodchain.com:7021" "supplychain" "chaincode1" "$version" "orderer0.maingroup.main.foodchain.com:7030" "" "false" "" ""
-    printItalics "Committing chaincode 'chaincode1' on channel 'supplychain' as 'main'" "U1F618"
-    chaincodeCommit "cli.main.foodchain.com" "peer0.main.foodchain.com:7021" "supplychain" "chaincode1" "$version" "orderer0.maingroup.main.foodchain.com:7030" "" "false" "" "peer0.main.foodchain.com:7021" "" ""
+    printHeadline "Packaging chaincode 'main'" "U1F60E"
+    chaincodeBuild "main" "node" "$CHAINCODES_BASE_DIR/./chaincodes/chaincode-kv-node" "16"
+    chaincodePackage "cli.main.foodchain.com" "peer0.main.foodchain.com:7021" "main" "$version" "node" printHeadline "Installing 'main' for main" "U1F60E"
+    chaincodeInstall "cli.main.foodchain.com" "peer0.main.foodchain.com:7021" "main" "$version" ""
+    chaincodeInstall "cli.main.foodchain.com" "peer1.main.foodchain.com:7022" "main" "$version" ""
+    chaincodeInstall "cli.main.foodchain.com" "peer2.main.foodchain.com:7023" "main" "$version" ""
+    chaincodeApprove "cli.main.foodchain.com" "peer0.main.foodchain.com:7021" "supplychain" "main" "$version" "orderer0.maingroup.main.foodchain.com:7030" "" "false" "" ""
+    printItalics "Committing chaincode 'main' on channel 'supplychain' as 'main'" "U1F618"
+    chaincodeCommit "cli.main.foodchain.com" "peer0.main.foodchain.com:7021" "supplychain" "main" "$version" "orderer0.maingroup.main.foodchain.com:7030" "" "false" "" "peer0.main.foodchain.com:7021" "" ""
   else
-    echo "Warning! Skipping chaincode 'chaincode1' installation. Chaincode directory is empty."
+    echo "Warning! Skipping chaincode 'main' installation. Chaincode directory is empty."
     echo "Looked in dir: '$CHAINCODES_BASE_DIR/./chaincodes/chaincode-kv-node'"
   fi
 
@@ -67,20 +67,20 @@ installChaincode() {
     exit 1
   fi
 
-  if [ "$chaincodeName" = "chaincode1" ]; then
+  if [ "$chaincodeName" = "main" ]; then
     if [ -n "$(ls "$CHAINCODES_BASE_DIR/./chaincodes/chaincode-kv-node")" ]; then
-      printHeadline "Packaging chaincode 'chaincode1'" "U1F60E"
-      chaincodeBuild "chaincode1" "node" "$CHAINCODES_BASE_DIR/./chaincodes/chaincode-kv-node" "16"
-      chaincodePackage "cli.main.foodchain.com" "peer0.main.foodchain.com:7021" "chaincode1" "$version" "node" printHeadline "Installing 'chaincode1' for main" "U1F60E"
-      chaincodeInstall "cli.main.foodchain.com" "peer0.main.foodchain.com:7021" "chaincode1" "$version" ""
-      chaincodeInstall "cli.main.foodchain.com" "peer1.main.foodchain.com:7022" "chaincode1" "$version" ""
-      chaincodeInstall "cli.main.foodchain.com" "peer2.main.foodchain.com:7023" "chaincode1" "$version" ""
-      chaincodeApprove "cli.main.foodchain.com" "peer0.main.foodchain.com:7021" "supplychain" "chaincode1" "$version" "orderer0.maingroup.main.foodchain.com:7030" "" "false" "" ""
-      printItalics "Committing chaincode 'chaincode1' on channel 'supplychain' as 'main'" "U1F618"
-      chaincodeCommit "cli.main.foodchain.com" "peer0.main.foodchain.com:7021" "supplychain" "chaincode1" "$version" "orderer0.maingroup.main.foodchain.com:7030" "" "false" "" "peer0.main.foodchain.com:7021" "" ""
+      printHeadline "Packaging chaincode 'main'" "U1F60E"
+      chaincodeBuild "main" "node" "$CHAINCODES_BASE_DIR/./chaincodes/chaincode-kv-node" "16"
+      chaincodePackage "cli.main.foodchain.com" "peer0.main.foodchain.com:7021" "main" "$version" "node" printHeadline "Installing 'main' for main" "U1F60E"
+      chaincodeInstall "cli.main.foodchain.com" "peer0.main.foodchain.com:7021" "main" "$version" ""
+      chaincodeInstall "cli.main.foodchain.com" "peer1.main.foodchain.com:7022" "main" "$version" ""
+      chaincodeInstall "cli.main.foodchain.com" "peer2.main.foodchain.com:7023" "main" "$version" ""
+      chaincodeApprove "cli.main.foodchain.com" "peer0.main.foodchain.com:7021" "supplychain" "main" "$version" "orderer0.maingroup.main.foodchain.com:7030" "" "false" "" ""
+      printItalics "Committing chaincode 'main' on channel 'supplychain' as 'main'" "U1F618"
+      chaincodeCommit "cli.main.foodchain.com" "peer0.main.foodchain.com:7021" "supplychain" "main" "$version" "orderer0.maingroup.main.foodchain.com:7030" "" "false" "" "peer0.main.foodchain.com:7021" "" ""
 
     else
-      echo "Warning! Skipping chaincode 'chaincode1' install. Chaincode directory is empty."
+      echo "Warning! Skipping chaincode 'main' install. Chaincode directory is empty."
       echo "Looked in dir: '$CHAINCODES_BASE_DIR/./chaincodes/chaincode-kv-node'"
     fi
   fi
@@ -93,12 +93,12 @@ runDevModeChaincode() {
     exit 1
   fi
 
-  if [ "$chaincodeName" = "chaincode1" ]; then
+  if [ "$chaincodeName" = "main" ]; then
     local version="0.0.1"
-    printHeadline "Approving 'chaincode1' for main (dev mode)" "U1F60E"
-    chaincodeApprove "cli.main.foodchain.com" "peer0.main.foodchain.com:7021" "supplychain" "chaincode1" "0.0.1" "orderer0.maingroup.main.foodchain.com:7030" "" "false" "" ""
-    printItalics "Committing chaincode 'chaincode1' on channel 'supplychain' as 'main' (dev mode)" "U1F618"
-    chaincodeCommit "cli.main.foodchain.com" "peer0.main.foodchain.com:7021" "supplychain" "chaincode1" "0.0.1" "orderer0.maingroup.main.foodchain.com:7030" "" "false" "" "peer0.main.foodchain.com:7021" "" ""
+    printHeadline "Approving 'main' for main (dev mode)" "U1F60E"
+    chaincodeApprove "cli.main.foodchain.com" "peer0.main.foodchain.com:7021" "supplychain" "main" "0.0.1" "orderer0.maingroup.main.foodchain.com:7030" "" "false" "" ""
+    printItalics "Committing chaincode 'main' on channel 'supplychain' as 'main' (dev mode)" "U1F618"
+    chaincodeCommit "cli.main.foodchain.com" "peer0.main.foodchain.com:7021" "supplychain" "main" "0.0.1" "orderer0.maingroup.main.foodchain.com:7030" "" "false" "" "peer0.main.foodchain.com:7021" "" ""
 
   fi
 }
@@ -116,20 +116,20 @@ upgradeChaincode() {
     exit 1
   fi
 
-  if [ "$chaincodeName" = "chaincode1" ]; then
+  if [ "$chaincodeName" = "main" ]; then
     if [ -n "$(ls "$CHAINCODES_BASE_DIR/./chaincodes/chaincode-kv-node")" ]; then
-      printHeadline "Packaging chaincode 'chaincode1'" "U1F60E"
-      chaincodeBuild "chaincode1" "node" "$CHAINCODES_BASE_DIR/./chaincodes/chaincode-kv-node" "16"
-      chaincodePackage "cli.main.foodchain.com" "peer0.main.foodchain.com:7021" "chaincode1" "$version" "node" printHeadline "Installing 'chaincode1' for main" "U1F60E"
-      chaincodeInstall "cli.main.foodchain.com" "peer0.main.foodchain.com:7021" "chaincode1" "$version" ""
-      chaincodeInstall "cli.main.foodchain.com" "peer1.main.foodchain.com:7022" "chaincode1" "$version" ""
-      chaincodeInstall "cli.main.foodchain.com" "peer2.main.foodchain.com:7023" "chaincode1" "$version" ""
-      chaincodeApprove "cli.main.foodchain.com" "peer0.main.foodchain.com:7021" "supplychain" "chaincode1" "$version" "orderer0.maingroup.main.foodchain.com:7030" "" "false" "" ""
-      printItalics "Committing chaincode 'chaincode1' on channel 'supplychain' as 'main'" "U1F618"
-      chaincodeCommit "cli.main.foodchain.com" "peer0.main.foodchain.com:7021" "supplychain" "chaincode1" "$version" "orderer0.maingroup.main.foodchain.com:7030" "" "false" "" "peer0.main.foodchain.com:7021" "" ""
+      printHeadline "Packaging chaincode 'main'" "U1F60E"
+      chaincodeBuild "main" "node" "$CHAINCODES_BASE_DIR/./chaincodes/chaincode-kv-node" "16"
+      chaincodePackage "cli.main.foodchain.com" "peer0.main.foodchain.com:7021" "main" "$version" "node" printHeadline "Installing 'main' for main" "U1F60E"
+      chaincodeInstall "cli.main.foodchain.com" "peer0.main.foodchain.com:7021" "main" "$version" ""
+      chaincodeInstall "cli.main.foodchain.com" "peer1.main.foodchain.com:7022" "main" "$version" ""
+      chaincodeInstall "cli.main.foodchain.com" "peer2.main.foodchain.com:7023" "main" "$version" ""
+      chaincodeApprove "cli.main.foodchain.com" "peer0.main.foodchain.com:7021" "supplychain" "main" "$version" "orderer0.maingroup.main.foodchain.com:7030" "" "false" "" ""
+      printItalics "Committing chaincode 'main' on channel 'supplychain' as 'main'" "U1F618"
+      chaincodeCommit "cli.main.foodchain.com" "peer0.main.foodchain.com:7021" "supplychain" "main" "$version" "orderer0.maingroup.main.foodchain.com:7030" "" "false" "" "peer0.main.foodchain.com:7021" "" ""
 
     else
-      echo "Warning! Skipping chaincode 'chaincode1' upgrade. Chaincode directory is empty."
+      echo "Warning! Skipping chaincode 'main' upgrade. Chaincode directory is empty."
       echo "Looked in dir: '$CHAINCODES_BASE_DIR/./chaincodes/chaincode-kv-node'"
     fi
   fi
@@ -163,27 +163,27 @@ networkDown() {
   (cd "$FABLO_NETWORK_ROOT"/fabric-docker && docker compose down)
 
   printf "Removing chaincode containers & images... \U1F5D1 \n"
-  for container in $(docker ps -a | grep "dev-peer0.main.foodchain.com-chaincode1" | awk '{print $1}'); do
+  for container in $(docker ps -a | grep "dev-peer0.main.foodchain.com-main" | awk '{print $1}'); do
     echo "Removing container $container..."
     docker rm -f "$container" || echo "docker rm of $container failed. Check if all fabric dockers properly was deleted"
   done
-  for image in $(docker images "dev-peer0.main.foodchain.com-chaincode1*" -q); do
+  for image in $(docker images "dev-peer0.main.foodchain.com-main*" -q); do
     echo "Removing image $image..."
     docker rmi "$image" || echo "docker rmi of $image failed. Check if all fabric dockers properly was deleted"
   done
-  for container in $(docker ps -a | grep "dev-peer1.main.foodchain.com-chaincode1" | awk '{print $1}'); do
+  for container in $(docker ps -a | grep "dev-peer1.main.foodchain.com-main" | awk '{print $1}'); do
     echo "Removing container $container..."
     docker rm -f "$container" || echo "docker rm of $container failed. Check if all fabric dockers properly was deleted"
   done
-  for image in $(docker images "dev-peer1.main.foodchain.com-chaincode1*" -q); do
+  for image in $(docker images "dev-peer1.main.foodchain.com-main*" -q); do
     echo "Removing image $image..."
     docker rmi "$image" || echo "docker rmi of $image failed. Check if all fabric dockers properly was deleted"
   done
-  for container in $(docker ps -a | grep "dev-peer2.main.foodchain.com-chaincode1" | awk '{print $1}'); do
+  for container in $(docker ps -a | grep "dev-peer2.main.foodchain.com-main" | awk '{print $1}'); do
     echo "Removing container $container..."
     docker rm -f "$container" || echo "docker rm of $container failed. Check if all fabric dockers properly was deleted"
   done
-  for image in $(docker images "dev-peer2.main.foodchain.com-chaincode1*" -q); do
+  for image in $(docker images "dev-peer2.main.foodchain.com-main*" -q); do
     echo "Removing image $image..."
     docker rmi "$image" || echo "docker rmi of $image failed. Check if all fabric dockers properly was deleted"
   done

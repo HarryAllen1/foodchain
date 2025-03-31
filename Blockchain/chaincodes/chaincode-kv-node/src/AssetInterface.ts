@@ -1,9 +1,17 @@
-export interface Shipment{
-    // shipmentID is uniqueID {Product} + packageID {Specific package}
-    uniqueID: string;
-    packageID: string;
+export interface Asset {
 
-    //Asset details
-    owner: string; //Certificate of the current owner
-    history: string[];//Certificates of the previous owners in order
+    "uuId": string, //This is the product
+
+    "uuSId": string, //The unique id for this shipment of the product
+
+    "owner": string, //Current owners Certificate
+
+    "pastOwners": string[] //Past Owners Certificate
+
+    "parentShipments": string[] //Shipments that created this asset
+}
+
+export interface DAG {
+    "nodes": string[],
+    "edges": {'from': string, 'to': string}[]
 }
