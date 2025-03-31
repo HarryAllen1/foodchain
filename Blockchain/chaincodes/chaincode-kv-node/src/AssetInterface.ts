@@ -10,8 +10,3 @@ export interface Asset {
 
     "parentShipments": string[] //Shipments that created this asset
 }
-
-export interface DAG {
-    "nodes": string[],
-    "edges": {'from': string, 'to': string}[]
-}

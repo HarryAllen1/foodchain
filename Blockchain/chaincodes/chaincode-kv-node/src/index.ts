@@ -47,7 +47,7 @@ class KVContract extends Contract {
     const shipmentData: Asset = JSON.parse(shipment.toString());
 
     if (shipmentData.owner !== await this.getCertificate(ctx)) {
-      return"NOT_ALLOWED";
+      return "NOT_ALLOWED";
     }
 
     if (!newOwner.startsWith("x509::/")) {
@@ -109,20 +109,21 @@ class KVContract extends Contract {
     }
 
     const shipmentData: Asset = JSON.parse(shipment.toString());
-
+    
     return await this.DagCreateRecursion(ctx, shipmentData, prevOwnerNodes, edges);
   }
 
   private async DagCreateRecursion(ctx: Context, shipmentData: Asset, prevOwnerNodes: string[] = [], edges: { from: string; to: string }[]) {
 
-    if (shipmentData.pastOwners.length != 0) {
-      prevOwnerNodes.push(shipmentData.pastOwners[shipmentData.pastOwners.length-1]);
-      edges.push({ from: shipmentData.pastOwners[shipmentData.pastOwners.length-1], to: shipmentData.owner});
+    if (shipmentData.pastOwners.length > 0) {
+      console.log(KVContract.GetNameFromCertificate(shipmentData.pastOwners[shipmentData.pastOwners.length-1]));
+      prevOwnerNodes.push(KVContract.GetNameFromCertificate(shipmentData.pastOwners[shipmentData.pastOwners.length-1]));
+      edges.push({ from: KVContract.GetNameFromCertificate(shipmentData.pastOwners[shipmentData.pastOwners.length-1]), to: KVContract.GetNameFromCertificate(shipmentData.owner)});
     }
 
     for (let i = shipmentData.pastOwners.length-2; i >= 0; i--) {
-      prevOwnerNodes.push(shipmentData.pastOwners[i]);
-      edges.push({ from : shipmentData.pastOwners[i], to: shipmentData.pastOwners[i+1] });
+      prevOwnerNodes.push(KVContract.GetNameFromCertificate(shipmentData.pastOwners[i]));
+      edges.push({ from : KVContract.GetNameFromCertificate(shipmentData.pastOwners[i]), to: KVContract.GetNameFromCertificate(shipmentData.pastOwners[i+1])});
     }
 
     for (const parentShipmentId of shipmentData.parentShipments) {
@@ -139,8 +140,8 @@ class KVContract extends Contract {
       } catch (error) {
         throw new Error(error);
       }
-      prevOwnerNodes.push(parentShipment.owner);
-      edges.push({ from: parentShipment.owner, to: shipmentData.pastOwners[0]});
+      prevOwnerNodes.push(KVContract.GetNameFromCertificate(parentShipment.owner));
+      edges.push({ from: KVContract.GetNameFromCertificate(parentShipment.owner), to: KVContract.GetNameFromCertificate(shipmentData.pastOwners[0])});
 
       const parentDAG =  await this.DagCreateRecursion(ctx, parentShipment, prevOwnerNodes, edges);
       prevOwnerNodes.push(...parentDAG.nodes);
@@ -148,6 +149,12 @@ class KVContract extends Contract {
     }
 
     return { nodes: prevOwnerNodes, edges };
+  }
+
+  private static GetNameFromCertificate(Certificate: string){
+      const index = Certificate.indexOf("/CN=")
+      const name = Certificate.substring(index+4, Certificate.indexOf(":",index))
+      return name
   }
 }
 
