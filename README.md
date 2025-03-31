@@ -18,7 +18,7 @@ sequenceDiagram
 - [Code]()
     - [Blockchain Backend](/Backend/)
     - **WIP** [API]()
-    - **WIP** [UI/frontend]()
+    - [Frontend](/app)
 - [Testing]()
     - Integration tests
     - Unit tests

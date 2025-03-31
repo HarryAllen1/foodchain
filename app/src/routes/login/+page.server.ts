@@ -41,7 +41,7 @@ export const actions = {
 			secret: password,
 		};
 
-		const response = await fetch(`${PUBLIC_BLOCKCHAIN_URL}/users/enroll`, {
+		const response = await fetch(`${PUBLIC_BLOCKCHAIN_URL}/user/enroll`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',

@@ -43,7 +43,7 @@ export const actions = {
 		};
 
 		const { token: adminToken } = (await (
-			await fetch(`${PUBLIC_BLOCKCHAIN_URL}/users/enroll`, {
+			await fetch(`${PUBLIC_BLOCKCHAIN_URL}/user/enroll`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -54,7 +54,7 @@ export const actions = {
 				}),
 			})
 		).json()) as { token: string };
-		const createUserResponse = await fetch(`${PUBLIC_BLOCKCHAIN_URL}/users/register`, {
+		const createUserResponse = await fetch(`${PUBLIC_BLOCKCHAIN_URL}/user/register`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -62,16 +62,17 @@ export const actions = {
 			},
 			body: JSON.stringify(authObject),
 		});
+		
 		const createUserData = (await createUserResponse.json()) as {
 			message: string;
 		};
-		if (createUserResponse.status !== 200) {
-			return fail(400, {
-				error: 'Something went wrong.',
+		if (createUserResponse.status !== 201) {
+			return fail(createUserResponse.status, {
+				error: createUserData.message,
 			});
 		}
 
-		const loginResponse = await fetch(`${PUBLIC_BLOCKCHAIN_URL}/users/enroll`, {
+		const loginResponse = await fetch(`${PUBLIC_BLOCKCHAIN_URL}/user/enroll`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
