@@ -1,160 +1,215 @@
-import { Contract, Context } from "fabric-contract-api";
-import { Asset } from "./AssetInterface";
-const { nanoid } = require("nanoid");
+import { Contract, Context } from 'fabric-contract-api';
+import { Asset } from './AssetInterface';
+const { nanoid } = require('nanoid');
 class KVContract extends Contract {
-  constructor() {
-    super("KVContract");
-  }
+	constructor() {
+		super('KVContract');
+	}
 
-  async instantiate() {
-    console.log("Main instantiated");
-  }
+	async instantiate() {
+		console.log('Main instantiated');
+	}
 
-  async getCertificate(ctx: Context) {
-    return await ctx.clientIdentity.getID();
-  }
+	async getCertificate(ctx: Context) {
+		return await ctx.clientIdentity.getID();
+	}
 
-  async createShipment(ctx: Context, uuId: string) {
-    const shipment: Asset = {
-      uuId,
-      uuSId: nanoid(6),
-      owner: await ctx.clientIdentity.getID(),
-      pastOwners: [],
-      parentShipments: [],
-    };
-    
-    await ctx.stub.putState(shipment.uuId + shipment.uuSId, Buffer.from(JSON.stringify(shipment)));
+	async createShipment(ctx: Context, uuId: string) {
+		const shipment: Asset = {
+			uuId,
+			uuSId: nanoid(6),
+			owner: await ctx.clientIdentity.getID(),
+			pastOwners: [],
+			parentShipments: [],
+		};
 
-    return shipment.uuId + shipment.uuSId;
-  }
+		await ctx.stub.putState(
+			shipment.uuId + shipment.uuSId,
+			Buffer.from(JSON.stringify(shipment)),
+		);
 
-  async getShipment(ctx: Context, totalShimpentId: string) {
-    const shipment = await ctx.stub.getState(totalShimpentId);
-    if (!shipment || shipment.length === 0) {
-      throw new Error(`Shipment ${totalShimpentId} does not exist`);
-    }
-    return shipment.toString();
-  }
+		return shipment.uuId + shipment.uuSId;
+	}
 
-  async transferShipment(ctx: Context, totalShimpentId: string, newOwner: string) {
-    let shipment;
+	async getShipment(ctx: Context, totalShimpentId: string) {
+		const shipment = await ctx.stub.getState(totalShimpentId);
+		if (!shipment || shipment.length === 0) {
+			throw new Error(`Shipment ${totalShimpentId} does not exist`);
+		}
+		return shipment.toString();
+	}
 
-    try {
-      shipment = await ctx.stub.getState(totalShimpentId);
-    } catch (error) {
-      return "NOT_FOUND";
-    } 
-    const shipmentData: Asset = JSON.parse(shipment.toString());
+	async transferShipment(
+		ctx: Context,
+		totalShimpentId: string,
+		newOwner: string,
+	) {
+		let shipment;
 
-    if (shipmentData.owner !== await this.getCertificate(ctx)) {
-      return "NOT_ALLOWED";
-    }
+		try {
+			shipment = await ctx.stub.getState(totalShimpentId);
+		} catch (error) {
+			return 'NOT_FOUND';
+		}
+		const shipmentData: Asset = JSON.parse(shipment.toString());
 
-    if (!newOwner.startsWith("x509::/")) {
-      return "INVALID_OWNER";
-    }
-    
-    shipmentData.pastOwners.push(shipmentData.owner);
-    shipmentData.owner = newOwner;
+		if (shipmentData.owner !== (await this.getCertificate(ctx))) {
+			return 'NOT_ALLOWED';
+		}
 
-    await ctx.stub.putState(totalShimpentId, Buffer.from(JSON.stringify(shipmentData)));
-    return {'response':'ok'}
-  }
+		if (!newOwner.startsWith('x509::/')) {
+			return 'INVALID_OWNER';
+		}
 
-  async transformShipment(ctx: Context, uuId: string, parentShipmentIdsStr: string) {
-    const parentShipmentIds: string[] = JSON.parse(parentShipmentIdsStr);
-    const parentShipments: string[] = [];
+		shipmentData.pastOwners.push(shipmentData.owner);
+		shipmentData.owner = newOwner;
 
-    for (const parentShipmentId of parentShipmentIds) {
-      let parentShipment: Asset;
-      try {
-        const shipment = await ctx.stub.getState(parentShipmentId);
+		await ctx.stub.putState(
+			totalShimpentId,
+			Buffer.from(JSON.stringify(shipmentData)),
+		);
+		return { response: 'ok' };
+	}
 
-        if (!shipment || shipment.length === 0) {
-          throw new Error(`Shipment ${parentShipmentId} does not exist`);
-        }
+	async transformShipment(
+		ctx: Context,
+		uuId: string,
+		parentShipmentIdsStr: string,
+	) {
+		const parentShipmentIds: string[] = JSON.parse(parentShipmentIdsStr);
+		const parentShipments: string[] = [];
 
-        const parentShipment: Asset = JSON.parse(shipment.toString());
-        
-        if (parentShipment.owner !== await this.getCertificate(ctx)) {
-          throw new Error(`Shipment: ${parentShipmentId} is not owned by you`);
-        }
+		for (const parentShipmentId of parentShipmentIds) {
+			let parentShipment: Asset;
+			try {
+				const shipment = await ctx.stub.getState(parentShipmentId);
 
-        parentShipments.push(parentShipmentId);
-      }
-      catch (error) {
-        throw new Error(error);
-      }
-    }
+				if (!shipment || shipment.length === 0) {
+					throw new Error(`Shipment ${parentShipmentId} does not exist`);
+				}
 
-    const newshipment: Asset = {
-      uuId,
-      uuSId: nanoid(6),
-      owner: await ctx.clientIdentity.getID(),
-      pastOwners: [],
-      parentShipments,
-    };
+				const parentShipment: Asset = JSON.parse(shipment.toString());
 
-    await ctx.stub.putState(newshipment.uuId + newshipment.uuSId, Buffer.from(JSON.stringify(newshipment)));
-    return newshipment.uuId + newshipment.uuSId;
-  }
+				if (parentShipment.owner !== (await this.getCertificate(ctx))) {
+					throw new Error(`Shipment: ${parentShipmentId} is not owned by you`);
+				}
 
-  async getPath(ctx: Context, totalShimpentId: string) {
-    const shipment = await ctx.stub.getState(totalShimpentId);
-    const prevOwnerNodes: string[] = [];
-    const edges: { type: string, from: string; to: string }[] = [];
+				parentShipments.push(parentShipmentId);
+			} catch (error) {
+				throw new Error(String(error));
+			}
+		}
 
-    if (!shipment || shipment.length === 0) {
-      throw new Error(`Shipment ${totalShimpentId} does not exist`);
-    }
+		const newshipment: Asset = {
+			uuId,
+			uuSId: nanoid(6),
+			owner: ctx.clientIdentity.getID(),
+			pastOwners: [],
+			parentShipments,
+		};
 
-    const shipmentData: Asset = JSON.parse(shipment.toString());
-    
-    return await this.DagCreateRecursion(ctx, shipmentData, prevOwnerNodes, edges);
-  }
+		await ctx.stub.putState(
+			newshipment.uuId + newshipment.uuSId,
+			Buffer.from(JSON.stringify(newshipment)),
+		);
+		return newshipment.uuId + newshipment.uuSId;
+	}
 
-  private async DagCreateRecursion(ctx: Context, shipmentData: Asset, prevOwnerNodes: string[] = [], edges: { type: string, from: string; to: string }[]) {
+	async getPath(ctx: Context, totalShimpentId: string) {
+		const shipment = await ctx.stub.getState(totalShimpentId);
+		const prevOwnerNodes: string[] = [];
+		const edges: { type: string; from: string; to: string }[] = [];
 
-    if (shipmentData.pastOwners.length != 0) {
-      prevOwnerNodes.push(KVContract.GetNameFromCertificate(shipmentData.pastOwners[shipmentData.pastOwners.length-1]));
-      edges.push({ type: "transfer" , from: KVContract.GetNameFromCertificate(shipmentData.pastOwners[shipmentData.pastOwners.length-1]), to: KVContract.GetNameFromCertificate(shipmentData.owner)});
-    }
+		if (!shipment || shipment.length === 0) {
+			throw new Error(`Shipment ${totalShimpentId} does not exist`);
+		}
 
-    for (let i = shipmentData.pastOwners.length-2; i >= 0; i--) {
-      prevOwnerNodes.push(KVContract.GetNameFromCertificate(shipmentData.pastOwners[i]));
-      edges.push({ type: "transfer" , from : KVContract.GetNameFromCertificate(shipmentData.pastOwners[i]), to: KVContract.GetNameFromCertificate(shipmentData.pastOwners[i+1])});
-    }
+		const shipmentData: Asset = JSON.parse(shipment.toString());
 
-    for (const parentShipmentId of shipmentData.parentShipments) {
-      let parentShipment: Asset;
+		return await this.DagCreateRecursion(
+			ctx,
+			shipmentData,
+			prevOwnerNodes,
+			edges,
+		);
+	}
 
-      try {
+	private async DagCreateRecursion(
+		ctx: Context,
+		shipmentData: Asset,
+		prevOwnerNodes: string[] = [],
+		edges: { type: string; from: string; to: string }[],
+	) {
+		if (shipmentData.pastOwners.length != 0) {
+			prevOwnerNodes.push(
+				KVContract.GetNameFromCertificate(
+					shipmentData.pastOwners[shipmentData.pastOwners.length - 1],
+				),
+			);
+			edges.push({
+				type: 'transfer',
+				from: KVContract.GetNameFromCertificate(
+					shipmentData.pastOwners[shipmentData.pastOwners.length - 1],
+				),
+				to: KVContract.GetNameFromCertificate(shipmentData.owner),
+			});
+		}
 
-        const shipment = await ctx.stub.getState(parentShipmentId);
-        parentShipment = await JSON.parse(shipment.toString());
+		for (let i = shipmentData.pastOwners.length - 2; i >= 0; i--) {
+			prevOwnerNodes.push(
+				KVContract.GetNameFromCertificate(shipmentData.pastOwners[i]),
+			);
+			edges.push({
+				type: 'transfer',
+				from: KVContract.GetNameFromCertificate(shipmentData.pastOwners[i]),
+				to: KVContract.GetNameFromCertificate(shipmentData.pastOwners[i + 1]),
+			});
+		}
 
-      } catch (error) {
-        throw new Error(error);
-      }
+		for (const parentShipmentId of shipmentData.parentShipments) {
+			let parentShipment: Asset;
 
-      prevOwnerNodes.push(KVContract.GetNameFromCertificate(parentShipment.owner));
+			try {
+				const shipment = await ctx.stub.getState(parentShipmentId);
+				parentShipment = await JSON.parse(shipment.toString());
+			} catch (error) {
+				throw new Error(String(error));
+			}
 
-      edges.push({type: "transform" , from: parentShipment.uuId, to: shipmentData.uuId});
-      
-      const parentDAG =  await this.DagCreateRecursion(ctx, parentShipment, [], []);
-      prevOwnerNodes.push(...parentDAG.nodes);
-      edges.push(...parentDAG.edges);
-    }
+			prevOwnerNodes.push(
+				KVContract.GetNameFromCertificate(parentShipment.owner),
+			);
 
-    return { nodes: prevOwnerNodes, edges };
-  }
+			edges.push({
+				type: 'transform',
+				from: parentShipment.uuId,
+				to: shipmentData.uuId,
+			});
 
-  private static GetNameFromCertificate(Certificate: string){
-      if (!Certificate){return "Certificate"}
-      const index = Certificate.indexOf("/CN=")
-      const name = Certificate.substring(index+4, Certificate.indexOf(":",index))
-      return name
-  }
+			const parentDAG = await this.DagCreateRecursion(
+				ctx,
+				parentShipment,
+				[],
+				[],
+			);
+			prevOwnerNodes.push(...parentDAG.nodes);
+			edges.push(...parentDAG.edges);
+		}
+
+		return { nodes: prevOwnerNodes, edges };
+	}
+
+	private static GetNameFromCertificate(Certificate: string) {
+		if (!Certificate) {
+			return 'Certificate';
+		}
+		const index = Certificate.indexOf('/CN=');
+		const name = Certificate.substring(
+			index + 4,
+			Certificate.indexOf(':', index),
+		);
+		return name;
+	}
 }
 
-export const contracts = [KVContract]
+export const contracts = [KVContract];

@@ -62,7 +62,7 @@ export const actions = {
 			},
 			body: JSON.stringify(authObject),
 		});
-		
+
 		const createUserData = (await createUserResponse.json()) as {
 			message: string;
 		};

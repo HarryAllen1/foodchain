@@ -1,7 +1,8 @@
 {
-  "compilerOptions": {
-    "module": "Node18",
-    "target": "ES2024"
-  },
-  "include": ["src/**/*.ts"],
+	"compilerOptions": {
+		"module": "Node18",
+		"strict": true,
+		"target": "ES2024"
+	},
+	"include": ["src/**/*.ts"]
 }
