@@ -126,14 +126,7 @@ class KVContract extends Contract {
 	async getPath(
 		context: Context,
 		totalShimpentId: string,
-	): Promise<{
-		nodes: string[];
-		edges: {
-			type: string;
-			from: string;
-			to: string;
-		}[];
-	}> {
+	): Promise<string> {
 		const shipment = await context.stub.getState(totalShimpentId);
 		const previousOwnerNodes: string[] = [];
 		const edges: { type: string; from: string; to: string }[] = [];
@@ -144,12 +137,12 @@ class KVContract extends Contract {
 
 		const shipmentData: Asset = JSON.parse(shipment.toString());
 
-		return await this.DagCreateRecursion(
+		return JSON.stringify( await this.DagCreateRecursion(
 			context,
 			shipmentData,
 			previousOwnerNodes,
 			edges,
-		);
+		));
 	}
 
 	private async DagCreateRecursion(
