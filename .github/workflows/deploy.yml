@@ -1,5 +1,5 @@
 # This is a basic workflow that is manually triggered
-name: Push to Nest  # Controls when the action will run.
+name: Deploy to digital ocean  # Controls when the action will run.
 
 on:
   push:
@@ -17,13 +17,16 @@ jobs:
 
       - name: Deploy via SSH
         env:
-          REMOTE_HOST: hackclub.app
-          REMOTE_USER: karunya
+          REMOTE_HOST: 147.182.199.89
+          REMOTE_USER: root
         run: |
           ssh -o StrictHostKeyChecking=no $REMOTE_USER@$REMOTE_HOST << 'EOF'
-          cd /home/karunya/foodchain/Blockchain
+          cd foodchain/Blockchain
           ./fablo down
           git pull
+          ./fablo prune
+          ./fablo generate
+          git checkout fablo-target/fabric-docker/scripts/chaincode-functions.sh
           ./fablo up
           EOF
         
