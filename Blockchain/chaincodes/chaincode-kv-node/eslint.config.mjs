@@ -16,12 +16,6 @@ export default tseslint.config(
 				projectService: true,
 				tsconfigRootDir: import.meta.dirname,
 			},
-			globals: {
-				...globals.browser,
-				...globals.node,
-				google: 'readonly',
-				gtag: 'readonly',
-			},
 		},
 		rules: {
 			// Ensures that correct values are returned, which is often a problem when generating directions.
@@ -89,6 +83,6 @@ export default tseslint.config(
 	},
 
 	{
-		ignores: ['dist', 'eslint.config.mjs'],
+		ignores: ['dist', 'eslint.config.mjs', 'tsup.config.ts'],
 	},
 );
