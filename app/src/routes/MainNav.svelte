@@ -16,7 +16,8 @@
 
 <div class="mr-4 flex">
 	<a href="/" class="mr-20 flex items-center space-x-2">
-		<Link class="size-10 gap-2 flex-row" />
+		<Link class="size-8 gap-2 flex-row" />
+		<span class="hidden font-bold xl:inline-block"> Foodchain </span>
 	</a>
 	<nav class="flex items-center gap-6 text-sm">
 		{#each pages as page (page.href)}

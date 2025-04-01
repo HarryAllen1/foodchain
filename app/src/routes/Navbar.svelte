@@ -6,25 +6,23 @@
 </script>
 
 <header
-	class="border-border/40 bg-primary supports-[backdrop-filter]:bg-primary sticky top-0 z-50 w-full border-b text-primary-foreground"
+	class="bg-background/95 supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50 w-full border-b border-dashed backdrop-blur"
 >
-	<div class="container flex h-16 max-w-screen-2xl items-center">
+	<div class="container flex h-14 max-w-screen-2xl items-center mx-auto">
 		<MainNav />
-		<div class="grow"></div>
-		<div class="flex items-center justify-between space-x-2 md:justify-end">
+		<div class="flex flex-1 items-center justify-between space-x-2 md:justify-end">
 			<nav class="flex items-center">
-				<a href="/login" class="relative">
+				<a href="/login">
 					<div
 						class={cn(
 							buttonVariants({
 								size: 'sm',
 								variant: 'ghost',
 							}),
-							'size-10 p-0',
 						)}
 					>
-						<User class="size-6 fill-current" />
-						<span class="sr-only">Login</span>
+						<User class="size-3 fill-current" />
+						<span>Distributor Login</span>
 					</div>
 				</a>
 			</nav>

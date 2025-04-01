@@ -15,7 +15,7 @@
 <div class="flex h-screen items-center justify-center">
 	<Card.Root class="mx-auto mt-4 max-w-md">
 		<Card.Header>
-			<Card.Title>Login</Card.Title>
+			<Card.Title>Distributor Login</Card.Title>
 		</Card.Header>
 		<form class="contents" use:enhance method="POST">
 			<Card.Content class="space-y-4">
