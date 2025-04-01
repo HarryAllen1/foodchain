@@ -25,11 +25,11 @@ class KVContract extends Contract {
 		};
 
 		await context.stub.putState(
-			shipment.uuId + shipment.uuSId,
+			`${shipment.uuId}/${shipment.uuSId}`,
 			Buffer.from(JSON.stringify(shipment)),
 		);
 
-		return shipment.uuId + shipment.uuSId;
+		return `${shipment.uuId}/${shipment.uuSId}`;
 	}
 
 	async getShipment(
@@ -117,10 +117,10 @@ class KVContract extends Contract {
 		};
 
 		await context.stub.putState(
-			newshipment.uuId + newshipment.uuSId,
+			`${newshipment.uuId}/${newshipment.uuSId}`,
 			Buffer.from(JSON.stringify(newshipment)),
 		);
-		return newshipment.uuId + newshipment.uuSId;
+		return `${newshipment.uuId}/${newshipment.uuSId}`;
 	}
 
 	async getPath(
