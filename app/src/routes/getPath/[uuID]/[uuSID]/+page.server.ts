@@ -16,7 +16,7 @@ export const load: PageServerLoad = async ({ params }) => {
 		})
 	).json()) as { token: string };
 
-	const totalShimpmentID = String(params.uuID) + '/' + String(params.uuSID);
+	const totalShimpmentID = `${params.uuID}/${params.uuSID}`;
 
 	const getPathRequest = await fetch(`${PUBLIC_BLOCKCHAIN_URL}/invoke/supplychain/main`, {
 		method: 'POST',
