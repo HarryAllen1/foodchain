@@ -4,7 +4,7 @@ import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ params }) => {
 	const { token: adminToken } = (await (
-		await fetch(`http://${PUBLIC_BLOCKCHAIN_URL}/user/enroll`, {
+		await fetch(`${PUBLIC_BLOCKCHAIN_URL}/user/enroll`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -18,7 +18,7 @@ export const load: PageServerLoad = async ({ params }) => {
 
 	const totalShimpmentID = String(params.uuID) + '/' + String(params.uuSID);
 
-	const getPathRequest = await fetch(`http://${PUBLIC_BLOCKCHAIN_URL}/invoke/supplychain/main`, {
+	const getPathRequest = await fetch(`${PUBLIC_BLOCKCHAIN_URL}/invoke/supplychain/main`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
