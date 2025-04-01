@@ -75,7 +75,7 @@ chaincodeBuild() {
     inputLog "NODE_VERSION: $NODE_VERSION (recommended: $RECOMMENDED_NODE_VERSION)"
 
     # Default to using npm for installation and build
-    (cd "$CHAINCODE_DIR_PATH" && npm install && npm run build)
+    (cd "$CHAINCODE_DIR_PATH" && pnpm install && pnpm run build)
 
   fi
 }
