@@ -23,7 +23,7 @@ jobs:
           ssh -o StrictHostKeyChecking=no $REMOTE_USER@$REMOTE_HOST << 'EOF'
           cd /home/karunya/foodchain/Blockchain
           ./fablo down
-          git pull origin main
+          git pull
           ./fablo up
           EOF
         

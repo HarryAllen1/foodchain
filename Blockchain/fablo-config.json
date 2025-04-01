@@ -49,7 +49,7 @@
       "version": "0.0.1",
       "lang": "node",
       "channel": "supplychain",
-      "directory": "./chaincodes/chaincode-kv-node"
+      "directory": "chaincodes/chaincode-kv-node"
     }
   ]
 }

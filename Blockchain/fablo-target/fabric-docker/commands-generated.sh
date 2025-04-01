@@ -36,10 +36,10 @@ installChannels() {
 }
 
 installChaincodes() {
-  if [ -n "$(ls "$CHAINCODES_BASE_DIR/./chaincodes/chaincode-kv-node")" ]; then
+  if [ -n "$(ls "$CHAINCODES_BASE_DIR/chaincodes/chaincode-kv-node")" ]; then
     local version="0.0.1"
     printHeadline "Packaging chaincode 'main'" "U1F60E"
-    chaincodeBuild "main" "node" "$CHAINCODES_BASE_DIR/./chaincodes/chaincode-kv-node" "16"
+    chaincodeBuild "main" "node" "$CHAINCODES_BASE_DIR/chaincodes/chaincode-kv-node" "16"
     chaincodePackage "cli.main.foodchain.com" "peer0.main.foodchain.com:7021" "main" "$version" "node" printHeadline "Installing 'main' for main" "U1F60E"
     chaincodeInstall "cli.main.foodchain.com" "peer0.main.foodchain.com:7021" "main" "$version" ""
     chaincodeInstall "cli.main.foodchain.com" "peer1.main.foodchain.com:7022" "main" "$version" ""
@@ -49,7 +49,7 @@ installChaincodes() {
     chaincodeCommit "cli.main.foodchain.com" "peer0.main.foodchain.com:7021" "supplychain" "main" "$version" "orderer0.maingroup.main.foodchain.com:7030" "" "false" "" "peer0.main.foodchain.com:7021" "" ""
   else
     echo "Warning! Skipping chaincode 'main' installation. Chaincode directory is empty."
-    echo "Looked in dir: '$CHAINCODES_BASE_DIR/./chaincodes/chaincode-kv-node'"
+    echo "Looked in dir: '$CHAINCODES_BASE_DIR/chaincodes/chaincode-kv-node'"
   fi
 
 }
@@ -68,9 +68,9 @@ installChaincode() {
   fi
 
   if [ "$chaincodeName" = "main" ]; then
-    if [ -n "$(ls "$CHAINCODES_BASE_DIR/./chaincodes/chaincode-kv-node")" ]; then
+    if [ -n "$(ls "$CHAINCODES_BASE_DIR/chaincodes/chaincode-kv-node")" ]; then
       printHeadline "Packaging chaincode 'main'" "U1F60E"
-      chaincodeBuild "main" "node" "$CHAINCODES_BASE_DIR/./chaincodes/chaincode-kv-node" "16"
+      chaincodeBuild "main" "node" "$CHAINCODES_BASE_DIR/chaincodes/chaincode-kv-node" "16"
       chaincodePackage "cli.main.foodchain.com" "peer0.main.foodchain.com:7021" "main" "$version" "node" printHeadline "Installing 'main' for main" "U1F60E"
       chaincodeInstall "cli.main.foodchain.com" "peer0.main.foodchain.com:7021" "main" "$version" ""
       chaincodeInstall "cli.main.foodchain.com" "peer1.main.foodchain.com:7022" "main" "$version" ""
@@ -81,7 +81,7 @@ installChaincode() {
 
     else
       echo "Warning! Skipping chaincode 'main' install. Chaincode directory is empty."
-      echo "Looked in dir: '$CHAINCODES_BASE_DIR/./chaincodes/chaincode-kv-node'"
+      echo "Looked in dir: '$CHAINCODES_BASE_DIR/chaincodes/chaincode-kv-node'"
     fi
   fi
 }
@@ -117,9 +117,9 @@ upgradeChaincode() {
   fi
 
   if [ "$chaincodeName" = "main" ]; then
-    if [ -n "$(ls "$CHAINCODES_BASE_DIR/./chaincodes/chaincode-kv-node")" ]; then
+    if [ -n "$(ls "$CHAINCODES_BASE_DIR/chaincodes/chaincode-kv-node")" ]; then
       printHeadline "Packaging chaincode 'main'" "U1F60E"
-      chaincodeBuild "main" "node" "$CHAINCODES_BASE_DIR/./chaincodes/chaincode-kv-node" "16"
+      chaincodeBuild "main" "node" "$CHAINCODES_BASE_DIR/chaincodes/chaincode-kv-node" "16"
       chaincodePackage "cli.main.foodchain.com" "peer0.main.foodchain.com:7021" "main" "$version" "node" printHeadline "Installing 'main' for main" "U1F60E"
       chaincodeInstall "cli.main.foodchain.com" "peer0.main.foodchain.com:7021" "main" "$version" ""
       chaincodeInstall "cli.main.foodchain.com" "peer1.main.foodchain.com:7022" "main" "$version" ""
@@ -130,7 +130,7 @@ upgradeChaincode() {
 
     else
       echo "Warning! Skipping chaincode 'main' upgrade. Chaincode directory is empty."
-      echo "Looked in dir: '$CHAINCODES_BASE_DIR/./chaincodes/chaincode-kv-node'"
+      echo "Looked in dir: '$CHAINCODES_BASE_DIR/chaincodes/chaincode-kv-node'"
     fi
   fi
 }
