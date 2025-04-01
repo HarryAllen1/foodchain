@@ -18,7 +18,19 @@
 			/>
 		</div>
 		<div class="md:px-6 mt-4 md:mt-0">
-			<p class="leading-7 [&:not(:first-child)]:mt-6">{data.product.description}</p>
+			<h3 class="mt-8 scroll-m-20 text-2xl font-semibold tracking-tight">Shipment Details</h3>
+
+			<ul class="list-none">
+				<li>
+					<strong>Shipment ID:</strong>
+					{data.sid}
+				</li>
+			</ul>
+
+			{#if data.product.description}
+				<h3 class="mt-8 scroll-m-20 text-2xl font-semibold tracking-tight">Description</h3>
+				<p class="leading-7 [&:not(:first-child)]:mt-6">{data.product.description}</p>
+			{/if}
 		</div>
 	</div>
 </div>
