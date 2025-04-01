@@ -12,10 +12,10 @@
 	let password = $state('');
 </script>
 
-<div class="flex flex-col items-center justify-center">
+<div class="flex items-center flex-col">
 	<Card.Root class="mx-auto mt-8 w-md">
 		<Card.Header>
-			<Card.Title>Distributor Login</Card.Title>
+			<Card.Title>Sign up</Card.Title>
 		</Card.Header>
 		<form class="contents" use:enhance method="POST">
 			<Card.Content class="space-y-4">
@@ -33,15 +33,17 @@
 				{/if}
 			</Card.Content>
 			<Card.Footer>
-				<Button type="submit" disabled={!username || !password}>Login</Button>
+				<Button type="submit" disabled={!username || !password}>Create</Button>
 			</Card.Footer>
 		</form>
 	</Card.Root>
 
-	<p class="mt-4 text-center">
-		Don't have an account? <a
-			href="/signup"
-			class="text-primary font-medium underline underline-offset-4">Sign up.</a
+	<p class="mt-4">
+		Already have an account? <a
+			href="/login"
+			class="text-primary font-medium underline underline-offset-4"
+		>
+			Sign in.</a
 		>
 	</p>
 </div>
