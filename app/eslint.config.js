@@ -115,6 +115,6 @@ export default tseslint.config(
 		},
 	},
 	{
-		ignores: ['src/lib/components/ui/', 'src/lib/utils.ts', 'static'],
+		ignores: ['src/lib/components/ui/', 'src/lib/utils.ts', 'static', 'src/database.types.ts'],
 	},
 );
