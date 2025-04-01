@@ -3,6 +3,7 @@
 	import { cn } from '$lib/utils.js';
 	import User from '@lucide/svelte/icons/user';
 	import MainNav from './MainNav.svelte';
+	import { page } from '$app/state';
 </script>
 
 <header
@@ -22,7 +23,11 @@
 						)}
 					>
 						<User class="size-3 fill-current" />
-						<span>Distributor Login</span>
+
+						<span>
+							{page.data}
+							Distributor Login</span
+						>
 					</div>
 				</a>
 			</nav>

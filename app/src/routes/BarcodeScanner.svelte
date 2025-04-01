@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import * as Select from '$lib/components/ui/select';
-	import { BrowserMultiFormatReader, NotFoundException, Result } from '@zxing/library';
+	import { Html5Qrcode } from 'html5-qrcode';
 	import { onDestroy, onMount } from 'svelte';
 
 	let videoSources: { value: string; label: string }[] = $state([]);
@@ -10,28 +10,33 @@
 		videoSources.find((src) => src.value === source)?.label ?? 'Select a source',
 	);
 
-	let videoElement: HTMLVideoElement | undefined = $state();
-
-	let codeReader: BrowserMultiFormatReader;
+	let codeReader: Html5Qrcode | undefined;
 
 	const startVideo = (source: string): void => {
-		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-		codeReader.decodeFromVideoDevice(source, videoElement!, (result, error) => {
-			if (result as Result | undefined) {
-				const text = result.getText();
+		codeReader?.stop();
+		codeReader = new Html5Qrcode('video');
+
+		codeReader.start(
+			source,
+			{
+				fps: 10,
+				qrbox: { width: 250, height: 250 },
+			},
+			(text) => {
 				if (text.length > 0) {
-					codeReader.reset();
-					videoElement?.pause();
+					codeReader?.stop();
 
 					// console.log(text);
 					goto(`/product/${text}`);
 				}
-			}
-
-			if (error && !(error instanceof NotFoundException)) {
+			},
+			(error) => {
+				if (error.includes('NotFoundException')) {
+					return;
+				}
 				console.error(error);
-			}
-		});
+			},
+		);
 	};
 
 	$effect(() => {
@@ -40,12 +45,10 @@
 		}
 	});
 	onMount(async () => {
-		codeReader = new BrowserMultiFormatReader();
-
-		const devices = await codeReader.listVideoInputDevices();
+		const devices = await Html5Qrcode.getCameras();
 		videoSources = devices.map((device) => ({
-			value: device.deviceId,
-			label: device.label || `Camera ${device.deviceId}`,
+			value: device.id,
+			label: device.label || `Camera ${device.id}`,
 		}));
 		if (videoSources.length > 0) {
 			source = videoSources[0].value;
@@ -55,10 +58,7 @@
 	});
 
 	onDestroy(() => {
-		if (videoElement) {
-			videoElement.pause();
-			codeReader.reset();
-		}
+		codeReader?.stop();
 	});
 </script>
 
@@ -75,5 +75,4 @@
 	</Select.Content>
 </Select.Root>
 
-<!-- svelte-ignore a11y_media_has_caption -->
-<video bind:this={videoElement}></video>
+<div id="video"></div>
