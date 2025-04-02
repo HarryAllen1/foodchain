@@ -62,4 +62,13 @@
 	<a href="/search" class="text-primary font-medium underline underline-offset-4">
 		Or find manually
 	</a>
+
+	<div class="flex w-[50%] height-[25%] items-center justify-center">
+		<img
+			src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Zm9vZHxlbnwwfHwwfHx8MA%3D%3D"
+			alt="food"
+			class="mt-8 rounded-lg shadow-lg transition-transform hover:scale-105"
+			style="max-width: 98%; height: auto;"
+		/>
+	</div>
 </div>

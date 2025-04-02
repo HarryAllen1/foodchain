@@ -15,8 +15,14 @@
 </script>
 
 <div class="mr-4 flex">
-	<a href="/" class="mr-20 flex items-center space-x-2">
-		<Link class="size-8 gap-2 flex-row" />
+	<a href="/" class="mr-20 flex items-center space-x-4 p-4">
+		<img
+			src="https://img.icons8.com/?size=100&id=8381&format=png&color=000000"
+			alt="Foodchain Logo"
+			width={50}
+			height={50}
+			class="rounded-full"
+		/>
 		<span class="hidden font-bold xl:inline-block"> Foodchain </span>
 	</a>
 	<nav class="flex items-center gap-6 text-sm">
