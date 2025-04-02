@@ -1,14 +1,16 @@
 import { error } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
+import { PUBLIC_BLOCKCHAIN_URL } from '$env/static/public';
+import { ADMIN_ID, ADMIN_PASSWORD } from '$env/static/private';
 
 export const load = (async ({ params: { id }, locals: { supabase } }) => {
 	if (!id.includes('/')) {
-		throw error(400, 'Invalid product ID!');
+		throw error(400, 'Invalid product ID no slash!');
 	}
 
 	const [pid, sid] = id.split('/');
 	if (!pid || !sid) {
-		throw error(400, 'Invalid product ID!');
+		throw error(400, 'Invalid product ID no all IDS!');
 	}
 
 	const { data: product } = await supabase.from('products').select('*').eq('id', pid).single();
@@ -16,9 +18,53 @@ export const load = (async ({ params: { id }, locals: { supabase } }) => {
 	if (!product) {
 		throw error(404, 'Product not found!');
 	}
+	const totalShimpmentID = `${pid}/${sid}`;
+
+	const { token: adminToken } = (await (
+		await fetch(`${PUBLIC_BLOCKCHAIN_URL}/user/enroll`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				id: ADMIN_ID,
+				secret: ADMIN_PASSWORD,
+			}),
+		})
+	).json()) as { token: string };
+
+	const getPathRequest = await fetch(`${PUBLIC_BLOCKCHAIN_URL}/invoke/supplychain/main`, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+			Authorization: `Bearer ${adminToken}`,
+		},
+		body: JSON.stringify({
+			method: 'KVContract:getPath',
+			args: [totalShimpmentID],
+		}),
+	});
+
+	const getCurrentState = await fetch(`${PUBLIC_BLOCKCHAIN_URL}/invoke/supplychain/main`, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+			Authorization: `Bearer ${adminToken}`,
+		},
+		body: JSON.stringify({
+			method: 'KVContract:getShipment',
+			args: [totalShimpmentID],
+		}),
+	});
+
+	const getPathResponse = await getPathRequest.json();
+	const getCurrentStateResponse = await getCurrentState.json();
 
 	return {
 		product,
 		sid,
+		pid,
+		path: getPathResponse,
+		currentState: getCurrentStateResponse,
 	};
 }) satisfies PageServerLoad;

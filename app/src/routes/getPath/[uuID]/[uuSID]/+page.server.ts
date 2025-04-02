@@ -16,21 +16,34 @@ export const load: PageServerLoad = async ({ params }) => {
 		})
 	).json()) as { token: string };
 
-    const totalShimpmentID = String(params.uuID) + "/" + String(params.uuSID)
+	const totalShimpmentID = String(params.uuID) + '/' + String(params.uuSID);
 
-    const getPathRequest = await fetch(`http://${PUBLIC_BLOCKCHAIN_URL}/invoke/supplychain/main`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${adminToken}`,
-        },
-        body: JSON.stringify({
-            "method": "KVContract:getPath",
-            "args": [totalShimpmentID],
-        })
-    });
+	const getPathRequest = await fetch(`${PUBLIC_BLOCKCHAIN_URL}/invoke/supplychain/main`, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+			Authorization: `Bearer ${adminToken}`,
+		},
+		body: JSON.stringify({
+			method: 'KVContract:getPath',
+			args: [totalShimpmentID],
+		}),
+	});
+
+	const getCurrentState = await fetch(`${PUBLIC_BLOCKCHAIN_URL}/invoke/supplychain/main`, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+			Authorization: `Bearer ${adminToken}`,
+		},
+		body: JSON.stringify({
+			method: 'KVContract:getShipment',
+			args: [totalShimpmentID],
+		}),
+	});
 
 	const getPathResponse = await getPathRequest.json();
+	const getCurrentStateResponse = await getCurrentState.json();
 
-	return { path: getPathResponse };
+	return { info: getCurrentStateResponse, path: getPathResponse };
 };

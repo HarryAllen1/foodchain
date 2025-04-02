@@ -34,7 +34,7 @@ jobs:
           REMOTE_USER: root
         run: |
           ssh -o StrictHostKeyChecking=no $REMOTE_USER@$REMOTE_HOST << 'EOF'
-            cd foodchain/Blockchain 
+            cd foodchain/Blockchain
             git checkout fablo-target/fabric-docker/scripts/chaincode-functions.sh
             ./fablo up
           EOF 

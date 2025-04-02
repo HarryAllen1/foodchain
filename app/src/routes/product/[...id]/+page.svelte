@@ -31,6 +31,11 @@
 				<h3 class="mt-8 scroll-m-20 text-2xl font-semibold tracking-tight">Description</h3>
 				<p class="leading-7 [&:not(:first-child)]:mt-6">{data.product.description}</p>
 			{/if}
+
+			{#if data.path}
+				<h3 class="mt-8 scroll-m-20 text-2xl font-semibold tracking-tight">Path</h3>
+				<p class="leading-7 [&:not(:first-child)]:mt-6">{JSON.stringify(data.path.response)}</p>
+			{/if}
 		</div>
 	</div>
 </div>
