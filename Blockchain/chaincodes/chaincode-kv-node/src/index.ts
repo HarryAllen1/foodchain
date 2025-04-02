@@ -6,19 +6,26 @@ class KVContract extends Contract {
 		super('KVContract');
 	}
 
+	//default testing method
 	instantiate(): void {
 		console.log('Main instantiated');
 	}
 
+	//Gets the certificate based on the JWT
 	getCertificate(context: Context): string {
 		return context.clientIdentity.getID();
 	}
 
+	//Gets the username of the JWT
 	getOwnerName(context: Context): string {
 		const certificate = this.getCertificate(context);
 		return KVContract.GetNameFromCertificate(certificate);
 	}
 
+	//Creates a new asset on the block chain
+	//Farmer gets flour from a harvest
+	//The Asset structure can be found at: TODO
+	//generates a unique shipment id using nanoid
 	async createShipment(context: Context, uuId: string): Promise<string> {
 		const { nanoid } = await import('nanoid');
 		const shipment: Asset = {
@@ -48,6 +55,8 @@ class KVContract extends Contract {
 		return shipment.toString();
 	}
 
+	//Transfers an Asset to another user
+	//Farmer hands our flour to a bakery
 	async transferShipment(
 		context: Context,
 		totalShimpentId: string,
@@ -82,6 +91,8 @@ class KVContract extends Contract {
 		return { response: 'ok' };
 	}
 
+	//Transforms a shipment
+	//A flour and yeast shipment becomes a bread shipment
 	async transformShipment(
 		context: Context,
 		uuId: string,
@@ -125,6 +136,8 @@ class KVContract extends Contract {
 		return `${newshipment.uuId}/${newshipment.uuSId}`;
 	}
 
+	// returns the path that led up to the current state of a shipment
+	// How did the Bread get to the store?
 	async getPath(context: Context, totalShimpentId: string): Promise<string> {
 		const shipment = await context.stub.getState(totalShimpentId);
 		const previousOwnerNodes: string[] = [];
@@ -146,6 +159,7 @@ class KVContract extends Contract {
 		);
 	}
 
+	//Helper method.
 	private async DagCreateRecursion(
 		context: Context,
 		shipmentData: Asset,
@@ -208,6 +222,7 @@ class KVContract extends Contract {
 		return { nodes: previousOwnerNodes, edges };
 	}
 
+	//Helper method
 	private static GetNameFromCertificate(certificate: string): string {
 		if (!certificate) {
 			return 'Certificate';
