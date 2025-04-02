@@ -1,9 +1,14 @@
 <script lang="ts">
+	import { enhance } from '$app/forms';
 	import { buttonVariants } from '$lib/components/ui/button';
+	import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
 	import { cn } from '$lib/utils.js';
+	import LogOut from '@lucide/svelte/icons/log-out';
 	import User from '@lucide/svelte/icons/user';
+	import type { PageProps } from './$types';
 	import MainNav from './MainNav.svelte';
-	import { page } from '$app/state';
+
+	let { data }: PageProps = $props();
 </script>
 
 <header
@@ -13,8 +18,34 @@
 		<MainNav />
 		<div class="flex flex-1 items-center justify-between space-x-2 md:justify-end">
 			<nav class="flex items-center">
-				<a href="/login">
-					<div
+				{#if data.session}
+					<DropdownMenu.Root>
+						<DropdownMenu.Trigger class="flex flex-col items-end">
+							<div class="text-lg font-bold">
+								{data.user}
+							</div>
+						</DropdownMenu.Trigger>
+						<DropdownMenu.Content>
+							<DropdownMenu.Group>
+								<DropdownMenu.GroupHeading>Account</DropdownMenu.GroupHeading>
+								<DropdownMenu.Separator />
+
+								<DropdownMenu.Item>
+									{#snippet child({ props })}
+										<form use:enhance method="POST" {...props} action="/logout">
+											<button type="submit" class="contents">
+												<LogOut class="mr-2 size-4" />
+												<span>Log out</span>
+											</button>
+										</form>
+									{/snippet}
+								</DropdownMenu.Item>
+							</DropdownMenu.Group>
+						</DropdownMenu.Content>
+					</DropdownMenu.Root>
+				{:else}
+					<a
+						href="/login"
 						class={cn(
 							buttonVariants({
 								size: 'sm',
@@ -24,12 +55,9 @@
 					>
 						<User class="size-3 fill-current" />
 
-						<span>
-							{page.data}
-							Distributor Login</span
-						>
-					</div>
-				</a>
+						<span> Distributor Login </span>
+					</a>
+				{/if}
 			</nav>
 		</div>
 	</div>

@@ -1,8 +1,13 @@
-import { PUBLIC_SUPABASE_ANON_KEY, PUBLIC_SUPABASE_URL } from '$env/static/public';
+import {
+	PUBLIC_BLOCKCHAIN_URL,
+	PUBLIC_SUPABASE_ANON_KEY,
+	PUBLIC_SUPABASE_URL,
+} from '$env/static/public';
 import { createServerClient } from '@supabase/ssr';
 import { type Handle, redirect } from '@sveltejs/kit';
 import { sequence } from '@sveltejs/kit/hooks';
 import type { Database } from './database.types';
+import { getNameFromCertificate } from '$lib/utils';
 
 const supabase: Handle = async ({ event, resolve }) => {
 	/**
@@ -30,31 +35,6 @@ const supabase: Handle = async ({ event, resolve }) => {
 		},
 	);
 
-	/**
-	 * Unlike `supabase.auth.getSession()`, which returns the session _without_
-	 * validating the JWT, this function also calls `getUser()` to validate the
-	 * JWT before returning the session.
-	 */
-	event.locals.safeGetSession = async () => {
-		const {
-			data: { session },
-		} = await event.locals.supabase.auth.getSession();
-		if (!session) {
-			return { session: null, user: null };
-		}
-
-		const {
-			data: { user },
-			error,
-		} = await event.locals.supabase.auth.getUser();
-		if (error) {
-			// JWT validation has failed
-			return { session: null, user: null };
-		}
-
-		return { session, user };
-	};
-
 	return resolve(event, {
 		filterSerializedResponseHeaders(name) {
 			/**
@@ -67,15 +47,29 @@ const supabase: Handle = async ({ event, resolve }) => {
 };
 
 const authGuard: Handle = async ({ event, resolve }) => {
-	const { session, user } = await event.locals.safeGetSession();
-	event.locals.session = session;
-	event.locals.user = user;
+	const sessionToken = event.cookies.get('session');
+	event.locals.session = sessionToken;
 
-	if (!event.locals.session && event.url.pathname.startsWith('/private')) {
-		redirect(303, '/login');
+	if (sessionToken?.length) {
+		const { response: user } = (await (
+			await fetch(`${PUBLIC_BLOCKCHAIN_URL}/invoke/supplychain/main`, {
+				method: 'POST',
+				headers: {
+					Authorization: `Bearer ${sessionToken}`,
+				},
+				body: JSON.stringify({
+					method: 'KVContract:getCertificate',
+					args: [],
+				}),
+			})
+		).json()) as {
+			response: string;
+		};
+
+		event.locals.user = getNameFromCertificate(user);
 	}
 
-	if (event.locals.session && event.url.pathname === '/auth') {
+	if (event.locals.session && event.url.pathname === '/login') {
 		redirect(303, '/');
 	}
 

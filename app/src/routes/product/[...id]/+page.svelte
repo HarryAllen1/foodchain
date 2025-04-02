@@ -1,7 +1,37 @@
 <script lang="ts">
+	import { PUBLIC_GOOGLE_MAPS_API_KEY } from '$env/static/public';
+	import * as googleLoader from '@googlemaps/js-api-loader';
+	import { onMount } from 'svelte';
 	import type { PageProps } from './$types';
 
 	let { data }: PageProps = $props();
+
+	let mapElement: HTMLDivElement | undefined = $state();
+
+	onMount(async () => {
+		if (!mapElement) {
+			return;
+		}
+
+		const loader = new googleLoader.Loader({
+			apiKey: PUBLIC_GOOGLE_MAPS_API_KEY,
+			version: 'weekly',
+		});
+
+		await loader.importLibrary('maps');
+		await loader.importLibrary('core');
+		await loader.importLibrary('marker');
+
+		const map = new google.maps.Map(mapElement, {
+			zoom: 2,
+			mapId: 'b92cb68e2da8aab1',
+			disableDefaultUI: true,
+			center: {
+				lat: 0,
+				lng: 0,
+			},
+		});
+	});
 </script>
 
 <div class="container my-8 mx-auto">
@@ -34,6 +64,9 @@
 
 			{#if data.path}
 				<h3 class="mt-8 scroll-m-20 text-2xl font-semibold tracking-tight">Path</h3>
+
+				<div class="size-96" bind:this={mapElement}></div>
+
 				<p class="leading-7 [&:not(:first-child)]:mt-6">{JSON.stringify(data.path.response)}</p>
 			{/if}
 		</div>

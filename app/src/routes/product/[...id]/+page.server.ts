@@ -60,7 +60,11 @@ export const load = (async ({ params: { id }, locals: { supabase } }) => {
 	const getPathResponse = (await getPathRequest.json()) as {
 		response: {
 			nodes: string[];
-			edges: string[];
+			edges: {
+				type: 'transfer' | 'transform';
+				to: string;
+				from: string;
+			}[];
 		};
 	};
 	const getCurrentStateResponse = (await getCurrentState.json()) as {

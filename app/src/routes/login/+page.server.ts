@@ -1,7 +1,7 @@
 import { dev } from '$app/environment';
+import { PUBLIC_BLOCKCHAIN_URL } from '$env/static/public';
 import { fail, redirect } from '@sveltejs/kit';
 import type { Actions, PageServerLoad } from './$types';
-import { PUBLIC_BLOCKCHAIN_URL } from '$env/static/public';
 
 export const load = (({ locals, url }) => {
 	if (locals.session) {
@@ -69,6 +69,6 @@ export const actions = {
 			sameSite: 'lax',
 		});
 
-		return data;
+		return redirect(302, '/');
 	},
 } satisfies Actions;
