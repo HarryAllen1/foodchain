@@ -12,7 +12,7 @@ sequenceDiagram
     Blockchain Server (Hyperledger Fabric) -->> API (Express.js): Data
     API (Express.js) -->> Blockchain Server (Hyperledger Fabric): Chaincode Excution
 ```
-
+![Description of how the software works](/Food%20Chain%20Diagram.svg)
 ## Find our work:
 - [Planning Docs](/Spec.md) (technical specifications and requirements) 
 - [Code]()
