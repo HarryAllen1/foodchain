@@ -55,8 +55,8 @@ class KVContract extends Contract {
 	): Promise<
 		| string
 		| {
-				response: 'ok';
-		  }
+			response: 'ok';
+		}
 	> {
 		let shipment;
 
@@ -68,7 +68,7 @@ class KVContract extends Contract {
 		const shipmentData: Asset = JSON.parse(shipment.toString());
 
 		if (shipmentData.owner !== this.getName()) {
-			return 'NOT_ALLOWED';
+			return `NOT_ALLOWED owner: ${shipmentData.owner}, current: ${this.getName()}`;
 		}
 
 		if (!newOwner.startsWith('x509::/')) {
