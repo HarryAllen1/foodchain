@@ -23,8 +23,10 @@ jobs:
           script: |
             source .bashrc
             echo "Connected to Remote host"
+            git stash
             cd foodchain/Blockchain
             ./fablo prune
+            git pull
             ./fablo generate
             git checkout fablo-target/fabric-docker/scripts/chaincode-functions.sh
             ./fablo up
