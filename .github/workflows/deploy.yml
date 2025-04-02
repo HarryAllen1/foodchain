@@ -21,6 +21,7 @@ jobs:
           username: root
 
           script: |
+            source .bashrc
             echo "Connected to Remote host"
             cd foodchain/Blockchain
             ./fablo prune
