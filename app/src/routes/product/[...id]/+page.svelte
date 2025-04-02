@@ -31,6 +31,65 @@
 				lng: 0,
 			},
 		});
+
+		const locations: google.maps.LatLngLiteral[] = [];
+		const infoWindows: google.maps.InfoWindow[] = [];
+		for (const [i, edge] of data.path.response.edges.entries()) {
+			if (edge.type === 'transfer') {
+				const correspondingStartNode = data.owners.find((node) => node.name === edge.from);
+				const correspondingEndNode = data.owners.find((node) => node.name === edge.to);
+
+				if (!correspondingStartNode || !correspondingEndNode) {
+					continue;
+				}
+
+				locations.push(correspondingEndNode, correspondingStartNode);
+
+				new google.maps.Polyline({
+					map,
+					path: [correspondingStartNode, correspondingEndNode],
+					strokeColor: '#000000',
+					icons: [
+						{
+							icon: {
+								path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+							},
+							offset: '100%',
+						},
+					],
+				});
+			} else {
+				if (data.path.response.edges.length < 2) {
+					continue;
+				}
+				const location =
+					i === 0
+						? data.owners.find((node) => data.path.response.edges[1].from === node.name)
+						: data.owners.find((node) => data.path.response.edges[i - 1].from === node.name);
+
+				const marker = new google.maps.marker.AdvancedMarkerElement({
+					map,
+					position: location,
+					gmpClickable: true,
+				});
+
+				const infoWindow = new google.maps.InfoWindow({
+					content: `<div class="p-2">Converted <strong>${edge.from}</strong> to <strong>${edge.to}</strong></div>`,
+					position: location,
+				});
+
+				marker.addEventListener('gmp-click', () => {
+					for (const infoWindow of infoWindows) infoWindow.close();
+					infoWindow.open(map);
+				});
+			}
+		}
+
+		const bounds = new google.maps.LatLngBounds();
+		for (const location of locations) {
+			bounds.extend(location);
+		}
+		map.fitBounds(bounds);
 	});
 </script>
 
