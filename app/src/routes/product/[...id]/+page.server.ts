@@ -76,6 +76,7 @@ export const load = (async ({ params: { id }, locals: { supabase } }) => {
 			parentShipments: string[];
 		};
 	};
+	console.log(JSON.stringify(getPathResponse.response))
 
 	const { data: owners } = await supabase
 		.from('owners')

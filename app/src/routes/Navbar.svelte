@@ -19,30 +19,40 @@
 		<div class="flex flex-1 items-center justify-between space-x-2 md:justify-end">
 			<nav class="flex items-center">
 				{#if data.session}
-					<DropdownMenu.Root>
-						<DropdownMenu.Trigger class="flex flex-col items-end">
-							<div class="text-lg font-bold">
-								{data.user}
-							</div>
-						</DropdownMenu.Trigger>
-						<DropdownMenu.Content>
-							<DropdownMenu.Group>
-								<DropdownMenu.GroupHeading>Account</DropdownMenu.GroupHeading>
-								<DropdownMenu.Separator />
+					<div
+						class={cn(
+							buttonVariants({
+								size: 'sm',
+								variant: 'ghost',
+							}),
+						)}
+					>
+						<User class="size-3 fill-current" />
+						<DropdownMenu.Root>
+							<DropdownMenu.Trigger class="flex flex-col items-end">
+								<div class="text-lg font-bold">
+									{data.user}
+								</div>
+							</DropdownMenu.Trigger>
+							<DropdownMenu.Content>
+								<DropdownMenu.Group>
+									<DropdownMenu.GroupHeading>Account</DropdownMenu.GroupHeading>
+									<DropdownMenu.Separator />
 
-								<DropdownMenu.Item>
-									{#snippet child({ props })}
-										<form use:enhance method="POST" {...props} action="/logout">
-											<button type="submit" class="contents">
-												<LogOut class="mr-2 size-4" />
-												<span>Log out</span>
-											</button>
-										</form>
-									{/snippet}
-								</DropdownMenu.Item>
-							</DropdownMenu.Group>
-						</DropdownMenu.Content>
-					</DropdownMenu.Root>
+									<DropdownMenu.Item>
+										{#snippet child({ props })}
+											<form use:enhance method="POST" {...props} action="/logout">
+												<button type="submit" class="contents">
+													<LogOut class="mr-2 size-4" />
+													<span>Log out</span>
+												</button>
+											</form>
+										{/snippet}
+									</DropdownMenu.Item>
+								</DropdownMenu.Group>
+							</DropdownMenu.Content>
+						</DropdownMenu.Root>
+					</div>
 				{:else}
 					<a
 						href="/login"
