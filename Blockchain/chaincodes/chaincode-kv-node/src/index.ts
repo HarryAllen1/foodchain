@@ -67,8 +67,8 @@ class KVContract extends Contract {
 		}
 		const shipmentData: Asset = JSON.parse(shipment.toString());
 
-		if (shipmentData.owner !== this.getName()) {
-			return `NOT_ALLOWED owner: ${shipmentData.owner}, current: ${this.getName()}`;
+		if (shipmentData.owner !== this.getOwnerName(context)) {
+			return `NOT_ALLOWED owner: ${shipmentData.owner}, current: ${this.getOwnerName(context)}`;
 		}
 
 		if (!newOwner.startsWith('x509::/')) {
@@ -103,7 +103,7 @@ class KVContract extends Contract {
 
 				const parentShipment: Asset = JSON.parse(shipment.toString());
 
-				if (parentShipment.owner !== this.getName()) {
+				if (parentShipment.owner !== this.getOwnerName(context)) {
 					throw new Error(`Shipment: ${parentShipmentId} is not owned by you`);
 				}
 
