@@ -15,16 +15,12 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Deploy via SSH
+      - name: Connect to SSH
         env:
           REMOTE_HOST: 147.182.199.89
           REMOTE_USER: root
         run: |
           ssh -o StrictHostKeyChecking=no $REMOTE_USER@$REMOTE_HOST << 'EOF'
-            cd foodchain/Blockchain 
-            git pull
-            ./fablo prune
-            ./fablo generate
           EOF 
       - name: Wait
         run: sleep 10
@@ -35,6 +31,8 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no $REMOTE_USER@$REMOTE_HOST << 'EOF'
             cd foodchain/Blockchain
+            ./fablo prune
+            ./fablo generate
             git checkout fablo-target/fabric-docker/scripts/chaincode-functions.sh
             ./fablo up
           EOF 
