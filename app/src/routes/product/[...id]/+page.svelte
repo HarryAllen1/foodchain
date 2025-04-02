@@ -125,8 +125,6 @@
 				<h3 class="mt-8 scroll-m-20 text-2xl font-semibold tracking-tight">Path</h3>
 
 				<div class="size-96" bind:this={mapElement}></div>
-
-				<p class="leading-7 [&:not(:first-child)]:mt-6">{JSON.stringify(data.path.response)}</p>
 			{/if}
 		</div>
 	</div>
