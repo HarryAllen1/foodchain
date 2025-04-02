@@ -71,9 +71,6 @@ class KVContract extends Contract {
 			return `NOT_ALLOWED owner: ${shipmentData.owner}, current: ${this.getOwnerName(context)}`;
 		}
 
-		if (!newOwner.startsWith('x509::/')) {
-			return 'INVALID_OWNER';
-		}
 
 		shipmentData.pastOwners.push(shipmentData.owner);
 		shipmentData.owner = newOwner;
