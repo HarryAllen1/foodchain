@@ -21,6 +21,7 @@ jobs:
           REMOTE_USER: root
         run: |
           ssh -o StrictHostKeyChecking=no $REMOTE_USER@$REMOTE_HOST << 'EOF'
+            echo "Connected to REMOTE_HOST as $REMOTE_USER"
           EOF 
       - name: Wait
         run: sleep 10
