@@ -14,12 +14,17 @@ class KVContract extends Contract {
 		return context.clientIdentity.getID();
 	}
 
+	getOwnerName(context: Context): string {
+		const certificate = this.getCertificate(context);
+		return KVContract.GetNameFromCertificate(certificate);
+	}
+
 	async createShipment(context: Context, uuId: string): Promise<string> {
 		const { nanoid } = await import('nanoid');
 		const shipment: Asset = {
 			uuId,
 			uuSId: nanoid(6),
-			owner: context.clientIdentity.getID(),
+			owner: KVContract.GetNameFromCertificate(context.clientIdentity.getID()),
 			pastOwners: [],
 			parentShipments: [],
 		};
@@ -62,7 +67,7 @@ class KVContract extends Contract {
 		}
 		const shipmentData: Asset = JSON.parse(shipment.toString());
 
-		if (shipmentData.owner !== this.getCertificate(context)) {
+		if (shipmentData.owner !== this.getName()) {
 			return 'NOT_ALLOWED';
 		}
 
@@ -98,7 +103,7 @@ class KVContract extends Contract {
 
 				const parentShipment: Asset = JSON.parse(shipment.toString());
 
-				if (parentShipment.owner !== this.getCertificate(context)) {
+				if (parentShipment.owner !== this.getName()) {
 					throw new Error(`Shipment: ${parentShipmentId} is not owned by you`);
 				}
 
@@ -111,7 +116,7 @@ class KVContract extends Contract {
 		const newshipment: Asset = {
 			uuId,
 			uuSId: nanoid(6),
-			owner: context.clientIdentity.getID(),
+			owner: KVContract.GetNameFromCertificate(context.clientIdentity.getID()),
 			pastOwners: [],
 			parentShipments,
 		};
@@ -123,10 +128,7 @@ class KVContract extends Contract {
 		return `${newshipment.uuId}/${newshipment.uuSId}`;
 	}
 
-	async getPath(
-		context: Context,
-		totalShimpentId: string,
-	): Promise<string> {
+	async getPath(context: Context, totalShimpentId: string): Promise<string> {
 		const shipment = await context.stub.getState(totalShimpentId);
 		const previousOwnerNodes: string[] = [];
 		const edges: { type: string; from: string; to: string }[] = [];
@@ -137,12 +139,14 @@ class KVContract extends Contract {
 
 		const shipmentData: Asset = JSON.parse(shipment.toString());
 
-		return JSON.stringify( await this.DagCreateRecursion(
-			context,
-			shipmentData,
-			previousOwnerNodes,
-			edges,
-		));
+		return JSON.stringify(
+			await this.DagCreateRecursion(
+				context,
+				shipmentData,
+				previousOwnerNodes,
+				edges,
+			),
+		);
 	}
 
 	private async DagCreateRecursion(
@@ -159,26 +163,20 @@ class KVContract extends Contract {
 		}[];
 	}> {
 		if (shipmentData.pastOwners.length > 0) {
-			previousOwnerNodes.push(
-				KVContract.GetNameFromCertificate(shipmentData.pastOwners.at(-1) ?? ''),
-			);
+			previousOwnerNodes.push(shipmentData.pastOwners.at(-1) ?? '');
 			edges.push({
 				type: 'transfer',
-				from: KVContract.GetNameFromCertificate(
-					shipmentData.pastOwners.at(-1) ?? '',
-				),
-				to: KVContract.GetNameFromCertificate(shipmentData.owner),
+				from: shipmentData.pastOwners.at(-1) ?? '',
+				to: shipmentData.owner,
 			});
 		}
 
 		for (let i = shipmentData.pastOwners.length - 2; i >= 0; i--) {
-			previousOwnerNodes.push(
-				KVContract.GetNameFromCertificate(shipmentData.pastOwners[i]),
-			);
+			previousOwnerNodes.push(shipmentData.pastOwners[i]);
 			edges.push({
 				type: 'transfer',
-				from: KVContract.GetNameFromCertificate(shipmentData.pastOwners[i]),
-				to: KVContract.GetNameFromCertificate(shipmentData.pastOwners[i + 1]),
+				from: shipmentData.pastOwners[i],
+				to: shipmentData.pastOwners[i + 1],
 			});
 		}
 
@@ -192,9 +190,7 @@ class KVContract extends Contract {
 				throw new Error(String(error));
 			}
 
-			previousOwnerNodes.push(
-				KVContract.GetNameFromCertificate(parentShipment.owner),
-			);
+			previousOwnerNodes.push(parentShipment.owner);
 
 			edges.push({
 				type: 'transform',
