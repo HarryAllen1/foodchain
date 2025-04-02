@@ -57,8 +57,21 @@ export const load = (async ({ params: { id }, locals: { supabase } }) => {
 		}),
 	});
 
-	const getPathResponse = await getPathRequest.json();
-	const getCurrentStateResponse = await getCurrentState.json();
+	const getPathResponse = (await getPathRequest.json()) as {
+		response: {
+			nodes: string[];
+			edges: string[];
+		};
+	};
+	const getCurrentStateResponse = (await getCurrentState.json()) as {
+		response: {
+			uuId: string;
+			uuSId: string;
+			owner: string;
+			pastOwners: string[];
+			parentShipments: string[];
+		};
+	};
 
 	return {
 		product,
