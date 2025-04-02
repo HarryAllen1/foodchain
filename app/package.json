@@ -47,6 +47,7 @@
 		"vite": "6.2.4"
 	},
 	"dependencies": {
+		"@googlemaps/google-maps-services-js": "^3.4.1",
 		"@googlemaps/js-api-loader": "^1.16.8",
 		"@supabase/ssr": "^0.6.1",
 		"@supabase/supabase-js": "^2.49.4",

@@ -27,11 +27,15 @@
 					<Label for="password">Password</Label>
 					<Input id="password" name="password" required type="password" bind:value={password} />
 				</div>
+				<div class="flex w-full max-w-sm flex-col gap-1.5">
+					<Label for="address">Address</Label>
+					<Input id="address" name="address" required type="address" />
 
-				{#if form?.error}
-					<p class="text-destructive">{form.error}</p>
-				{/if}
-			</Card.Content>
+					{#if form?.error}
+						<p class="text-destructive">{form.error}</p>
+					{/if}
+				</div></Card.Content
+			>
 			<Card.Footer>
 				<Button type="submit" disabled={!username || !password}>Create</Button>
 			</Card.Footer>
