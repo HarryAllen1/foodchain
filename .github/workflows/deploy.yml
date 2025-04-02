@@ -1,42 +1,28 @@
-# This is a basic workflow that is manually triggered
-name: Deploy to digital ocean  # Controls when the action will run.
+name: Deploy to DigitalOcean
 
 on:
   push:
     branches:
-      - main  # Workflow runs when code is pushed to main
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    steps:
-      - name: Start SSH Agent
-        uses: webfactory/ssh-agent@v0.5.3
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Connect to SSH
-        env:
-          REMOTE_HOST: 147.182.199.89
-          REMOTE_USER: root
-        run: |
-          ssh -o StrictHostKeyChecking=no $REMOTE_USER@$REMOTE_HOST << 'EOF'
-            echo "Connected to REMOTE_HOST as $REMOTE_USER"
-          EOF 
-      - name: Wait
-        run: sleep 10
-      - name: Up the network
-        env:
-          REMOTE_HOST: 147.182.199.89
-          REMOTE_USER: root
-        run: |
-          ssh -o StrictHostKeyChecking=no $REMOTE_USER@$REMOTE_HOST << 'EOF'
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Deploy Application via SSH
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: 147.182.199.89
+          username: root
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            echo "Connected to Remote host"
             cd foodchain/Blockchain
             ./fablo prune
             ./fablo generate
             git checkout fablo-target/fabric-docker/scripts/chaincode-functions.sh
             ./fablo up
-          EOF 
-        
-
-          
