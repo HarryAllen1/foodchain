@@ -235,29 +235,26 @@ class KVContract extends Contract {
 	//Get all shipments owned by a user
 	async getAllShipmentsOwnedByUser(context: Context): Promise<Asset[]> {
 		const shipments: Asset[] = [];
-		const name = this.getOwnerName(context);
-		const state = await context.stub.getStateByRange("", "\u00FF");
+		const name = this.getOwnerName(context); // Await if it's async
+		const iterator = await context.stub.getStateByRange("", "\u00FF");
 
-		while (await this.hasNext(state)) {
-			const { value } = await state.next();
-
-			const shipmentData: Asset = JSON.parse(value.value.toString());
-
-			if (shipmentData.owner === name) {
-				shipments.push(shipmentData);
+		try {
+			let result = await iterator.next();
+			while (!result.done) {
+				const value = result.value;
+				if (value.value.toString().length > 0) {
+					const shipmentData: Asset = JSON.parse(value.value.toString());
+					if (shipmentData.owner === name) {
+						shipments.push(shipmentData);
+					}
+				}
+				result = await iterator.next();
 			}
+		} finally {
+			await iterator.close(); // Proper cleanup
 		}
 
 		return shipments;
-	}
-
-	private async hasNext(state: Iterators.StateQueryIterator): Promise<boolean> {
-		try {
-			await state.next()
-			return true
-		} catch {
-			return false
-		}
 	}
 
 }
