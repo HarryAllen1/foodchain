@@ -4,13 +4,11 @@ import { fail, redirect } from '@sveltejs/kit';
 import type { Actions, PageServerLoad } from './$types';
 import { PUBLIC_BLOCKCHAIN_URL, PUBLIC_GOOGLE_MAPS_API_KEY } from '$env/static/public';
 import { ADMIN_ID, ADMIN_PASSWORD } from '$env/static/private';
-import { Client } from "@googlemaps/google-maps-services-js";
+import { Client } from '@googlemaps/google-maps-services-js';
 
 const client: Client = new Client({});
 
-
-
-const getCoordinates = async (_address: string): Promise<{ latitude: number; longitude: number } | null> => {
+const getCoordinates = async (_address: string): Promise<google.maps.LatLngLiteral | null> => {
 	try {
 		const response = await client.geocode({
 			params: {
@@ -24,15 +22,13 @@ const getCoordinates = async (_address: string): Promise<{ latitude: number; lon
 				return null;
 			}
 			const { lat, lng } = response.data.results[0].geometry.location;
-			return { latitude: lat, longitude: lng };
+			return { lat, lng };
 		}
 
 		return null;
 	} catch (error) {
-
 		console.error('Error fetching coordinates:', error);
 		return null;
-
 	}
 };
 
@@ -142,13 +138,11 @@ export const actions = {
 			});
 		}
 
-		await supabase
-			.from('owners')
-			.insert({
-				name: username,
-				lat: coordinates.latitude,
-				lng: coordinates.longitude,
-			})
+		await supabase.from('owners').insert({
+			name: username,
+			lat: coordinates.lat,
+			lng: coordinates.lng,
+		});
 
 		return createUserData;
 	},
