@@ -67,21 +67,30 @@
 	<div
 		class="w-screen grid sm:grid-cols-1 lg:grid-cols-3 gap-4 sm:grid-rows-3 lg:grid-rows-1 place-items-center mt-16"
 	>
-		<Frame text="From the farm" className="rotate-5">
+		<Frame
+			text="From the farm"
+			className="rotate-5 hover:rotate-0 transition-transform duration-300"
+		>
 			<img
 				src="https://plus.unsplash.com/premium_photo-1661811677567-6f14477aa1fa?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8ZmFybXxlbnwwfHwwfHx8MA%3D%3D"
 				alt="food"
 				class="object-cover h-full w-full"
 			/>
 		</Frame>
-		<Frame text="To the Warehouse" className="rotate-[-5deg]">
+		<Frame
+			text="To the Warehouse"
+			className="rotate-[-5deg] hover:rotate-0 transition-transform duration-300"
+		>
 			<img
 				src="https://plus.unsplash.com/premium_photo-1661950006431-b10fd73ed917?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8Zm9vZCUyMHdhcmVob3VzZXxlbnwwfHwwfHx8MA%3D%3D"
 				alt="food"
 				class="object-cover h-full w-full"
 			/>
 		</Frame>
-		<Frame text="To the kitchen" className="rotate-[5deg]">
+		<Frame
+			text="To the kitchen"
+			className="rotate-[5deg] hover:rotate-0 transition-transform duration-300"
+		>
 			<img
 				src="https://images.unsplash.com/photo-1556911220-bff31c812dba?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8a2l0Y2hlbnxlbnwwfHwwfHx8MA%3D%3D"
 				alt="food"
