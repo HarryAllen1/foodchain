@@ -77,10 +77,7 @@ export const load = (async ({ params: { id }, locals: { supabase } }) => {
 		};
 	};
 
-	const { data: owners } = await supabase
-		.from('owners')
-		.select('*')
-		.in('name', getPathResponse.response.nodes);
+	const { data: owners } = await supabase.from('owners').select('*');
 
 	return {
 		product,
