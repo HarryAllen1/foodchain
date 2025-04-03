@@ -20,7 +20,7 @@
 	</div>
 	<div class="flex w-full max-w-sm flex-col gap-1.5 mt-4">
 		<Label for="sid">Shipment ID</Label>
-		<Input type="text" id="sid" bind:value={sid} placeholder="Banana" />
+		<Input type="text" id="sid" bind:value={sid} placeholder="QU0OQ9" />
 	</div>
 	<Button
 		class="mt-4"

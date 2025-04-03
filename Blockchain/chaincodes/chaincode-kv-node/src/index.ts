@@ -64,8 +64,8 @@ class KVContract extends Contract {
 	): Promise<
 		| string
 		| {
-			response: 'ok';
-		}
+				response: 'ok';
+		  }
 	> {
 		let shipment;
 
@@ -79,7 +79,6 @@ class KVContract extends Contract {
 		if (shipmentData.owner !== this.getOwnerName(context)) {
 			return `NOT_ALLOWED owner: ${shipmentData.owner}, current: ${this.getOwnerName(context)}`;
 		}
-
 
 		shipmentData.pastOwners.push(shipmentData.owner);
 		shipmentData.owner = newOwner;

@@ -3,6 +3,7 @@
 	import '../app.css';
 	import type { PageProps } from './$types';
 	import Navbar from './Navbar.svelte';
+	import Confirm from '$lib/Confirm.svelte';
 
 	interface Props extends PageProps {
 		children?: Snippet;
@@ -14,3 +15,5 @@
 <Navbar {data} />
 
 {@render children?.()}
+
+<Confirm />

@@ -1,13 +1,8 @@
-import {
-	PUBLIC_BLOCKCHAIN_URL,
-	PUBLIC_SUPABASE_ANON_KEY,
-	PUBLIC_SUPABASE_URL,
-} from '$env/static/public';
+import { PUBLIC_SUPABASE_ANON_KEY, PUBLIC_SUPABASE_URL } from '$env/static/public';
 import { createServerClient } from '@supabase/ssr';
 import { type Handle, redirect } from '@sveltejs/kit';
 import { sequence } from '@sveltejs/kit/hooks';
 import type { Database } from './database.types';
-import { getNameFromCertificate } from '$lib/utils';
 
 const supabase: Handle = async ({ event, resolve }) => {
 	/**
@@ -51,26 +46,15 @@ const authGuard: Handle = async ({ event, resolve }) => {
 	event.locals.session = sessionToken;
 
 	if (sessionToken?.length) {
-		const { response: user } = (await (
-			await fetch(`${PUBLIC_BLOCKCHAIN_URL}/invoke/supplychain/main`, {
-				method: 'POST',
-				headers: {
-					Authorization: `Bearer ${sessionToken}`,
-				},
-				body: JSON.stringify({
-					method: 'KVContract:getCertificate',
-					args: [],
-				}),
-			})
-		).json()) as {
-			response: string;
-		};
-
-		event.locals.user = getNameFromCertificate(user);
+		event.locals.user = sessionToken.split('-').at(-1);
 	}
 
 	if (event.locals.session && event.url.pathname === '/login') {
 		redirect(303, '/');
+	}
+
+	if (!event.locals.session && event.url.pathname === '/distributor') {
+		throw redirect(303, `/login`);
 	}
 
 	return resolve(event);

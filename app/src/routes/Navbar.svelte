@@ -38,7 +38,11 @@
 								<DropdownMenu.Group>
 									<DropdownMenu.GroupHeading>Account</DropdownMenu.GroupHeading>
 									<DropdownMenu.Separator />
-
+									<DropdownMenu.Item>
+										{#snippet child({ props })}
+											<a href="/distributor" {...props}> Manage Items </a>
+										{/snippet}
+									</DropdownMenu.Item>
 									<DropdownMenu.Item>
 										{#snippet child({ props })}
 											<form use:enhance method="POST" {...props} action="/logout">
