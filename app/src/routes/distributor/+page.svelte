@@ -111,6 +111,7 @@
 				<Table.Head>Item ID</Table.Head>
 				<Table.Head>Previous Owners</Table.Head>
 				<Table.Head>Made with</Table.Head>
+				<Table.Head>View product</Table.Head>
 			</Table.Row>
 		</Table.Header>
 		<Table.Body>
@@ -124,6 +125,9 @@
 					</Table.Cell>
 					<Table.Cell>
 						{shipment.parentShipments.join(', ')}
+					</Table.Cell>
+					<Table.Cell>
+						<a href="/product/{shipment.uuId}/{shipment.uuSId}"> View product </a>
 					</Table.Cell>
 				</Table.Row>
 			{/each}

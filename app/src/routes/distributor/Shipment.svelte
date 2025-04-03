@@ -83,8 +83,8 @@
 					</Select.Root>
 				{:else}
 					<div class="flex w-full max-w-sm flex-col gap-1.5">
-						<Label for="id">New ID</Label>
-						<Input type="text" id="id" bind:value={newItemID} placeholder="something/code" />
+						<Label for="id">Product Name</Label>
+						<Input type="text" id="id" bind:value={newItemID} placeholder="something" />
 					</div>
 				{/if}
 			</div>
@@ -96,7 +96,7 @@
 						(selectedEditOption === 'transform' && !newItemID)}
 					class={buttonVariants()}
 					onclick={async () => {
-						const response = await fetch(`${PUBLIC_BLOCKCHAIN_URL}/invoke/supplychain/main`, {
+						await fetch(`${PUBLIC_BLOCKCHAIN_URL}/invoke/supplychain/main`, {
 							method: 'POST',
 							headers: {
 								Authorization: `Bearer ${session}`,
@@ -107,19 +107,9 @@
 								args:
 									selectedEditOption === 'transfer'
 										? [`${shipment.uuId}/${shipment.uuSId}`, selectedOwner]
-										: [],
+										: [newItemID, JSON.stringify([`${shipment.uuId}/${shipment.uuSId}`])],
 							}),
 						});
-
-						const responseStatus = (await response.json()) as {
-							response: {
-								response: string;
-							};
-						};
-
-						if (responseStatus.response.response !== 'ok') {
-							await fancyConfirm('Operation failed', 'Please try again', [['Close', true]]);
-						}
 
 						await fancyConfirm(
 							'Success!',
@@ -128,6 +118,9 @@
 							}`,
 						);
 						await invalidateAll();
+						newItemID = '';
+						selectedOwner = '';
+						selectedEditOption = 'transfer';
 					}}
 				>
 					Save
