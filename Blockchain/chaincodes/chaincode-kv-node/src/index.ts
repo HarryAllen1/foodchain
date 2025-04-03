@@ -1,5 +1,6 @@
 import { Contract, Context } from 'fabric-contract-api';
 import { Asset } from './AssetInterface';
+import { Iterators } from 'fabric-shim';
 
 class KVContract extends Contract {
 	constructor() {
@@ -64,8 +65,8 @@ class KVContract extends Contract {
 	): Promise<
 		| string
 		| {
-				response: 'ok';
-		  }
+			response: 'ok';
+		}
 	> {
 		let shipment;
 
@@ -230,6 +231,35 @@ class KVContract extends Contract {
 		const name = certificate.slice(index + 4, certificate.indexOf(':', index));
 		return name;
 	}
+
+	//Get all shipments owned by a user
+	async getAllShipmentsOwnedByUser(context: Context): Promise<Asset[]> {
+		const shipments: Asset[] = [];
+		const name = this.getOwnerName(context);
+		const state = await context.stub.getStateByRange("", "\u00FF");
+
+		while (await this.hasNext(state)) {
+			const { value } = await state.next();
+
+			const shipmentData: Asset = JSON.parse(value.value.toString());
+
+			if (shipmentData.owner === name) {
+				shipments.push(shipmentData);
+			}
+		}
+
+		return shipments;
+	}
+
+	private async hasNext(state: Iterators.StateQueryIterator): Promise<boolean> {
+		try {
+			await state.next()
+			return true
+		} catch {
+			return false
+		}
+	}
+
 }
 
 export const contracts = [KVContract];
